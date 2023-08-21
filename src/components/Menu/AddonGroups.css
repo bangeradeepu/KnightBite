@@ -1,0 +1,618 @@
+.ADG-menu-page {
+  background-color: #faf9f5;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.ADG-menu-page .ADG-div {
+  background-color: #faf9f5;
+  border: 1px none;
+  height: 894px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.ADG-menu-page .ADG-frame {
+  align-items: flex-end;
+  display: inline-flex;
+  gap: 10px;
+  left: 0px;
+  position: absolute;
+  top: 130px;
+}
+
+.ADG-menu-page .ADG-overlap-wrapper {
+  height: 37px;
+  position: relative;
+  width: 138px;
+}
+
+.ADG-menu-page .ADG-overlap {
+  height: 37px;
+  position: relative;
+  width: 140px;
+}
+
+.ADG-menu-page .ADG-vector {
+  height: 7px;
+  left: 114px;
+  position: absolute;
+  top: 16px;
+  width: 11px;
+}
+
+.ADG-menu-page .ADG-img {
+  height: 12px;
+  left: 12px;
+  position: absolute;
+  top: 13px;
+  width: 11px;
+}
+
+.ADG-menu-page .ADG-location {
+  height: 37px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 140px;
+}
+
+.ADG-menu-page .ADG-overlap-group {
+  border: 1px solid;
+  border-color: #aeaeae;
+  border-radius: 30px;
+  height: 37px;
+  position: relative;
+  width: '200px';
+}
+
+.ADG-menu-page .ADG-text-wrapper {
+  color: #2e2e2e;
+  font-family: "Inter", Helvetica;
+  font-size: 16px;
+  font-weight: 500;
+  left: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 8px;
+  white-space: nowrap;
+}
+
+.ADG-menu-page .ADG-carbon-close-filled {
+  height: 15px;
+  left: 106px;
+  position: absolute;
+  top: 10px;
+  width: 15px;
+}
+
+.ADG-menu-page .ADG-div-wrapper {
+  border: 1px solid;
+  border-color: #aeaeae;
+  border-radius: 20px;
+  height: 37px;
+  position: relative;
+  width: 138px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-2 {
+  color: #2e2e2e;
+  font-family: "Inter", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 19px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 8px;
+  white-space: nowrap;
+}
+
+.ADG-menu-page .ADG-brand-filter {
+  height: 37px;
+  position: relative;
+  width: 145px;
+}
+
+.ADG-menu-page .ADG-overlap-2 {
+  height: 37px;
+  position: relative;
+  width: 147px;
+}
+
+.ADG-menu-page .ADG-carbon-close-filled-2 {
+  height: 15px;
+  left: 113px;
+  position: absolute;
+  top: 10px;
+  width: 15px;
+}
+
+.ADG-menu-page .ADG-overlap-group-wrapper {
+  height: 100px;
+  left: 0;
+  position: relative;
+  top: 0;
+  width: 147px;
+}
+
+.ADG-menu-page .ADG-overlap-group-2 {
+  border: 1px solid;
+  border-color: #aeaeae;
+  border-radius: 20px;
+  height: 37px;
+  position: relative;
+  width: 145px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-3 {
+  color: #2e2e2e;
+  font-family: "Inter", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 12px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 8px;
+  white-space: nowrap;
+}
+
+  /* Update the styles for .add-multi-item in your CSS */
+  .ADG-menu-page .ADG-add-multi-item {
+    height: 30px;
+    width: 95px;
+    position: absolute;
+    top: 260px;
+    right: 500px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .ADG-menu-page .ADG-add-multi-item {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+
+.ADG-menu-page .ADG-overlap-3 {
+  background-color: #9a51e0;
+  border-radius: 20px;
+  height: 30px;
+  position: relative;
+  width: 93px;
+}
+
+.ADG-menu-page .ADG-ic-baseline-plus {
+  height: 20px;
+  left: 69px;
+  position: absolute;
+  top: 5px;
+  width: 20px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-4 {
+  color: #ffffff;
+  font-family: "Inter", Helvetica;
+  font-size: 14px;
+  font-weight: 500;
+  left: 9px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+}
+
+  /* Update the styles for .search-items in your CSS */
+  .ADG-menu-page .ADG-search-items {
+    height: 30px;
+    width: 400px;
+    position: absolute;
+    top: 170px;
+    right: 270px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .ADG-menu-page .ADG-search-items {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+
+
+
+.ADG-menu-page .ADG-overlap-group-3 {
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #d6d6d6;
+  border-radius: 30px;
+  height: 30px;
+  position: relative;
+  width: 346px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-5 {
+  color: #9b9b9b;
+  font-family: "Inter", Helvetica;
+  font-size: 15px;
+  font-weight: 400;
+  left: 21px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  white-space: nowrap;
+  width: 122px;
+}
+
+.ADG-menu-page .ADG-seach-icon {
+  height: 14px;
+  left: 15px;
+  position: absolute;
+  top: 8px;
+  width: 14px;
+}
+
+  /* Update the styles for .bulk-actions in your CSS */
+  .ADG-menu-page .ADG-bulk-actions {
+    height: 30px;
+    width: 134px;
+    position: absolute;
+    top: 260px;
+    right: 320px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .ADG-menu-page .ADG-bulk-actions {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+
+
+
+.ADG-menu-page .ADG-text-wrapper-6 {
+  color: #9a51e0;
+  font-family: "Inter", Helvetica;
+  font-size: 14px;
+  font-weight: 400;
+  left: 37px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+}
+
+.ADG-menu-page .ADG-fluent-navigation {
+  height: 20px;
+  left: 7px;
+  position: absolute;
+  top: 5px;
+  width: 20px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-7 {
+  color: #2e2e2e;
+  font-family: "Inter", Helvetica;
+  font-size: 20px;
+  font-weight: 500;
+  left: 203px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 270px;
+  white-space: nowrap;
+}
+
+
+.ADG-menu-page .ADG-group {
+  height: 440px;
+  left: 200px;
+  position: fixed;
+  top: 320px;
+  width: 1305px;
+}
+.ADG-menu-page .ADG-content-group {
+  height: 440px;
+    left: 201px;
+    position: absolute;
+    top: 330px;
+    width: 1305px;
+}
+
+.ADG-menu-page .ADG-text-wrapper-8 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 5px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-9 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 283px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-10 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 410px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-11 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 605px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-12 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 705px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-13 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 925px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-14 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 850px;
+  letter-spacing: -0.6px;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-15 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 1000px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-16 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 1099px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.ADG-menu-page .ADG-text-wrapper-17 {
+  color: #000000;
+  font-family: "Inter", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  left: 1150px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+
+
+
+
+
+.ADG-item-top{
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 350px;
+  padding-left: 200px;
+  
+}
+
+
+
+
+
+
+
+
+
+
+.ADG-i-frame{
+  margin-top: 30px;
+  height:35%;
+}
+.ADG-i-frame .ADG-overlap-6 {
+  left: 1px;
+  position: relative;
+  width: 1228px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+  transition: 0.ADG-3s;
+  width: 94%;
+  height:35%;
+  background-color: white;
+  border-radius: 10px;
+    
+}
+/* Item Image */
+.ADG-item-image{
+  float: left;
+  width: 3%;
+  padding: 0px;
+}
+
+/* Item name */
+.ADG-item-name-container{
+  padding: 0px 16px;
+  font-size: 12px;
+  content: "";
+  display: table;
+  clear: both;
+  width: 100%;
+}
+.ADG-item-name-spacing{
+  float: left;
+  width: 533px;
+  padding: 10px;
+}
+
+/* Item category */
+.ADG-item-cat-spacing{
+  float: left;
+  width: 10%;
+  padding: 10px;
+}
+/* item Price */
+.ADG-item-price-spacing{
+  float: left;
+  width: 80px;
+  padding: 10px;
+  text-align: center;
+}
+ /* item type */
+ .ADG-item-type-spacing{
+  float: left;
+  width: 135px;
+  padding: 10px 10px;
+  text-align: center;
+}
+  /* item stock */
+  .ADG-item-stock-spacing{
+    float: left;
+    width: 68px;
+    padding: 10px 10px;
+    text-align: center;
+  }
+  /* item hide */
+  .ADG-item-hide-spacing{
+    float: left;
+    width:35px;
+    padding: 5px 12px;
+  }
+  /* tags */
+  .ADG-item-tag-container{
+    float: left;
+    width: 23%;
+    
+    padding: 3px 12px;
+  }
+
+  .ADG-tag-spacing{
+    float: left;
+    width: 22px;
+    padding: 0px 50px 30px 3px;
+  }
+  .ADG-tag-border{
+    position:absolute;
+    border: 2px solid #aeaeae;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+  }   
+
+  .ADG-tag-spacing-new{
+    float: left;
+    width: 0px;
+    padding: 0px 40px 30px 0px;
+  }
+  .ADG-tag-border-new{
+    position:absolute;
+    border: 2px solid #aeaeae;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+  }   
+  .ADG-tag-spacing-spicy{
+    float: left;
+    width: 0px;
+    padding: 0px 50px 30px 3px;
+  }
+  .ADG-tag-border-spicy{
+    position:absolute;
+    border: 2px solid #aeaeae;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+  }   
+  
+
+  /* item availabe */
+  .ADG-item-available-spacing{
+    float: left;
+    width: 7%;
+    padding: 9px 12px;
+    text-align: center;
+  }
+  /* item edit */
+  .ADG-item-edit-spacing{
+    float: left;
+    width: 3%;
+    padding: 5px 12px;
+  }
+  /* Item Archive */
+  .ADG-item-arch-spacing{
+    float: left;
+    width: 5%;
+    padding: 5px 12px;
+  }
+
+

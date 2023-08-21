@@ -1,0 +1,677 @@
+.cat-menu-page {
+    background-color: #faf9f5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .cat-menu-page .cat-div {
+    background-color: #faf9f5;
+    border: 1px none;
+    height: 894px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .cat-menu-page .cat-frame {
+    align-items: flex-end;
+    display: inline-flex;
+    gap: 10px;
+    left: 0px;
+    position: absolute;
+    top: 170px;
+  }
+  
+  .cat-menu-page .cat-overlap-wrapper {
+    height: 37px;
+    position: relative;
+    width: 138px;
+  }
+  
+  .cat-menu-page .cat-overlap {
+    height: 37px;
+    position: relative;
+    width: 140px;
+  }
+  
+  .cat-menu-page .cat-vector {
+    height: 7px;
+    left: 114px;
+    position: absolute;
+    top: 16px;
+    width: 11px;
+  }
+  
+  .cat-menu-page .cat-img {
+    height: 12px;
+    left: 12px;
+    position: absolute;
+    top: 13px;
+    width: 11px;
+  }
+  
+  .cat-menu-page .cat-location {
+    height: 37px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 140px;
+  }
+  
+  .cat-menu-page .cat-overlap-group {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 30px;
+    height: 37px;
+    position: relative;
+    width: '200px';
+  }
+  
+  .cat-menu-page .cat-text-wrapper {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    left: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+  .cat-menu-page .cat-carbon-close-filled {
+    height: 15px;
+    left: 106px;
+    position: absolute;
+    top: 10px;
+    width: 15px;
+  }
+  
+  .cat-menu-page .cat-div-wrapper {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 20px;
+    height: 37px;
+    position: relative;
+    width: 138px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-2 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 19px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+  .cat-menu-page .cat-brand-filter {
+    height: 37px;
+    position: relative;
+    width: 145px;
+  }
+  
+  .cat-menu-page .cat-overlap-2 {
+    height: 37px;
+    position: relative;
+    width: 147px;
+  }
+  
+  .cat-menu-page .cat-carbon-close-filled-2 {
+    height: 15px;
+    left: 113px;
+    position: absolute;
+    top: 10px;
+    width: 15px;
+  }
+  
+  .cat-menu-page .cat-overlap-group-wrapper {
+    height: 100px;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 147px;
+  }
+  
+  .cat-menu-page .cat-overlap-group-2 {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 20px;
+    height: 37px;
+    position: relative;
+    width: 145px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-3 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+    /* Update the styles for .add-multi-item in your CSS */
+.cat-menu-page .cat-add-multi-item {
+  height: 30px;
+  width: 95px;
+  position: absolute;
+  top: 260px;
+  right: 500px; /* Adjust the right property to control horizontal position */
+}
+
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  .cat-menu-page .cat-add-multi-item {
+    top: 90px; /* Adjust the top property for smaller screens */
+    right: 10px; /* Adjust the right property for smaller screens */
+  }
+}
+  
+  .cat-menu-page .cat-overlap-3 {
+    background-color: #9a51e0;
+    border-radius: 20px;
+    height: 30px;
+    position: relative;
+    width: 93px;
+  }
+  
+  .cat-menu-page .cat-ic-baseline-plus {
+    height: 20px;
+    left: 69px;
+    position: absolute;
+    top: 5px;
+    width: 20px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-4 {
+    color: #ffffff;
+    font-family: "Inter", Helvetica;
+    font-size: 14px;
+    font-weight: 500;
+    left: 9px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+  }
+  
+  /* Update the styles for .search-items in your CSS */
+  .cat-menu-page .cat-search-items {
+    height: 30px;
+    width: 400px;
+    position: absolute;
+    top: 170px;
+    right: 270px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .cat-menu-page .cat-search-items {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+  
+  
+
+  .cat-menu-page .cat-overlap-group-3 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #d6d6d6;
+    border-radius: 30px;
+    height: 30px;
+    position: relative;
+    width: 346px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-5 {
+    color: #9b9b9b;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 21px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    white-space: nowrap;
+    width: 122px;
+  }
+  
+  .cat-menu-page .cat-seach-icon {
+    height: 14px;
+    left: 15px;
+    position: absolute;
+    top: 8px;
+    width: 14px;
+  }
+  
+  /* Update the styles for .bulk-actions in your CSS */
+  .cat-menu-page .cat-bulk-actions {
+    height: 30px;
+    width: 134px;
+    position: absolute;
+    top: 260px;
+    right: 320px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .cat-menu-page .cat-bulk-actions {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+  
+  /* Update the styles for .bulk-actions in your CSS */
+  .cat-menu-page .cat-filter-popup {
+    height: 30px;
+    width: 134px;
+    position: absolute;
+    top: 260px;
+    right: 920px; /* Adjust the right property to control horizontal position */
+  }
+  
+  /* Add a media query for smaller screens */
+  @media (max-width: 768px) {
+    .cat-menu-page .cat-filter-popup {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+  
+  
+  .cat-menu-page .cat-text-wrapper-6 {
+    color: #9a51e0;
+    font-family: "Inter", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 37px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+  }
+  
+  .cat-menu-page .cat-fluent-navigation {
+    height: 20px;
+    left: 7px;
+    position: absolute;
+    top: 5px;
+    width: 20px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-7 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 500;
+    left: 203px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 270px;
+    white-space: nowrap;
+  }
+  
+  
+  .cat-menu-page .cat-group {
+    height: 10px;
+    left: 200px;
+    position: fixed;
+    top: 320px;
+    width: 1305px;
+  }
+  .cat-menu-page .cat-content-group {
+    height: 440px;
+    left: 202px;
+    position: absolute;
+    top: 330px;
+    width: 1305px;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-8 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 5px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-9 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 283px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-10 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 410px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-11 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 481px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-12 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 552px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-13 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 925px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-14 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 625px;
+    letter-spacing: -0.6px;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-15 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 1003px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-16 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 1099px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .cat-menu-page .cat-text-wrapper-17 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 1150px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+ 
+  
+
+  
+
+  .cat-item-top{
+    background-color: #ffffff;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    /* height: 300px; */
+    padding-left: 200px;
+    
+  }
+
+  
+
+  
+
+  
+
+
+
+
+  .cat-i-frame{
+    margin-top: 30px;
+    height:35%;
+  }
+  .cat-i-frame .cat-overlap-6 {
+    left: 1px;
+    position: relative;
+    width: 1228px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    transition: 0.cat-3s;
+    width: 94%;
+    height:35%;
+    background-color: white;
+    border-radius: 10px;
+      
+  }
+  /* Item Image */
+  .cat-item-image{
+    float: left;
+    width: 3%;
+    padding: 0px;
+  }
+
+  /* Item name */
+  .cat-item-name-container{
+    padding: 0px 16px;
+    font-size: 12px;
+    content: "";
+    display: table;
+    clear: both;
+    width: 100%;
+  }
+  .cat-item-name-spacing{
+    float: left;
+    width: 570px;
+    padding: 10px;
+  }
+  
+  /* Item category */
+  .cat-item-cat-spacing{
+    float: left;
+    width: 10%;
+    padding: 10px;
+  }
+  /* item Price */
+  .cat-item-price-spacing{
+    float: left;
+    width: 4%;
+    padding: 10px;
+  }
+   /* item type */
+   .cat-item-type-spacing{
+    float: left;
+    width: 4%;
+    padding: 4px 10px;
+  }
+    /* item stock */
+    .cat-item-stock-spacing{
+      float: left;
+      width: 4%;
+      padding: 0px 10px;
+    }
+    /* item hide */
+    .cat-item-hide-spacing{
+      float: left;
+      width: 3%;
+      padding: 5px 12px;
+    }
+    /* tags */
+    .cat-item-tag-container{
+      float: left;
+      width: 23%;
+      
+      padding: 3px 12px;
+    }
+
+    .cat-tag-spacing{
+      float: left;
+      width: 22px;
+      padding: 0px 50px 30px 3px;
+    }
+    .cat-tag-border{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+
+    .cat-tag-spacing-new{
+      float: left;
+      width: 0px;
+      padding: 0px 40px 30px 0px;
+    }
+    .cat-tag-border-new{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+    .cat-tag-spacing-spicy{
+      float: left;
+      width: 0px;
+      padding: 0px 50px 30px 3px;
+    }
+    .cat-tag-border-spicy{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+    
+
+    /* item availabe */
+    .cat-item-available-spacing{
+      float: left;
+      width: 7%;
+      padding: 9px 12px;
+      text-align: center;
+    }
+    /* item edit */
+    .cat-item-edit-spacing{
+      float: left;
+      width: 3%;
+      padding: 5px 12px;
+    }
+    /* Item Archive */
+    .cat-item-arch-spacing{
+      float: left;
+      width: 5%;
+      padding: 5px 12px;
+    }
+
+
+      /* Add the following CSS to your Tags.css file */
+.cat-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.cat-modal-open {
+  display: block;
+}
+
+.cat-modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 35%;
+  border-radius: 20px;
+
+}
+
+.cat-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* create tag header */
+.cat-create-header{
+  font-size: 20px;
+  font-weight: 400;
+
+}
+/* Tag name */
+.cat-create-name{
+  font-size: 12px;
+}
+

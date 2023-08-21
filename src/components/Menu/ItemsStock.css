@@ -1,0 +1,718 @@
+.IS-menu-page {
+    background-color: #faf9f5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .IS-menu-page .IS-div {
+    background-color: #faf9f5;
+    border: 1px none;
+    height: 894px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .IS-menu-page .IS-frame {
+    align-items: flex-end;
+    display: inline-flex;
+    gap: 10px;
+    left: 185px;
+    position: absolute;
+    margin-top: 150px;
+  }
+  
+  .IS-menu-page .IS-overlap-wrapper {
+    height: 37px;
+    position: relative;
+    width: 138px;
+  }
+  
+  .IS-menu-page .IS-overlap {
+    height: 37px;
+    position: relative;
+    width: 140px;
+  }
+  
+  .IS-menu-page .IS-vector {
+    height: 7px;
+    left: 114px;
+    position: absolute;
+    top: 16px;
+    width: 11px;
+  }
+  
+  .IS-menu-page .IS-img {
+    height: 12px;
+    left: 12px;
+    position: absolute;
+    top: 13px;
+    width: 11px;
+  }
+  
+  .IS-menu-page .IS-location {
+    height: 37px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 140px;
+  }
+  
+  .IS-menu-page .IS-overlap-group {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 30px;
+    height: 37px;
+    position: relative;
+    width: '200px';
+  }
+  
+  .IS-menu-page .IS-text-wrapper {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 500;
+    left: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+  .IS-menu-page .IS-carbon-close-filled {
+    height: 15px;
+    left: 106px;
+    position: absolute;
+    top: 10px;
+    width: 15px;
+  }
+  
+  .IS-menu-page .IS-div-wrapper {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 20px;
+    height: 37px;
+    position: relative;
+    width: 138px;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-2 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 19px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+  .IS-menu-page .IS-brand-filter {
+    height: 37px;
+    position: relative;
+    width: 145px;
+  }
+  
+  .IS-menu-page .IS-overlap-2 {
+    height: 37px;
+    position: relative;
+    width: 147px;
+  }
+  
+  .IS-menu-page .IS-carbon-close-filled-2 {
+    height: 15px;
+    left: 113px;
+    position: absolute;
+    top: 10px;
+    width: 15px;
+  }
+  
+  .IS-menu-page .IS-overlap-group-wrapper {
+    height: 100px;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 147px;
+  }
+  
+  .IS-menu-page .IS-overlap-group-2 {
+    border: 1px solid;
+    border-color: #aeaeae;
+    border-radius: 20px;
+    height: 37px;
+    position: relative;
+    width: 145px;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-3 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 12px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    white-space: nowrap;
+  }
+  
+  .IS-menu-page .IS-add-multi-item {
+    height: 30px;
+  width: 350px;
+  position: absolute;
+  top: 260px;
+  right: 260px;
+  
+  }
+  .IS-add-multi-item .filter-buttons-container {
+    display: flex;
+    gap: 10px; /* Adjust the gap value to your desired spacing */
+  }
+
+  @media (max-width: 768px) {
+    .IS-menu-page .IS-add-multi-item {
+      top: 90px; /* Adjust the top property for smaller screens */
+      right: 10px; /* Adjust the right property for smaller screens */
+    }
+  }
+  .IS-menu-page .IS-overlap-3 {
+    background-color: #9a51e0;
+    border-radius: 20px;
+    height: 30px;
+    position: relative;
+    width: 93px;
+  }
+  
+  .IS-menu-page .IS-ic-baseline-plus {
+    height: 20px;
+    left: 69px;
+    position: absolute;
+    top: 5px;
+    width: 20px;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-4 {
+    color: #ffffff;
+    font-family: "Inter", Helvetica;
+    font-size: 14px;
+    font-weight: 500;
+    left: 9px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+  }
+  
+    /* Update the styles for .search-items in your CSS */
+.IS-menu-page .IS-search-items {
+  height: 30px;
+  width: 400px;
+  position: absolute;
+  top: 262px;
+  right: 570px; /* Adjust the right property to control horizontal position */
+}
+
+/* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  .IS-menu-page .IS-search-items {
+    top: 90px; /* Adjust the top property for smaller screens */
+    right: 10px; /* Adjust the right property for smaller screens */
+  }
+}
+
+    /* Update the styles for .search-items in your CSS */
+    .IS-menu-page .IS-search-name {
+      height: 30px;
+      width: 400px;
+      position: absolute;
+      top: 262px;
+      right: 920px; /* Adjust the right property to control horizontal position */
+    }
+    
+    /* Add a media query for smaller screens */
+    @media (max-width: 768px) {
+      .IS-menu-page .IS-search-name {
+        top: 90px; /* Adjust the top property for smaller screens */
+        right: 10px; /* Adjust the right property for smaller screens */
+      }
+    }
+  
+  
+  
+  .IS-menu-page .IS-overlap-group-3 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #d6d6d6;
+    border-radius: 30px;
+    height: 30px;
+    position: relative;
+    width: 346px;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-5 {
+    color: #9b9b9b;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 21px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    white-space: nowrap;
+    width: 122px;
+  }
+  
+  .IS-menu-page .IS-seach-icon {
+    height: 14px;
+    left: 15px;
+    position: absolute;
+    top: 8px;
+    width: 14px;
+  }
+  
+  .IS-menu-page .IS-bulk-actions {
+    height: 30px;
+    width: 134px;
+    position: absolute;
+    top: 260px;
+    right: 320px;
+  }
+  /* Add a media query for smaller screens */
+@media (max-width: 768px) {
+  .IS-menu-page .IS-bulk-actions {
+    top: 90px; /* Adjust the top property for smaller screens */
+    right: 10px; /* Adjust the right property for smaller screens */
+  }
+}
+  
+  
+  .IS-menu-page .IS-text-wrapper-6 {
+    color: #9a51e0;
+    font-family: "Inter", Helvetica;
+    font-size: 14px;
+    font-weight: 400;
+    left: 37px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+  }
+  
+  .IS-menu-page .IS-fluent-navigation {
+    height: 20px;
+    left: 7px;
+    position: absolute;
+    top: 5px;
+    width: 20px;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-7 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 20px;
+    font-weight: 500;
+    left: 203px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 270px;
+    white-space: nowrap;
+  }
+  
+  
+  .IS-menu-page .IS-group {
+    height: 10px;
+    left: 200px;
+    position: fixed;
+    top: 320px;
+    width: 1305px;
+  }
+  .IS-menu-page .IS-content-group {
+    height: 440px;
+    left: 202px;
+    position: absolute;
+    top: 330px;
+    width: 1305px;
+    /* z-index: 2; */
+  }
+  
+  .IS-menu-page .IS-text-wrapper-8 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 5px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-9 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 283px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-10 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 410px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-11 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 600px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-12 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 705px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-13 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 925px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-14 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 790px;
+    letter-spacing: -0.6px;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-15 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 935px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-16 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 1100px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  .IS-menu-page .IS-text-wrapper-17 {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 1150px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+  }
+  
+  
+  
+  
+  
+  
+  .IS-item-top{
+    background-color: #ffffff;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 350px;
+    padding-left: 250px;
+    z-index: 1;
+  }
+  
+  
+  .IS-i-frame{
+    margin-top: 30px;
+    height:35%;
+    margin-left: 20px;
+  }
+  .IS-i-frame .IS-overlap-6 {
+    left: 1px;
+    position: relative;
+    width: 1228px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+    transition: 0.IS-3s;
+    width: 97%;
+    height:35%;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px;
+      
+  }
+  /* Item Image */
+  .IS-item-image{
+    float: left;
+    width: 3%;
+    padding: 0px;
+  }
+  
+  /* Item name */
+  .IS-item-name-container{
+    padding: 0px 16px;
+    font-size: 12px;
+    content: "";
+    display: table;
+    clear: both;
+    width: 100%;
+  }
+  .IS-item-name-spacing{
+    float: left;
+    width: 740px;
+    padding: 10px;
+  }
+  
+  /* Item category */
+  .IS-item-cat-spacing{
+    float: left;
+    width: 10%;
+    padding: 10px;
+  }
+  /* item Price */
+  .IS-item-price-spacing{
+    float: left;
+    width: 80px;
+    padding: 3px 10px;
+     text-align: center;
+  }
+   /* item type */
+   .IS-item-type-spacing{
+    float: left;
+    width: 135px;
+    padding: 10px 10px;
+    text-align: center;
+  }
+    /* item stock */
+    .IS-item-stock-spacing{
+      float: left;
+      width: 68px;
+      padding: 10px 10px;
+     text-align: center;
+    }
+    /* item hide */
+    .IS-item-hide-spacing{
+      float: left;
+      width:35px;
+      padding: 5px 12px;
+    }
+    /* tags */
+    .IS-item-tag-container{
+      float: left;
+      width: 23%;
+      
+      padding: 3px 12px;
+    }
+  
+    .IS-tag-spacing{
+      float: left;
+      width: 22px;
+      padding: 0px 50px 30px 3px;
+    }
+    .IS-tag-border{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+  
+    .IS-tag-spacing-new{
+      float: left;
+      width: 0px;
+      padding: 0px 40px 30px 0px;
+    }
+    .IS-tag-border-new{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+    .IS-tag-spacing-spicy{
+      float: left;
+      width: 0px;
+      padding: 0px 50px 30px 3px;
+    }
+    .IS-tag-border-spicy{
+      position:absolute;
+      border: 2px solid #aeaeae;
+      border-radius: 5px;
+      padding: 5px 5px 5px 5px;
+      text-align: center;
+    }   
+    
+  
+    /* item availabe */
+    .IS-item-available-spacing{
+      float: left;
+      width: 18%;
+      padding: 9px 12px;
+      text-align: center;
+    }
+    /* item edit */
+    .IS-item-edit-spacing{
+      float: left;
+      text-align: center;
+      width: 3%;
+      padding: 8px 12px;
+    }
+    /* Item Archive */
+    .IS-item-arch-spacing{
+      float: right;
+      width: 5%;
+      padding: 5px 12px;
+    }
+  
+     /* Add the following CSS to your Tags.css file */
+.IS-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.IS-modal-open {
+  display: block;
+}
+
+.IS-modal-content {
+  background-color: white;
+  margin: 3% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+
+}
+
+.IS-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* create tag header */
+.IS-create-header{
+  font-size: 20px;
+  font-weight: 400;
+
+}
+/* Tag name */
+.IS-create-name{
+  font-size: 12px;
+}
+
+.IS-create-filter-position{
+    margin-left: -200px;
+    margin-top: -45px;
+}
+  
+
+/* Add this to your existing CSS file */
+.filter-button {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  padding: 8px 20px;
+  margin: 5px 0;
+  border: 1px solid;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #8d4ac2;  
+}
+
+.active-filter {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  padding: 8px 20px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: #8d4ac2;
+  color: white;
+}
+
+
+.dropdown-container {
+  position: relative;
+  z-index: 2; /* Adjust the z-index value as needed */
+}
+
+.dropdown-button {
+  position: relative;
+  z-index: 2; /* Adjust the z-index value as needed */
+}
+

@@ -1,0 +1,83 @@
+body {
+    font-family: "Lato", sans-serif;
+  }
+
+.Manage-sidenav {
+  height: calc(100% - 170px); /* Adjust the value to account for header and footer */
+  width: 200px;
+  position: fixed;
+  z-index: 2;
+  top: 147px; /* Adjust top positioning */
+  left: 0;
+  background-color: #FAF9F5;
+  padding-top: 20px;
+  border-right: solid;
+  overflow-y: auto;
+  border-color: #aeaeae;
+  border-width: thin;
+  
+  /* Custom scrollbar styles */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc #e2dddd; /* For Firefox */
+}
+
+/* Webkit browsers (Chrome, Safari, newer versions of Edge) */
+.Manage-sidenav::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.Manage-sidenav::-webkit-scrollbar-track {
+  background: #e2dddd;
+}
+
+.Manage-sidenav::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 8px;
+}
+  
+  .Manage-sidenav a {
+    padding: 10px 8px 7px 40px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #2e2e2e;
+    display: block;
+  }
+  
+  .Manage-sidenav span{
+    font-size:18px;
+    padding-left: 15px;
+  }
+  
+  .Manage-sidenav a:hover {
+    color: #df9f65;
+  }
+  .Manage-sidenav a.active { 
+      color: #df9f65;
+  }
+  .main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .Manage-sidenav {padding-top: 15px;}
+    .Manage-sidenav a {font-size: 18px;}
+  }
+  
+  .Manage-sidenav .div {
+    height: 25px;
+    left: 1px;
+    position: absolute;
+    top: 30px;
+    width: 117px;
+  }
+  
+  .Manage-sidenav .gridicons-book {
+    height: 25px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 25px;
+  }
+  
