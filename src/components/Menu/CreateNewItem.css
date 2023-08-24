@@ -1373,7 +1373,7 @@ left: 200px;
 z-index: 4;
   
   }
-  .CI-add-multi-item .filter-buttons-container {
+  .CI-add-multi-item .add-items-filter-buttons-container {
     display: flex;
     gap: 10px; /* Adjust the gap value to your desired spacing */
   }

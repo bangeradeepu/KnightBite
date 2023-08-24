@@ -56,12 +56,12 @@
     text-decoration: none;
     display: inline-block;
     grid-template-columns: repeat(3, 1fr);
-    margin-right: 30px; /* Adjust this value for spacing between categories */
+    margin-right: 26px; /* Adjust this value for spacing between categories */
 }
 .OR-container-2-actions {
     display: inline-block;
     grid-template-columns: repeat(3, 1fr);
-    margin-left: 20px; /* Adjust this value for spacing between categories */
+    margin-left: 16px; /* Adjust this value for spacing between categories */
 }
 .OR-content-position{
     margin-top: 330px;
@@ -73,7 +73,303 @@
     padding: 20px;
     background-color: #ffff;
     width: 93%;
-    height: 100px;
+    height: 120px;
    margin-top: 20px;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
 }
 
+.OR-g1-logo-back{  
+    width: 50%;
+    height: 23px;
+    border-radius: 40px;  
+    display: flex;
+}
+
+.OR-info-1-brand{
+    margin: 5px;
+    color: #ffff;
+}
+.OR-info-1-orders{
+    /* background-color: green; */
+    width:40%;
+    height:23px;
+    border-radius: 30px;
+}
+.OR-info-1-order-text{
+    text-align: center;
+    margin: 5px;
+    color: #ffff;
+
+}
+/* info  spacings*/
+.OR-info{
+    font-size: 12px;
+    content: "";
+    display: table;
+    clear: both;
+    width: 100%;
+  }
+  .OR-info-1-spacing{
+    float: left;
+    width: 15%; 
+    margin: 0px;
+  }
+
+  .OR-info-line{
+    float: left;
+    width: 15%;
+    margin-right: 15px;
+    margin-left: 15px;
+
+    margin-top: 0px;
+    background-color: #dadada;
+    width: 1px;
+    height: 120px;
+  }
+  .OR-info-2-spacing{
+    float: left;
+    width: 15%;
+    margin-top: 0px;
+  }
+  .OR-info-2-name{
+    margin: 0px;
+    font-size: 20px;
+  }
+  .OR-info-2-phone{
+    margin: 0px;
+    font-size: 16px;
+  }
+  .OR-info-3-spacing{
+    float: left;
+    width: 18%;
+    margin-top: 0px;
+    overflow-y: scroll;
+    max-height: 120px;
+  }
+  .OR-info-3-spacing::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+  }
+  
+  .OR-info-3-spacing::-webkit-scrollbar-track {
+    background: #e2dddd;
+  }
+  
+  .OR-info-3-spacing::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .OR-info-3-special-request{
+    margin: 0px;
+  }
+  .OR-info-4-spacing{
+    float: left;
+    text-align: center;
+    width: 8%;
+    margin-top: 0px;
+  }
+  .OR-dropbtn {
+    width: 100px;
+    padding: 6px;
+    outline: none;
+    border: 2px solid #aeaeae;
+    border-radius:30px;
+    font-size:16px;
+    font-size: 12px;
+    background-color: #FFFFFF;
+    text-align: left;
+    color: #2e2e2e;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="10" height="10" viewBox="0 0 1024 1024"%3E%3Cpath fill="%23585858" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8l316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"%2F%3E%3C%2Fsvg%3E') no-repeat right 12px center;
+    padding-right: 10px; 
+   
+  }
+
+
+/* Styling the dropdown arrow */
+.OR-dropbtn::-ms-expand {
+  display: none; /* Hide the default arrow in IE10 and IE11 */
+}
+
+/* Styling the options */
+.OR-dropbtn option {
+  background-color: white;
+  font-size: 16px;
+  color: #333;
+  padding: 8px 12px; /* Adjust padding for better readability */
+}
+
+/* Styling when an option is hovered */
+.OR-dropbtn option:hover {
+  background-color: #ddd;
+}
+
+/* Remove the default dropdown arrow icon and add a white custom icon */
+.OR-droptype {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="10" height="10" viewBox="0 0 1024 1024"%3E%3Cpath fill="%23ffffff" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8l316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"%2F%3E%3C%2Fsvg%3E') no-repeat right 12px center;
+  background-size: 12px;
+  border: 1px solid #8d4ac2;
+  color: #ffff;
+  background-color: #8d4ac2;
+  outline: none;
+  padding-left: 15px;
+  font-size: 14px;
+  width: 120px;
+  border-radius: 30px;
+}
+
+/* Styling the dropdown arrow */
+.OR-droptype::-ms-expand {
+  display: none; /* Hide the default arrow in IE10 and IE11 */
+}
+
+/* Styling the options */
+.OR-droptype option {
+  background-color: white;
+  font-size: 16px;
+  color: #333;
+  padding: 8px 12px; /* Adjust padding for better readability */
+}
+
+/* Styling when an option is hovered */
+.OR-droptype option:hover {
+  background-color: #ddd;
+}
+
+
+  .OR-info-5-spacing{
+    float: left;
+    text-align: center;
+    width: 8%;
+    margin-top: 40px;
+  }
+  .OR-code-btn{
+    outline:none;
+    border-radius: 30px;
+    border: 2px solid #aeaeae;
+    background-color: #FFFFFF;
+    width: 100px;
+    padding: 5px;
+    color: #2e2e2e;
+
+  }
+  .OR-info-6-spacing{
+    float: left;
+    text-align: center;
+    width: 8%;
+    margin-top: 40px;
+  }
+  .OR-pament-link{
+    outline:none;
+    margin-top: 12px;
+    border-radius: 30px;
+    border: 2px solid #2e2e2e;
+    background-color: #2e2e2e;
+    width: 120px;
+    padding: 5px 0px;
+    margin-right: 0px;
+    margin-left: -3px;
+    color: #ffffff;
+  }
+.OR-info-7-spacing{
+    float: left;
+    text-align: center;
+    width: 8%;
+    margin-top: 40px;
+}
+.OR-info-8-spacing{
+    float: left;
+    text-align: center;
+    width: 4%;
+    margin-top: 40px;
+}
+
+.location-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+    
+    .location-modal-open {
+      display: block;
+    }
+    
+    .location-modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0px 20px 20px;
+      border: 1px solid #888;
+      width: 50%;
+      height: 70%;
+      border-radius: 20px 20px 20px 20px;
+      overflow-y: auto;
+    
+    }
+
+    .OR-datefilter-modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+        
+        .OR-datefilter-modal-open {
+          display: block;
+        }
+        
+        .OR-datefilter-modal-content {
+          background-color: white;
+          margin: 5% auto;
+          padding: 0px 20px 20px;
+          border: 1px solid #888;
+          width: 50%;
+          height: 50%;
+          border-radius: 20px 20px 20px 20px;
+          overflow-y: auto;
+        
+        }
+
+        .radio {
+          position: relative;
+          margin-bottom: 15px; /* Adjust the margin for line gap */
+          cursor: pointer;
+          display: inline-block;
+          padding-left: 10px;
+          line-height: 2.0;
+          font-size: 16px;
+          color: #333;
+        }
+        .styled-input {
+          padding: 5px;
+          border: 2px solid #8d4ac2;
+          border-radius: 30px; /* Adding rounded corners */
+          font-size: 16px;
+          color: #333;
+          outline: none;
+        }
+        .OR-datefilter-btn{
+            width:100px;
+            height: 40px;
+            color:#ffff;
+            border-radius: 30px;
+            outline: none;
+            border: 1px solid #8d4ac2;
+            background-color: #8d4ac2;
+        }
+        .OR-datefilter-btn:hover {opacity: 0.8}
+
+
+        

@@ -291,7 +291,19 @@ const YourComponent = () => {
           <div className="Stock-modal-content">
             <div className="Stock-top-fix">
               <p className="Stock-create-header txt-black">Stock Control</p>
-              <div className="filter-buttons-container">
+              <div style={{marginLeft:'0px', marginTop:'52px', position:'absolute'}}>
+
+              <i className='search-icon-s' style={{paddingTop:'3%', paddingBottom:'3.2%'}}><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
+                  <input className="input-field-s" placeholder='Search Items' />
+              </div>
+              <div style={{marginLeft:'350px', marginTop:'52px', position:'absolute'}}>
+
+              <i className='search-icon-s' style={{paddingTop:'3%', paddingBottom:'3.2%'}}><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
+                  <input className="input-field-s" placeholder='Search Category' />
+              </div>
+              
+              <div className="stock-control-filter-buttons-container">
+              
               <button
           className={stockTab === 'all' ? "active-filter" : "filter-button"}
           onClick={() => handleStock('all')}

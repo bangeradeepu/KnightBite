@@ -240,7 +240,7 @@ body {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: -120px;
+  margin-top: -150px;
   position: relative;
 }
 
@@ -255,7 +255,7 @@ body {
 
   background-color: #ffffff;
   width: 90%;
-  height: 25%;
+  height: 27%;
   position: fixed;
   z-index: 999;
 }
@@ -285,9 +285,9 @@ body {
   display: inline-block;
 }
 
-.filter-buttons-container {
+.stock-control-filter-buttons-container {
   display: flex;
   gap: 10px; 
   margin-left: 1020px;
-  margin-top: 50px;
+  margin-top: 70px;
 }
