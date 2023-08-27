@@ -391,6 +391,7 @@ function CreateNewItem() {
                 </div>
                 <h1 className="h-1">Preview</h1>
 
+                <div className="text-wrapper-17">Tags</div>
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>
@@ -756,7 +757,7 @@ function CreateNewItem() {
                   <button className="add-item-button">Add Item</button>
                 </div>
                 <h1 className="h-1">Preview</h1>
-
+                <div className="text-wrapper-17">Tags</div>
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>
@@ -1123,6 +1124,7 @@ function CreateNewItem() {
                 </div>
                 <h1 className="h-1">Preview</h1>
 
+                <div className="text-wrapper-17">Tags</div>
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>

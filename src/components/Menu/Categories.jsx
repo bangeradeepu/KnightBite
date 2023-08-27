@@ -70,8 +70,6 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'nowrap', // Set to 'nowrap' initially to prevent wrapping
-    marginTop: '10px',
-    marginLeft: '10px', // Adjust as needed
   },
 })
 // ... (import statements and makeStyles definition)
@@ -164,7 +162,7 @@ const handleAddItem = () =>{
           borderRadius: '30px',
           color: 'black',
           marginLeft: '200px',
-         
+        
         }}
         className={classes.root}
         onClick={handleClick}
@@ -282,7 +280,7 @@ const handleAddItem = () =>{
           )}
         </div>
       )}
-      <div >
+      <div>
       {selectedOptions.length > 0 && (
         <div className={classes.selectedOptionsContainer}>
           {Array.from({
@@ -310,7 +308,6 @@ const handleAddItem = () =>{
         </div>
       )}
       </div>
- 
             </div>
             
             <div className="cat-add-multi-item">
@@ -327,11 +324,6 @@ const handleAddItem = () =>{
                 <div className="cat-"><FontAwesomeIcon icon={faBars} /> Bulk Actions</div>
               </button>
             </div>
-            {/* <div className="cat-filter-popup">
-              <button className="p-outline-button">
-                <div className="cat-"><FontAwesomeIcon icon={faBars} /> Bulk Actions</div>
-              </button>
-            </div> */}
             <div className="cat-text-wrapper-7">Categories</div>
             
             <div className="cat-group">
@@ -438,27 +430,7 @@ const handleAddItem = () =>{
                 </div>
               </div>
               
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
+
               
               <br />
               <div className='cat-overlap-6'>
@@ -482,203 +454,7 @@ const handleAddItem = () =>{
                 </div>
               </div>
               
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='cat-overlap-6'>
-                <div className='cat-item-name-container'>
-                  <p className='txt-black cat-item-name-spacing'>Bite of the day</p>
-                  <div className='cat-item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KB&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>&nbsp;Pancake&nbsp;</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>Mandarin</p>
-                    </div>
-                  </div>
-                  <p className='txt-dark-grey cat-item-hide-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"/></svg></p>
-                  <p className='txt-grey cat-item-available-spacing'>Available</p>
-                  <p className='txt-dark-grey cat-item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey cat-item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
+            
               
               <br />
               <div className='cat-overlap-6'>
