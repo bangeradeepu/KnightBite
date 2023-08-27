@@ -8,13 +8,15 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-import { makeStyles } from "@mui/styles";
-import Button from "@mui/material/Button";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Checkbox from "@mui/material/Checkbox";
+import { makeStyles } from '@mui/styles'
+import Button from '@mui/material/Button'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Checkbox from '@mui/material/Checkbox'
+
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import CloseIcon from '@mui/icons-material/Close'
 
 import {
   faFilter,
@@ -22,62 +24,89 @@ import {
   faUser,
   faCalendarDays,
   faLocationDot,
+  faChevronDown,
+  faMapLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import "./Orders.css";
-
-const styles = {
-  activeTab: {
-    fontWeight: "bold",
-    color: "#175c3a",
-  },
-};
 
 const useStyles = makeStyles({
   root: {},
   icon: {},
   redIcon: {},
   selectedOptionsContainer: {
-    display: "flex",
-    alignItems: "center",
-    marginLeft: "0px",
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: -59,
+    marginLeft: '5px',
   },
   selectedOption: {
-    background: "#fffff",
-    border: "1px solid #ccc",
+    background: '#fffff',
+    border: '1px solid #ccc',
     borderRadius: 20,
-    padding: "8px 10px",
+    padding: '8px 10px',
     marginRight: 5,
-    display: "flex",
-    alignItems: "center",
+    marginLeft: 5,
+    display: 'flex',
+    alignItems: 'center',
   },
   closeIcon: {
     marginLeft: 5,
-    cursor: "pointer",
+    cursor: 'pointer',
   },
   scrollbar: {
-    height: "80px", // Adjust the scroll height as needed
-    width: "100%", // Adjust the width as needed
-    overflowY: "auto",
-    scrollbarWidth: "thin", // For Firefox
-    "&::-webkit-scrollbar": {
-      width: "8px", // For Chrome, Safari, and Opera
+    height: '80px', // Adjust the scroll height as needed
+    width: '100%', // Adjust the width as needed
+    overflowY: 'auto',
+    scrollbarWidth: 'thin', // For Firefox
+    '&::-webkit-scrollbar': {
+      width: '8px', // For Chrome, Safari, and Opera
     },
-    "&::-webkit-scrollbar-thumb": {
-      background: "#ccc", // Customize the thumb color
-      borderRadius: "4px", // Rounder corners for the thumb
+    '&::-webkit-scrollbar-thumb': {
+      background: '#ccc', // Customize the thumb color
+      borderRadius: '4px', // Rounder corners for the thumb
     },
   },
 
   selectedOptionsRow: {
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "nowrap", // Set to 'nowrap' initially to prevent wrapping
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap', // Set to 'nowrap' initially to prevent wrapping
+    marginTop: '10px',
+    marginLeft: '10px', // Adjust as needed
   },
-});
+})
+// ... (import statements and makeStyles definition)
 
+const availableSubcomponents = {
+    Mangalore: ['Knight Bite', 'Pancake Bite', 'Cake Bite', 'rome Bite', 'ome Bite','rdfzfzvvvvvvvvvuuuuuuuuuuuuuuuu','fzfzdfzf','jsois'],
+    Bangalore: ['Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite','rdfzfz','fzfzdfzf','jsois'],
+    Hubli: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Pune: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Udupi: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Manipal: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Hydrabad: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Belgum: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Kerala: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Mumbai: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Mysore: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Madikeri: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+    Goa: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
+
+
+
+
+
+
+  } 
 const Orders = () => {
+  // Create Order Redirect
+  const navigate = useNavigate();
+  const CreateOrder = () =>{
+    navigate("/CreateOrder");
+  };
+  
   // order type
   const [orderTypeTab, setorderTypeTab] = useState("onlineOrder");
   const orderTabClick = (tabName) => {
@@ -137,10 +166,9 @@ const Orders = () => {
   //filter
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedLocation, setSelectedLocation] = React.useState(null);
-  const [selectedOptions, setSelectedOptions] = React.useState([]);
-  const [extraMenuOpen, setExtraMenuOpen] = React.useState(false);
-  const [secondaryMenuOpen, setSecondaryMenuOpen] = React.useState(false);
+  const [selectedLocation, setSelectedLocation] = React.useState([]);
+  const [selectedOptions, setSelectedOptions] = React.useState({});
+  const [extraMenusOpen, setExtraMenusOpen] = React.useState({});
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -150,39 +178,125 @@ const Orders = () => {
     setAnchorEl(null);
   };
 
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location);
-    handleClose();
-    setExtraMenuOpen(false);
-    setSelectedOptions([]);
-    setSecondaryMenuOpen(false);
-  };
-
-  const handleExtraMenuOpen = () => {
-    setExtraMenuOpen(true);
-    setSecondaryMenuOpen(false);
-  };
-
-  const handleOptionSelect = (option) => {
-    if (!selectedOptions.includes(option)) {
-      setSelectedOptions([...selectedOptions, option]);
+   const handleLocationSelect = (location) => {
+  if (location === 'Select All') {
+    const allLocations = Object.keys(availableSubcomponents);
+    if (selectedLocation.length === allLocations.length) {
+      setSelectedLocation([]);
+      setSelectedOptions({});
+    } else {
+      setSelectedLocation(allLocations);
+      const allOptions = allLocations.reduce((acc, loc) => {
+        acc[loc] = availableSubcomponents[loc];
+        return acc;
+      }, {});
+      setSelectedOptions(allOptions);
     }
-    setSecondaryMenuOpen(true);
-  };
+  } else {
+    if (!selectedLocation.includes(location)) {
+      setSelectedLocation([...selectedLocation, location]);
 
-  const handleOptionDeselect = (option) => {
-    setSelectedOptions(
-      selectedOptions.filter((selected) => selected !== option)
-    );
-  };
+      // Automatically select and display the subcomponents of the selected location
+      const subcomponents = availableSubcomponents[location];
+      setSelectedOptions((prevState) => ({
+        ...prevState,
+        [location]: subcomponents,
+      }));
 
-  const optionsPerRow = 2; // Adjust this number as needed
-  const optionsRows = [];
-
-  for (let i = 0; i < selectedOptions.length; i += optionsPerRow) {
-    const row = selectedOptions.slice(i, i + optionsPerRow);
-    optionsRows.push(row);
+      handleExtraMenuOpen(location); // Automatically open the extra menu when a location is selected
+    } else {
+      setSelectedLocation(selectedLocation.filter((selected) => selected !== location));
+      setSelectedOptions((prevState) => ({
+        ...prevState,
+        [location]: [], // Clear subcomponents when location is deselected
+      }));
+      handleExtraMenuClose(location); // Automatically close the extra menu when a location is deselected
+    }
+    handleClose();
   }
+};
+
+
+
+const handleExtraMenuOpen = (location) => {
+  setExtraMenusOpen((prevState) => ({
+    ...prevState,
+    [location]: true,
+  }));
+};
+
+const handleExtraMenuClose = (location) => {
+  setExtraMenusOpen((prevState) => ({
+    ...prevState,
+    [location]: false,
+  }));
+};
+
+
+  const handleOptionSelect = (location, option) => {
+    setSelectedOptions((prevState) => ({
+      ...prevState,
+      [location]: prevState[location]?.includes(option)
+        ? prevState[location].filter((selected) => selected !== option)
+        : [...(prevState[location] || []), option],
+    }));
+  };
+
+  const generateLocationLabel = () => {
+    const numSelected = selectedLocation.length;
+    if (numSelected === 0) {
+      return 'Location';
+    } else if (numSelected === 1) {
+      return selectedLocation[0];
+    } else {
+      return ` ${numSelected} Locations`;
+    }
+  };
+
+ const handleOptionDeselect = (location, option) => {
+  setSelectedOptions((prevState) => ({
+    ...prevState,
+    [location]: prevState[location].filter((selected) => selected !== option),
+  }));
+
+  const allSubcomponentsDeselected =
+    selectedOptions[location]?.length === 1 && option === selectedOptions[location][0];
+
+  if (allSubcomponentsDeselected) {
+    setSelectedLocation(selectedLocation.filter((selected) => selected !== location));
+  }
+
+  // Close the extra menu when deselecting an option
+  handleExtraMenuClose(location);
+};
+
+
+
+  const handleSelectAll = () => {
+    const allLocations = Object.keys(availableSubcomponents);
+    if (selectedLocation.length === allLocations.length) {
+      setSelectedLocation([]);
+      setSelectedOptions({});
+    } else {
+      setSelectedLocation(allLocations);
+      const allOptions = allLocations.reduce((acc, location) => {
+        acc[location] = availableSubcomponents[location];
+        return acc;
+      }, {});
+      setSelectedOptions(allOptions);
+    }
+  };
+
+  
+React.useEffect(() => {
+  const openMenusCopy = { ...extraMenusOpen };
+  for (const location of selectedLocation) {
+    if (selectedOptions[location]?.length === 0) {
+      openMenusCopy[location] = false;
+    }
+  }
+  setExtraMenusOpen(openMenusCopy);
+}, [selectedOptions]);
 
   return (
     <div>
@@ -324,7 +438,7 @@ const Orders = () => {
               </div>
             </div>
             <div className="OR-container-2-left g-right">
-              <button className="p-button bg-purple OR-container-2-buttons">
+              <button className="p-button bg-purple OR-container-2-buttons" onClick={CreateOrder}>
                 Create Order <FontAwesomeIcon icon={faCirclePlus} />
               </button>
               <button className="p-outline-button OR-container-2-buttons">
@@ -413,7 +527,7 @@ const Orders = () => {
           </div>
           <div className="OR-container-2-left g-right">
             <button className="p-button bg-purple OR-container-2-buttons">
-              Create Order <FontAwesomeIcon icon={faCirclePlus} />
+              Create Order <FontAwesomeIcon icon={faCirclePlus} onClick={CreateOrder} />
             </button>
             <button className="p-outline-button OR-container-2-buttons">
               <FontAwesomeIcon icon={faBars} /> Bulk action
@@ -477,7 +591,7 @@ const Orders = () => {
           </div>
           <div className="OR-container-2-left g-right">
             <button className="p-button bg-purple OR-container-2-buttons">
-              Create Order <FontAwesomeIcon icon={faCirclePlus} />
+              Create Order <FontAwesomeIcon icon={faCirclePlus} onClick={CreateOrder} />
             </button>
             <button className="p-outline-button OR-container-2-buttons">
               <FontAwesomeIcon icon={faBars} /> Bulk action
@@ -2762,8 +2876,9 @@ const Orders = () => {
           }`}
         >
           <div className="location-modal-content">
+            <div className="location-modal-content-inside">
             <div className="grid-2">
-              <p className="">Location Filter</p>
+              <p className="" style={{fontSize:'20px',marginLeft:'10px'}}>Location Filter</p>
               <span
                 className=""
                 style={{ textAlign: "right", marginTop: "14px" }}
@@ -2784,170 +2899,152 @@ const Orders = () => {
             </div>
 
             <Button
-              style={{
-                border: "1px solid black",
-                borderRadius: "30px",
-                color: "black",
-                marginLeft: "0px",
-              }}
-              className={classes.root}
-              onClick={handleClick}
-            >
-              <LocationOnIcon
-                className={`${classes.icon} ${classes.redIcon}`}
-              />
-              {selectedLocation || "Location"}
-              <ArrowDropDownIcon className={classes.icon} />
-            </Button>
+        style={{
+          border: '1px solid black',
+          borderRadius: '30px',
+          color: 'black',
+          top: '10px',
+          marginLeft: '10px',
+        }}
+        className={classes.root}
+        onClick={handleClick}
+      >
+        <FontAwesomeIcon icon={faMapLocationDot} style={{marginRight:'10px',color:'#ED8382',fontSize:'18px'}}/>
+        {generateLocationLabel()}
+        <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        PaperProps={{
+          className: classes.scrollbar,
+          style: {
+            marginTop: '10px',
+            width: '250px',
+            border: '1px solid',
+            borderRadius: '5px',
+            outline: 'none',
+            overflow: 'auto',
+            height:'200px',
+          },
+        }}
+      >
+        <MenuItem key="Select All" onClick={() => handleLocationSelect('Select All')}>
+          <Checkbox
+            checked={selectedLocation.length === Object.keys(availableSubcomponents).length}
+            indeterminate={selectedLocation.length > 0 && selectedLocation.length < Object.keys(availableSubcomponents).length}
+          />
+          Select All
+        </MenuItem>
+        
+        {Object.keys(availableSubcomponents).map((location) => (
+          <MenuItem key={location} onClick={() => handleLocationSelect(location)}>
+            <Checkbox checked={selectedLocation.includes(location)} />
+            {location}
+          </MenuItem>
+        ))}
+      </Menu>
+       {selectedLocation.length > 0 && (
+    <div className={classes.selectedOptionsContainer} style={{display: 'flex', flexWrap: 'wrap'}}>
+      {selectedLocation.map((location) => (
+        <div key={location} style={{ marginRight: '10px', marginTop:'10px'}}>
+          <Button
+            style={{
+              border: '1px solid black',
+              borderRadius: '30px',
+              color: 'black',
+              top: '80px',
+              left: '4px',
+              marginRight: '10px',
+              display: 'flex',
+            }}
+            onClick={() => handleExtraMenuOpen(location)}
+          >
+            {location}
+            <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
+          </Button>
+          {extraMenusOpen[location] && (
             <Menu
               anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+              open={extraMenusOpen[location]}
+              onClose={() => handleExtraMenuClose(location)}
               PaperProps={{
+                className: classes.scrollbar,
                 style: {
-                  marginTop: "10px",
-                  width: "250px",
-                  border: "1px solid",
-                  borderRadius: "5px",
-                  outline: "none",
+                  position: 'absolute',
+                  top: '40px',
+                  left: '0',
+                  marginTop: '-350px',
+                  borderRadius: '5px',
+                  border: '1px solid',
+                  width: '250px',
+                  height: '200px',
+                  overflow: 'auto',
+                  marginLeft:'375px'
                 },
               }}
             >
-              <MenuItem onClick={() => handleLocationSelect("Mangalore")}>
-                <Checkbox checked={selectedLocation === "Mangalore"} />
-                Mangalore
-              </MenuItem>
-              <MenuItem onClick={() => handleLocationSelect("Bangalore")}>
-                <Checkbox checked={selectedLocation === "Bangalore"} />
-                Bangalore
-              </MenuItem>
+              {availableSubcomponents[location]?.map((option, index) => (
+  <MenuItem key={option}>
+    <Checkbox
+      checked={selectedOptions[location]?.includes(option)}
+      onChange={() => handleOptionSelect(location, option)}
+      disabled={
+        selectedOptions[location]?.length === 1 &&
+        selectedOptions[location]?.includes(option)
+      }
+    />
+    {option}
+  </MenuItem>
+))}
+
             </Menu>
-            {selectedLocation && (
-              <div>
-                <Button
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "30px",
-                    color: "black",
+          )}
+        </div>
+      ))}
+    </div>
+  )}
 
-                    marginLeft: "170px",
-                    marginTop: "-60px",
-                  }}
-                  onClick={handleExtraMenuOpen}
-                >
-                  {selectedLocation}
-                  <ArrowDropDownIcon className={classes.icon} />
-                </Button>
-
-                {extraMenuOpen && (
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={extraMenuOpen}
-                    onClose={() => setExtraMenuOpen(false)}
-                    PaperProps={{
-                      className: classes.scrollbar,
-                      style: {
-                        marginLeft: "365px",
-                        borderRadius: "5px",
-                        border: "1px solid",
-                        width: "250px",
-                        marginTop: "-320px",
-                        height: "200px",
-                        overflow: "auto",
-                      },
-                    }}
-                  >
-                    {selectedLocation === "Mangalore" && (
-                      <div>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("Knight Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("Knight Bite")}
-                          />
-                          Knight Bite
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("Pancake Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("Pancake Bite")}
-                          />
-                          Pancake Bite
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("cake Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("cake Bite")}
-                          />
-                          Cake Bite
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("Some Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("Some Bite")}
-                          />
-                          Some Bite
-                        </MenuItem>
-                      </div>
-                    )}
-                    {selectedLocation === "Bangalore" && (
-                      <div>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("Chicken Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("Chicken Bite")}
-                          />
-                          Chicken Bite
-                        </MenuItem>
-                        <MenuItem
-                          onClick={() => handleOptionSelect("Masala Bite")}
-                        >
-                          <Checkbox
-                            checked={selectedOptions.includes("Masala Bite")}
-                          />
-                          Masala Bite
-                        </MenuItem>
-                      </div>
-                    )}
-                  </Menu>
-                )}
+{selectedLocation.length > 0 && (
+  <div style={{ marginTop: '100px' }}>
+    {selectedLocation.map((location) => (
+      <div style={{marginLeft:'10px'}}><b>{location}</b>
+      <div key={location} style={{ marginTop: '0px', marginLeft: '0px', display: 'flex', flexWrap: 'wrap' }}>
+        
+        {selectedOptions[location]?.map((option) => (
+          <div key={option} className={classes.selectedOption} style={{ marginTop: '10px', boxSizing: 'border-box', paddingRight: '10px' }}>
+            <div className="grid-2">
+              <div style={{ marginTop: '5px', width: 'auto' }}>
+                {option}
               </div>
-            )}
-            <div>
-              {selectedOptions.length > 0 && (
-                <div className={classes.selectedOptionsContainer}>
-                  {Array.from({
-                    length: Math.ceil(selectedOptions.length / optionsPerRow),
-                  }).map((_, rowIndex) => (
-                    <div key={rowIndex} className={classes.selectedOptionsRow}>
-                      {selectedOptions
-                        .slice(
-                          rowIndex * optionsPerRow,
-                          (rowIndex + 1) * optionsPerRow
-                        )
-                        .map((option) => (
-                          <div key={option} className={classes.selectedOption}>
-                            {option}
-                            <FontAwesomeIcon
-                              icon={faCircleXmark}
-                              style={{
-                                color: "#d11f1f",
-                                fontSize: "20px",
-                                marginLeft: "10px",
-                              }}
-                              onClick={() => handleOptionDeselect(option)}
-                            />
-                          </div>
-                        ))}
-                    </div>
-                  ))}
-                </div>
-              )}
+              <div>
+                <FontAwesomeIcon className="location-close-btn"
+                  icon={faCircleXmark}
+                  style={{
+                    // color: '#d11f1f',
+                    fontSize: '20px',
+                    marginLeft: '10px',
+                    marginTop: '3px'
+                  }}
+                  onClick={() => handleOptionDeselect(location, option)}
+                />
+              </div>
             </div>
+            
+          </div>
+          
+        ))}
+        <div style={{width:'100%',height:'1px',backgroundColor:'#aeaeae',marginTop:'10px',marginBottom:'10px'}}></div>
+      </div>
+      </div>
+    ))}
+  </div>
+)}
+
+
+
+          </div>
           </div>
         </div>
       )}

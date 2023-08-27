@@ -22,6 +22,7 @@ import CreateNewAddonGroups from "./components/Menu/CreateNewAddonGroups";
 import ManageSideBar from "./components/Manage/ManageSideBar";
 import ItemsStock from "./components/Menu/ItemsStock";
 import Orders from "./components/Orders/Orders";
+import CreateNewOrder from "./components/Orders/CreateNewOrder";
 
 const YourComponent = () => {
   const [stockTab, setStockTab] = useState("all");
@@ -135,8 +136,8 @@ const YourComponent = () => {
               </a>
               <div className="side-padding">
                 <p>Store Settings</p>
-                <div class="dropdown">
-                  <select class="dropbtn" name="languages" id="lang">
+                <div className="dropdown">
+                  <select className="dropbtn" name="languages" id="lang">
                     <option value="" disabled="">
                       Select Location
                     </option>
@@ -153,22 +154,22 @@ const YourComponent = () => {
                 <br />
                 <br />
                 <br />
-                <div class="store-set-grid-container">
-                  <div class="store-set-left">Pancake Bite</div>
-                  <div class="store-set-right">
-                    <label class="switch">
+                <div className="store-set-grid-container">
+                  <div className="store-set-left">Pancake Bite</div>
+                  <div className="store-set-right">
+                    <label className="switch">
                       <input type="checkbox"></input>
-                      <span class="slider round"></span>
+                      <span className="slider round"></span>
                     </label>
                   </div>
                 </div>
 
-                <div class="store-set-grid-container">
-                  <div class="store-set-left">Chicken Bite</div>
-                  <div class="store-set-right">
-                    <label class="switch">
+                <div className="store-set-grid-container">
+                  <div className="store-set-left">Chicken Bite</div>
+                  <div className="store-set-right">
+                    <label className="switch">
                       <input type="checkbox"></input>
-                      <span class="slider round"></span>
+                      <span className="slider round"></span>
                     </label>
                   </div>
                 </div>
@@ -266,6 +267,10 @@ const YourComponent = () => {
             />
             {/* Orders Route */}
             <Route path="/orders" element={<Orders />} />
+            <Route path="/CreateOrder" element={<CreateNewOrder />} />
+
+            
+
             {/* Manage Route */}
             <Route path="/manage" element={<ManageSideBar />} />
             <Route

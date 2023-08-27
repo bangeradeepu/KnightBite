@@ -252,6 +252,14 @@ const handleAddItem = () =>{
                     <Checkbox checked={selectedOptions.includes('Some Bite')} />
                     Some Bite
                   </MenuItem>
+                  <MenuItem onClick={() => handleOptionSelect('S Bite')}>
+                    <Checkbox checked={selectedOptions.includes('S Bite')} />
+                    S Bite
+                  </MenuItem>
+                  <MenuItem onClick={() => handleOptionSelect('o Bite')}>
+                    <Checkbox checked={selectedOptions.includes('o Bite')} />
+                    o Bite
+                  </MenuItem>
                 </div>
               )}
               {selectedLocation === 'Bangalore' && (

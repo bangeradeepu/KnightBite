@@ -311,8 +311,27 @@
       width: 50%;
       height: 70%;
       border-radius: 20px 20px 20px 20px;
-      overflow-y: auto;
     
+    }
+    .location-modal-content-inside{
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+
+    }
+    .location-modal-content-inside::-webkit-scrollbar {
+      width: 8px; /* Adjust the width of the scrollbar */
+    }
+    
+    .location-modal-content-inside::-webkit-scrollbar-track {
+      background: #e2dddd;
+      margin-top: 50px;
+
+    }
+    
+    .location-modal-content-inside::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 8px;
     }
 
     .OR-datefilter-modal {

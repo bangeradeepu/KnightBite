@@ -93,13 +93,13 @@ function Head() {
           </div>
           {/* onClick={openModal} */}
 
-          <div class="H-head-frame">
-            <div class="H-group-2">
-              <div class="open_user">
-                <div class="H-text-wrapper-4">Sabil Bakhar</div>
-                <p class="txt-grey H-text-sub">Knight Bite</p>
+          <div className="H-head-frame">
+            <div className="H-group-2">
+              <div className="open_user">
+                <div className="H-text-wrapper-4">Sabil Bakhar</div>
+                <p className="txt-grey H-text-sub">Knight Bite</p>
               </div>
-              <div class="H-user">
+              <div className="H-user">
                 <svg
                   width="40"
                   height="40"
@@ -117,7 +117,7 @@ function Head() {
                   />
                 </svg>
               </div>
-              <div class="H-dropdown-content">
+              <div className="H-dropdown-content">
                 <a href="#">Profile</a>
                 <a href="#">Settings</a>
                 <a href="#">Logout</a>

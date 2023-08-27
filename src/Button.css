@@ -55,6 +55,12 @@
     opacity: 1;
 }
 .p-button:hover {opacity: 0.8}
+.location-close-btn{
+  color: #ED8382;
+}
+.location-close-btn:hover {
+  color:#d11f1f;
+}
 
 .p-outline-button{
     position: relative;
