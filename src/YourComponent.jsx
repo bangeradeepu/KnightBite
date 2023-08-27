@@ -22,6 +22,7 @@ import CreateNewAddonGroups from "./components/Menu/CreateNewAddonGroups";
 import ManageSideBar from "./components/Manage/ManageSideBar";
 import ItemsStock from "./components/Menu/ItemsStock";
 import Orders from "./components/Orders/Orders";
+import CreateNewOrder from "./components/Orders/CreateNewOrder";
 
 const YourComponent = () => {
   const [stockTab, setStockTab] = useState("all");
@@ -135,8 +136,8 @@ const YourComponent = () => {
               </a>
               <div className="side-padding">
                 <p>Store Settings</p>
-                <div class="dropdown">
-                  <select class="dropbtn" name="languages" id="lang">
+                <div className="dropdown">
+                  <select className="dropbtn" name="languages" id="lang">
                     <option value="" disabled="">
                       Select Location
                     </option>
@@ -153,22 +154,22 @@ const YourComponent = () => {
                 <br />
                 <br />
                 <br />
-                <div class="store-set-grid-container">
-                  <div class="store-set-left">Pancake Bite</div>
-                  <div class="store-set-right">
-                    <label class="switch">
+                <div className="store-set-grid-container">
+                  <div className="store-set-left">Pancake Bite</div>
+                  <div className="store-set-right">
+                    <label className="switch">
                       <input type="checkbox"></input>
-                      <span class="slider round"></span>
+                      <span className="slider round"></span>
                     </label>
                   </div>
                 </div>
 
-                <div class="store-set-grid-container">
-                  <div class="store-set-left">Chicken Bite</div>
-                  <div class="store-set-right">
-                    <label class="switch">
+                <div className="store-set-grid-container">
+                  <div className="store-set-left">Chicken Bite</div>
+                  <div className="store-set-right">
+                    <label className="switch">
                       <input type="checkbox"></input>
-                      <span class="slider round"></span>
+                      <span className="slider round"></span>
                     </label>
                   </div>
                 </div>
@@ -266,6 +267,10 @@ const YourComponent = () => {
             />
             {/* Orders Route */}
             <Route path="/orders" element={<Orders />} />
+            <Route path="/CreateOrder" element={<CreateNewOrder />} />
+
+            
+
             {/* Manage Route */}
             <Route path="/manage" element={<ManageSideBar />} />
             <Route
@@ -291,7 +296,19 @@ const YourComponent = () => {
           <div className="Stock-modal-content">
             <div className="Stock-top-fix">
               <p className="Stock-create-header txt-black">Stock Control</p>
-              <div className="filter-buttons-container">
+              <div style={{marginLeft:'0px', marginTop:'52px', position:'absolute'}}>
+
+              <i className='search-icon-s' style={{paddingTop:'3%', paddingBottom:'3.2%'}}><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
+                  <input className="input-field-s" placeholder='Search Items' />
+              </div>
+              <div style={{marginLeft:'350px', marginTop:'52px', position:'absolute'}}>
+
+              <i className='search-icon-s' style={{paddingTop:'3%', paddingBottom:'3.2%'}}><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
+                  <input className="input-field-s" placeholder='Search Category' />
+              </div>
+              
+              <div className="stock-control-filter-buttons-container">
+              
               <button
           className={stockTab === 'all' ? "active-filter" : "filter-button"}
           onClick={() => handleStock('all')}

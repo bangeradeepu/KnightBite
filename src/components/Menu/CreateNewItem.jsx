@@ -92,7 +92,7 @@ function CreateNewItem() {
       <div className="box-create-item">
         <div className="group-wrapper">
           <div className="CI-add-multi-item">
-            <div className="filter-buttons-container">
+            <div className="add-items-filter-buttons-container">
               <button
                 className={
                   activeTab === "Single" ? "active-filter" : "filter-button"
@@ -390,8 +390,8 @@ function CreateNewItem() {
                   <button className="add-item-button">Add Item</button>
                 </div>
                 <h1 className="h-1">Preview</h1>
-                <div className="text-wrapper-17">Tags</div>
 
+                <div className="text-wrapper-17">Tags</div>
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>
@@ -758,7 +758,6 @@ function CreateNewItem() {
                 </div>
                 <h1 className="h-1">Preview</h1>
                 <div className="text-wrapper-17">Tags</div>
-
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>
@@ -1124,8 +1123,8 @@ function CreateNewItem() {
                   <button className="add-item-button">Add Item</button>
                 </div>
                 <h1 className="h-1">Preview</h1>
-                <div className="text-wrapper-17">Tags</div>
 
+                <div className="text-wrapper-17">Tags</div>
                 <div className="text-wrapper-18">Title</div>
                 <div className="text-wrapper-19">Category</div>
                 <div className="text-wrapper-20">Zinger Burger</div>

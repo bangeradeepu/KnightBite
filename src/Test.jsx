@@ -1,131 +1,190 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { faFilter, faBars } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+const categories = [
+  "Combo",
+  "Combo meal",
+  "Ice Cream",
+  // ...other categories
+];
+
+const categoryMessages = {
+  "Combo": "hi",
+  "Combo meal": "hello",
+  "Ice Cream": "hey",
+  // Add messages for other categories
+};
+
+const CategoryLink = ({ category, isSelected, onClick }) => (
+  <div className="CO-cat-gap">
+    <Link
+      to={`/category/${category}`} // Adjust the route path as needed
+      className={`CO-cat-dec ${isSelected ? "txt-purple" : ""}`}
+      onClick={() => onClick(category)}
+    >
+      {category}
+    </Link>
+  </div>
+);
+
+const CategoryMessage = ({ message }) => (
+  <div>
+    {message && <div>{message}</div>}
+  </div>
+);
 
 function Test() {
-  const [stockTab, setStockTab] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const handleStock = (tab) => {
-    setStockTab(tab);
+  const handleCatTabChange = (category) => {
+    setSelectedCategory(category);
   };
 
   return (
     <div>
-      <div className="w3-container">
-        <h2>Tabs and Filters</h2>
-        <p>Click on the tabs and use filters below.</p>
-      </div>
-
-        <button
-          className={stockTab === 'all' ? "active-filter" : "filter-button"}
-          onClick={() => handleStock('all')}
-        >
-          All
-        </button>
-        <button
-          className={stockTab === 'inStock' ? "active-filter" : "filter-button"}
-          onClick={() => handleStock('inStock')}
-        >
-          In Stock
-        </button>
-        <button
-          className={stockTab === 'outStock' ? "active-filter" : "filter-button"}
-          onClick={() => handleStock('outStock')}
-        >
-          Out of Stock
-        </button>
-        <div className="OR-container-2-left  g-left txt-grey">
-            <p
-              className={`OR-container-2-tabs ${
-                stockTab === "In Progress" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("In Progress")}
-            >
-              In Progress
-            </p>
-            <p
-              className={`OR-container-2-tabs  ${
-                stockTab === "Ready and Packed" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("Ready and Packed")}
-            >
-              Ready and Packed
-            </p>
-            <p
-              className={`OR-container-2-tabs ${
-                stockTab === "Dispatched" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("Dispatched")}
-            >
-              Dispatched
-            </p>
-            <p
-              className={`OR-container-2-tabs  ${
-                stockTab === "Delivered Orders" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("Delivered Orders")}
-            >
-              Delivered Orders
-            </p>
-            <p
-              className={`OR-container-2-tabs  ${
-                stockTab === "Live Orders" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("Live Orders")}
-            >
-              Live Orders
-            </p>
-            <p
-              className={`OR-container-2-tabs ${
-                stockTab === "Cancelled Orders" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("Cancelled Orders")}
-            >
-              Cancelled Orders
-            </p>
-            <p
-              className={`OR-container-2-tabs  ${
-                stockTab === "On hold" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handleTabClick("On hold")}
-            >
-              On Hold
-            </p>
-            <div className="OR-container-2-actions">
-              <p className="OR-container-2-tabs">
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </p>
-              <p className="OR-container-2-tabs">
-                <FontAwesomeIcon icon={faFilter} />
-              </p>
-            </div>
-          </div>
-
-      {stockTab === 'all' && (
-        <div id="London">
-          {/* Content for London tab */}
-           <p>All items</p>
-        </div>
-      )}
-
-      {stockTab === 'inStock' && (
-        <div id="Paris">
-          {/* Content for Paris tab */}
-          <p>instock</p>
-        </div>
-      )}
-      {stockTab === 'outStock' && (
-        <div id="Paris">
-          {/* Content for Paris tab */}
-          <p>outstocks</p>
-        </div>
-      )}
+      {categories.map((category, index) => (
+        <CategoryLink
+          key={index}
+          category={category}
+          isSelected={selectedCategory === category}
+          onClick={handleCatTabChange}
+        />
+      ))}
+      <CategoryMessage message={categoryMessages[selectedCategory]} />
     </div>
   );
 }
 
 export default Test;
+
+// import React, { useState } from 'react';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+// import { faFilter, faBars } from "@fortawesome/free-solid-svg-icons";
+
+// function Test() {
+//   const [stockTab, setStockTab] = useState("all");
+
+//   const handleStock = (tab) => {
+//     setStockTab(tab);
+//   };
+
+//   return (
+//     <div>
+//       <div className="w3-container">
+//         <h2>Tabs and Filters</h2>
+//         <p>Click on the tabs and use filters below.</p>
+//       </div>
+
+//         <button
+//           className={stockTab === 'all' ? "active-filter" : "filter-button"}
+//           onClick={() => handleStock('all')}
+//         >
+//           All
+//         </button>
+//         <button
+//           className={stockTab === 'inStock' ? "active-filter" : "filter-button"}
+//           onClick={() => handleStock('inStock')}
+//         >
+//           In Stock
+//         </button>
+//         <button
+//           className={stockTab === 'outStock' ? "active-filter" : "filter-button"}
+//           onClick={() => handleStock('outStock')}
+//         >
+//           Out of Stock
+//         </button>
+//         <div className="OR-container-2-left  g-left txt-grey">
+//             <p
+//               className={`OR-container-2-tabs ${
+//                 stockTab === "In Progress" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("In Progress")}
+//             >
+//               In Progress
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs  ${
+//                 stockTab === "Ready and Packed" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("Ready and Packed")}
+//             >
+//               Ready and Packed
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs ${
+//                 stockTab === "Dispatched" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("Dispatched")}
+//             >
+//               Dispatched
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs  ${
+//                 stockTab === "Delivered Orders" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("Delivered Orders")}
+//             >
+//               Delivered Orders
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs  ${
+//                 stockTab === "Live Orders" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("Live Orders")}
+//             >
+//               Live Orders
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs ${
+//                 stockTab === "Cancelled Orders" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("Cancelled Orders")}
+//             >
+//               Cancelled Orders
+//             </p>
+//             <p
+//               className={`OR-container-2-tabs  ${
+//                 stockTab === "On hold" ? "txt-purple" : "txt-grey"
+//               }`}
+//               onClick={() => handleTabClick("On hold")}
+//             >
+//               On Hold
+//             </p>
+//             <div className="OR-container-2-actions">
+//               <p className="OR-container-2-tabs">
+//                 <FontAwesomeIcon icon={faMagnifyingGlass} />
+//               </p>
+//               <p className="OR-container-2-tabs">
+//                 <FontAwesomeIcon icon={faFilter} />
+//               </p>
+//             </div>
+//           </div>
+
+//       {stockTab === 'all' && (
+//         <div id="London">
+//           {/* Content for London tab */}
+//            <p>All items</p>
+//         </div>
+//       )}
+
+//       {stockTab === 'inStock' && (
+//         <div id="Paris">
+//           {/* Content for Paris tab */}
+//           <p>instock</p>
+//         </div>
+//       )}
+//       {stockTab === 'outStock' && (
+//         <div id="Paris">
+//           {/* Content for Paris tab */}
+//           <p>outstocks</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default Test;
 
 
 // import * as React from 'react';
