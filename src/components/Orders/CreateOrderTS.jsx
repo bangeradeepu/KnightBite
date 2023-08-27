@@ -2,7 +2,7 @@ import React from 'react'
 
 const CreateOrderTS = () => {
   return (
-    <div>CreateOrderTS</div>
+    <div>CreateOrderTS-1</div>
   )
 }
 
