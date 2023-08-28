@@ -14,9 +14,18 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Checkbox from '@mui/material/Checkbox'
 
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import CloseIcon from '@mui/icons-material/Close'
+// import {
+//   handleSelectAll,
+//   handleLocationSelect,
+//   handleClick,
+//   handleClose,
+//   availableSubcomponents,
+//   handleExtraMenuOpen,
+//   handleExtraMenuClose,
+//   handleOptionSelect,
+//   generateLocationLabel,
+//   handleOptionDeselect,
+// } from '../../useLocation';
 
 import {
   faFilter,
@@ -31,6 +40,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 
 import "./Orders.css";
 
+// Filter
 const useStyles = makeStyles({
   root: {},
   icon: {},
@@ -93,11 +103,6 @@ const availableSubcomponents = {
     Mysore: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
     Madikeri: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
     Goa: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-
-
-
-
-
 
   } 
 const Orders = () => {
@@ -300,6 +305,7 @@ React.useEffect(() => {
 
   return (
     <div>
+      
       <div className="order-page">
         <div className="OR-container-1 grid-2">
           <div className="OR-container-1-left g-left">
@@ -611,8 +617,8 @@ React.useEffect(() => {
       {activeTab === "New" && (
         <div className="OR-content-position">
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -758,8 +764,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -905,8 +911,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1052,8 +1058,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1199,8 +1205,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1364,8 +1370,8 @@ React.useEffect(() => {
        {pickupTab === "PA-New" &&(
         <div className="OR-content-position">
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1511,8 +1517,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1658,8 +1664,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1805,8 +1811,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -1952,8 +1958,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -2117,8 +2123,8 @@ React.useEffect(() => {
        {tableTab === "TB-New" &&(
         <div className="OR-content-position">
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -2264,8 +2270,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -2411,8 +2417,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -2558,8 +2564,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img
@@ -2705,8 +2711,8 @@ React.useEffect(() => {
             </div>
           </div>
           <div className="OR-content">
-            <div class="OR-info">
-              <div class="txt-black OR-info-1-spacing">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
                 <div style={{ display: "flex", gap: "10px" }}>
                   <div className="OR-g1-logo-back bg-orange">
                     <img

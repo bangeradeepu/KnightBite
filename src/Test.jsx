@@ -1,61 +1,114 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
-const categories = [
-  "Combo",
-  "Combo meal",
-  "Ice Cream",
-  // ...other categories
-];
+const VirtualKeyboard = ({ onKeyPress }) => {
+  const keyboardKeys = [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
+    'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
+    'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace'
+  ];
 
-const categoryMessages = {
-  "Combo": "hi",
-  "Combo meal": "hello",
-  "Ice Cream": "hey",
-  // Add messages for other categories
+  return (
+    <div className="virtual-keyboard">
+      {keyboardKeys.map((key) => (
+        <button
+          key={key}
+          className={`keyboard-key ${key === 'Backspace' ? 'backspace' : ''}`}
+          onClick={() => onKeyPress(key)}
+        >
+          {key}
+        </button>
+      ))}
+    </div>
+  );
 };
 
-const CategoryLink = ({ category, isSelected, onClick }) => (
-  <div className="CO-cat-gap">
-    <Link
-      to={`/category/${category}`} // Adjust the route path as needed
-      className={`CO-cat-dec ${isSelected ? "txt-purple" : ""}`}
-      onClick={() => onClick(category)}
-    >
-      {category}
-    </Link>
-  </div>
-);
-
-const CategoryMessage = ({ message }) => (
-  <div>
-    {message && <div>{message}</div>}
-  </div>
-);
-
 function Test() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [inputValue, setInputValue] = useState('');
 
-  const handleCatTabChange = (category) => {
-    setSelectedCategory(category);
+  const handleKeyPress = (key) => {
+    if (key === 'Backspace') {
+      setInputValue(inputValue.slice(0, -1));
+    } else {
+      setInputValue(inputValue + key);
+    }
   };
 
   return (
-    <div>
-      {categories.map((category, index) => (
-        <CategoryLink
-          key={index}
-          category={category}
-          isSelected={selectedCategory === category}
-          onClick={handleCatTabChange}
-        />
-      ))}
-      <CategoryMessage message={categoryMessages[selectedCategory]} />
+    <div className="Test">
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <VirtualKeyboard onKeyPress={handleKeyPress} />
     </div>
   );
 }
 
 export default Test;
+
+
+
+
+// import React, { useState } from "react";
+// import { Link } from "react-router-dom";
+
+// const categories = [
+//   "Combo",
+//   "Combo meal",
+//   "Ice Cream",
+//   // ...other categories
+// ];
+
+// const categoryMessages = {
+//   "Combo": "hi",
+//   "Combo meal": "hello",
+//   "Ice Cream": "hey",
+//   // Add messages for other categories
+// };
+
+// const CategoryLink = ({ category, isSelected, onClick }) => (
+//   <div className="CO-cat-gap">
+//     <Link
+//       to={`/category/${category}`} // Adjust the route path as needed
+//       className={`CO-cat-dec ${isSelected ? "txt-purple" : ""}`}
+//       onClick={() => onClick(category)}
+//     >
+//       {category}
+//     </Link>
+//   </div>
+// );
+
+// const CategoryMessage = ({ message }) => (
+//   <div>
+//     {message && <div>{message}</div>}
+//   </div>
+// );
+
+// function Test() {
+//   const [selectedCategory, setSelectedCategory] = useState(null);
+
+//   const handleCatTabChange = (category) => {
+//     setSelectedCategory(category);
+//   };
+
+//   return (
+//     <div>
+//       {categories.map((category, index) => (
+//         <CategoryLink
+//           key={index}
+//           category={category}
+//           isSelected={selectedCategory === category}
+//           onClick={handleCatTabChange}
+//         />
+//       ))}
+//       <CategoryMessage message={categoryMessages[selectedCategory]} />
+//     </div>
+//   );
+// }
+
+// export default Test;
 
 // import React, { useState } from 'react';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

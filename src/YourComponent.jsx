@@ -23,6 +23,7 @@ import ManageSideBar from "./components/Manage/ManageSideBar";
 import ItemsStock from "./components/Menu/ItemsStock";
 import Orders from "./components/Orders/Orders";
 import CreateNewOrder from "./components/Orders/CreateNewOrder";
+import CreateOrderTS from "./components/Orders/CreateOrderTS";
 
 const YourComponent = () => {
   const [stockTab, setStockTab] = useState("all");
@@ -127,13 +128,12 @@ const YourComponent = () => {
               className="SO-sidenav"
               style={{ right: sideNavRight }}
             >
-              <a
-                href="javascript:void(0)"
+              <Link
                 className="SO-closebtn"
                 onClick={closeNav}
               >
                 <FontAwesomeIcon icon={faXmark} />
-              </a>
+              </Link>
               <div className="side-padding">
                 <p>Store Settings</p>
                 <div className="dropdown">
@@ -269,7 +269,8 @@ const YourComponent = () => {
             <Route path="/orders" element={<Orders />} />
             <Route path="/CreateOrder" element={<CreateNewOrder />} />
 
-            
+            <Route path="/touchScreen" element={<CreateOrderTS />} />
+
 
             {/* Manage Route */}
             <Route path="/manage" element={<ManageSideBar />} />

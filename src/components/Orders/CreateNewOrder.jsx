@@ -82,6 +82,11 @@ const CreateNewOrder = () => {
   const closeSubmit = () => {
     setSubmitVisible(false);
   };
+    // Open Touch Screen
+    const navigate = useNavigate();
+    const openTouchScreen = () =>{
+      navigate("/touchScreen");
+    };
   return (
     <div>
       <div className="CO-page">
@@ -137,7 +142,7 @@ const CreateNewOrder = () => {
               >
                 <FontAwesomeIcon icon={faLocationDot} /> Location
               </button>
-              <button className="CO-b-button" style={{ marginRight: "40px" }}>
+              <button className="CO-b-button" style={{ marginRight: "40px" }} onClick={openTouchScreen}>
                 Touch screen mode
               </button>
             </div>
