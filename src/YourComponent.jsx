@@ -360,7 +360,8 @@ const YourComponent = () => {
             <br />
             {stockTab === 'all' && (
             <div className="Stock-content-layer">
-              
+                            <div className="Stock-modal-content-layer-1">
+
              
               {/* <div className="Stock-content-card grid-2">
                 <div className="">Chicken burger</div>
@@ -682,12 +683,12 @@ const YourComponent = () => {
                 </div>
                 
               </div>
-              
+              </div>
             </div>
             )}
             {stockTab === 'inStock' && (
-            <div className="Stock-content-layer">
-              
+            <div className="Stock-content-layer" >
+              <div className="Stock-modal-content-layer-1">
              
               {/* <div className="Stock-content-card grid-2">
                 <div className="">Chicken burger</div>
@@ -748,9 +749,9 @@ const YourComponent = () => {
               </div> */}
 
               <div className="IS-content-group">
-                <div className="IS-i-frame">
-                  <div className="IS-overlap-6">
-                    <div className="IS-item-name-container">
+                <div className="IS-i-frame " >
+                  <div className="IS-overlap-6 " >
+                    <div className="IS-item-name-container ">
                       <p className="txt-black IS-item-name-spacing">
                         Chicken burger instock
                       </p>
@@ -785,10 +786,12 @@ const YourComponent = () => {
                 </div>
               </div>
             </div>
+            </div>
             )}
             {stockTab === 'outStock' && (
             <div className="Stock-content-layer">
-              
+                            <div className="Stock-modal-content-layer-1">
+
              
               {/* <div className="Stock-content-card grid-2">
                 <div className="">Chicken burger</div>
@@ -885,6 +888,7 @@ const YourComponent = () => {
                   <br />
                 </div>
               </div>
+            </div>
             </div>
             )}
             

@@ -230,10 +230,29 @@ body {
   width: 90%;
   height: 80%;
   border-radius: 20px 20px 20px 20px;
+  /* overflow-y: auto; */
+
+}
+.Stock-modal-content-layer-1{
   overflow-y: auto;
+  width: 100%;
+  height: 400px;
+}
+.Stock-modal-content-layer-1::-webkit-scrollbar {
+  width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.Stock-modal-content-layer-1::-webkit-scrollbar-track {
+  background: #e2dddd;
+  margin-top: 20px;
+
 
 }
 
+.Stock-modal-content-layer-1::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 8px;
+}
 .Stock-modal-close {
   color: #aaa;
   float: right;

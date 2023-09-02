@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import React from "react";
 
 import { Icon } from "@iconify/react";
@@ -35,10 +35,12 @@ import {
   faLocationDot,
   faChevronDown,
   faMapLocationDot,
+  faCircleInfo,
 } from "@fortawesome/free-solid-svg-icons";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 
 import "./Orders.css";
+import zIndex from "@mui/material/styles/zIndex";
 
 // Filter
 const useStyles = makeStyles({
@@ -113,29 +115,37 @@ const Orders = () => {
   };
   
   // order type
-  const [orderTypeTab, setorderTypeTab] = useState("onlineOrder");
+  const [orderTypeTab, setorderTypeTab] = useState("all");
   const orderTabClick = (tabName) => {
     setorderTypeTab(tabName);
   };
+ // All tab change
+ const [allTab, setAllTab] = useState("ALL-Live Orders");
+ const handleAllClick = (tabName) => {
+  setAllTab(tabName);
+ };
 
 
   // online tab change
-  const [activeTab, setActiveTab] = useState("New");
+  const [activeTab, setActiveTab] = useState("Live Orders");
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
+  
 
   // Pickup tab change
-  const [pickupTab, setPickupTab] = useState("PA-New");
+  const [pickupTab, setPickupTab] = useState("PA-Live Orders");
   const handlePikupClick = (tabName) => {
     setPickupTab(tabName);
   };
+  
 
   // table tab change
   const [tableTab, setTableTab] = useState("TB-New");
   const handleTableClick = (tabName) => {
     setTableTab(tabName);
   };
+
 
   // Open location
   const [locationVisible, setLocationVisible] = useState(false);
@@ -174,14 +184,34 @@ const Orders = () => {
   const [selectedLocation, setSelectedLocation] = React.useState([]);
   const [selectedOptions, setSelectedOptions] = React.useState({});
   const [extraMenusOpen, setExtraMenusOpen] = React.useState({});
+  const [popupDropdownOpen, setPopupDropdownOpen] = useState(false);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  setPopupDropdownOpen(true);
+  setAnchorEl(event.currentTarget);
+};
 
-  const handleClose = () => {
-    setAnchorEl(null);
+const handleClose = () => {
+  setPopupDropdownOpen(false);
+  setAnchorEl(null);
+};
+
+
+useEffect(() => {
+  // Disable main scroll when the popup dropdown is open
+  if (popupDropdownOpen) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto'; // Enable main scroll when the popup dropdown is closed
+  }
+
+  // Clean up the effect
+  return () => {
+    document.body.style.overflow = 'auto'; // Make sure to reset the scroll behavior when the component unmounts
   };
+}, [popupDropdownOpen]);
+
+ 
 
    const handleLocationSelect = (location) => {
   if (location === 'Select All') {
@@ -304,19 +334,6 @@ React.useEffect(() => {
 }, [selectedOptions]);
 
 
- const [anchorEl, setAnchorEl] = useState(null);
-  const [mainScrollEnabled, setMainScrollEnabled] = useState(true); // State to control main scroll
-
-  const handleOpen = (event) => {
-    setMainScrollEnabled(false); // Disable main scroll
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setMainScrollEnabled(true); // Enable main scroll
-    setAnchorEl(null);
-  };
-
   return (
     <div>
       
@@ -324,131 +341,224 @@ React.useEffect(() => {
         <div className="OR-container-1 grid-2">
           <div className="OR-container-1-left g-left">
             <div style={{ display: "flex", gap: "20px" }}>
-              <button className="p-outline-button" onClick={openLocation}>
+              <button className="p-outline-button" onClick={openLocation} >
                 <FontAwesomeIcon icon={faLocationDot} /> Location
               </button>
               <select
                 className="OR-droptype"
-                style={{}}
+                style={{width:'18%'}}
                 name="languages"
                 id="lang"
                 onChange={(e) => orderTabClick(e.target.value)}
               >
-                <option value="onlineOrder" selected>
-                  Online
+                <option value="all" selected>
+                  All
                 </option>
-                {/* <option value="onlineOrder">Online</option> */}
-                <option value="pickup">Pickup</option>
-                <option value="tableOrder">Table</option>
+                <option value="onlineOrder">
+                  Home Delivery
+                </option>
+                <option value="pickup">Pickup Order</option>
+                <option value="tableOrder">Table Order</option>
                 
               </select>
-              <button className="p-outline-button" onClick={openDateFilter}>
+            </div>
+            {/* onClick={openDateFilter} */}
+        <div className="OR-h-modal">
+              <button className="p-outline-button" >
                 <FontAwesomeIcon icon={faCalendarDays} /> Date filter
               </button>
-            </div>
+              <div className="OR-h-modal-open">
+              {/* Date filter modal */}
+              <div
+                className="OR-datefilter-modal OR-datefilter-modal-open"
+                
+              >
+                <div className="OR-datefilter-modal-content">
+                  <div className="grid-2">
+                    <p className="">Date Filter</p>
+                    
+                  </div>
+                  <div className="grid-2">
+                  <div
+                    class="radio-container"
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="date-group"
+                        value="today"
+                        onClick={closeSelectCustom}
+                      />
+                      Today
+                    </label>
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="date-group"
+                        value="yesterday"
+                        onClick={closeSelectCustom}
+                      />
+                      Yesterday
+                    </label>
+                    <label className="radio">
+                      <input
+                        type="radio"
+                        name="date-group"
+                        value="last-7-days"
+                        onClick={closeSelectCustom}
+                      />
+                      Last 7 Days
+                    </label>
+                    <label className="radio custom-radio">
+                      <input
+                        type="radio"
+                        name="date-group"
+                        value="custom"
+                        onClick={openSelectCustom}
+                      />
+                      Custom
+                    </label>
+                    <button className="OR-datefilter-btn" style={{marginTop:'100px', marginLeft:'10px'}}>Submit</button>
+                  </div>
+
+
+                
+                  <div className="date-input-container">
+                  {selectCutsomVisible && (
+                    <>
+                    <div style={{display:'flex', alignItems:'center', gap:'60px'}}>
+                      <div>
+                    <p style={{fontSize:'12px'}}>From date </p>
+                      <input type="date" name="fromDate" id="" className="styled-input" />
+                      </div>
+                      <div>
+                      <p style={{fontSize:'12px'}}>To date </p>
+                      <input type="date" name="Date" id="" className="styled-input" />
+                      </div>
+                    
+                    </div>
+                    </>
+                  )}
+                  </div>
+                  </div>
+                  
+                </div>
+              </div>  
+              
+              </div>
+              </div>
+              
           </div>
           <div className="OR-container-1-right g-right">
-            <div className="OR-container-1-status">
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="6" cy="6" r="6" fill="#B8D9C6" />
-                <circle cx="6" cy="6" r="2" fill="#239258" />
-              </svg>{" "}
-              Live Orders <b>20</b>
-            </div>
-            <div className="OR-container-1-status">
-              <FontAwesomeIcon icon={faCircleCheck} className="txt-green" />{" "}
-              Delivered Orders <b>20</b>
-            </div>
-            <div className="OR-container-1-status">
-              <FontAwesomeIcon icon={faCircleXmark} className="txt-red" />{" "}
-              Canceled orders <b>20</b>
-            </div>
-          </div>
+          <button className="p-button bg-purple OR-container-2-buttons" onClick={CreateOrder}>
+                Create Order <FontAwesomeIcon icon={faCirclePlus} />
+              </button>
+              <button className="p-outline-button OR-container-2-buttons">
+                <FontAwesomeIcon icon={faBars} /> Bulk action
+              </button>
+          
         </div>
+          
+        </div>
+        
         {/* container 2 */}
-        {/* Online order */}
-        {orderTypeTab === "onlineOrder" && (
+        {/* All order */}
+        {orderTypeTab === "all" && (
+          <div>
           <div className="OR-container-2 grid-2">
-            <div className="OR-container-2-left  g-left txt-grey">
-              <Link
+            <div className="OR-container-2-left  g-left txt-grey f-14">
+            <Link
                 className={`OR-container-2-tabs ${
-                  activeTab === "New" ? "txt-purple" : "txt-grey"
+                  allTab === "ALL-Live Orders" ? "txt-purple" : "txt-grey"
                 }`}
-                onClick={() => handleTabClick("New")}
+                onClick={() => handleAllClick("ALL-Live Orders")}
               >
-                New
-              </Link>
-              <Link
-                className={`OR-container-2-tabs ${
-                  activeTab === "In Progress" ? "txt-purple" : "txt-grey"
-                }`}
-                onClick={() => handleTabClick("In Progress")}
-              >
-                In Progress
-              </Link>
-              <Link
-                className={`OR-container-2-tabs  ${
-                  activeTab === "Ready" ? "txt-purple" : "txt-grey"
-                }`}
-                onClick={() => handleTabClick("Ready")}
-              >
-                Ready
-              </Link>
-              <Link
-                className={`OR-container-2-tabs  ${
-                  activeTab === "Packed" ? "txt-purple" : "txt-grey"
-                }`}
-                onClick={() => handleTabClick("Packed")}
-              >
-                Packed
+                Live Orders <span className="t-tip"> <FontAwesomeIcon icon={faCircleInfo} /> 
+                <div class="t-tip-text f-12" style={{zIndex:'100'}}>
+                                  Includes: New, In progress, Ready, Packed and Dispatched.
+                                </div>
+                                </span> <span className="txt-red">(5)</span>
               </Link>
               <Link
                 className={`OR-container-2-tabs ${
-                  activeTab === "Dispatched" ? "txt-purple" : "txt-grey"
+                  allTab === "ALL-New" ? "txt-purple" : "txt-grey"
                 }`}
-                onClick={() => handleTabClick("Dispatched")}
+                onClick={() => handleAllClick("ALL-New")}
               >
-                Dispatched
-              </Link>
-              <Link
-                className={`OR-container-2-tabs  ${
-                  activeTab === "Delivered Orders" ? "txt-purple" : "txt-grey"
-                }`}
-                onClick={() => handleTabClick("Delivered Orders")}
-              >
-                Delivered Orders
-              </Link>
-              <Link
-                className={`OR-container-2-tabs  ${
-                  activeTab === "Live Orders" ? "txt-purple" : "txt-grey"
-                }`}
-                onClick={() => handleTabClick("Live Orders")}
-              >
-                Live Orders
+                New <span className="txt-red">(5)</span>
               </Link>
               <Link
                 className={`OR-container-2-tabs ${
-                  activeTab === "Cancelled Orders" ? "txt-purple" : "txt-grey"
+                  allTab === "ALL-In Progress" ? "txt-purple" : "txt-grey"
                 }`}
-                onClick={() => handleTabClick("Cancelled Orders")}
+                onClick={() => handleAllClick("ALL-In Progress")}
               >
-                Cancelled Orders
+                In Progress <span className="txt-red">(5)</span>
               </Link>
               <Link
                 className={`OR-container-2-tabs  ${
-                  activeTab === "On hold" ? "txt-purple" : "txt-grey"
+                  allTab === "ALL-Ready" ? "txt-purple" : "txt-grey"
                 }`}
-                onClick={() => handleTabClick("On hold")}
+                onClick={() => handleAllClick("ALL-Ready")}
               >
-                On Hold
+                Ready <span className="txt-red">(5)</span>
               </Link>
-              <div className="OR-container-2-actions">
+              <Link
+                className={`OR-container-2-tabs  ${
+                  allTab === "ALL-Packed" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-Packed")}
+              >
+                Packed <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs ${
+                  allTab === "ALL-Dispatched" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-Dispatched")}
+              >
+                Dispatched <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  allTab === "ALL-Delivered Orders" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-Delivered Orders")}
+              >
+                Delivered Orders <span className="txt-red">(5)</span>
+              </Link>
+              
+              <Link
+                className={`OR-container-2-tabs ${
+                  allTab === "ALL-Cancelled Orders" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-Cancelled Orders")}
+              >
+                Cancelled Orders <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  allTab === "ALL-On hold" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-On hold")}
+              >
+                On Hold <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  allTab === "ALL-On hold" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleAllClick("ALL-On hold")}
+              >
+                On Hold <span className="txt-red">(5)</span>
+              </Link>
+              
+             
+            </div>
+            <div className="OR-container-2-right txt-grey g-right f-14">
+               
+            <div className="OR-container-2-actions">
                 <p className="OR-container-2-tabs">
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </p>
@@ -457,28 +567,128 @@ React.useEffect(() => {
                 </p>
               </div>
             </div>
-            <div className="OR-container-2-left g-right">
-              <button className="p-button bg-purple OR-container-2-buttons" onClick={CreateOrder}>
-                Create Order <FontAwesomeIcon icon={faCirclePlus} />
-              </button>
-              <button className="p-outline-button OR-container-2-buttons">
-                <FontAwesomeIcon icon={faBars} /> Bulk action
-              </button>
-              <p className="OR-container-2-buttons">View all</p>
+          </div>
+          
+          </div>
+        )}
+        {/* Online order */}
+        {orderTypeTab === "onlineOrder" && (
+          <div className="OR-container-2 grid-2">
+            <div className="OR-container-2-left  g-left txt-grey f-14">
+            <Link
+                className={`OR-container-2-tabs  ${
+                  activeTab === "Live Orders" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Live Orders")}
+              >
+                Live Orders <span className="t-tip"> <FontAwesomeIcon icon={faCircleInfo} /> 
+                <div class="t-tip-text f-12" style={{zIndex:'100'}}>
+                                  Includes: New, In progress, Ready, Packed and Dispatched.
+                                </div>
+                                </span> <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs ${
+                  activeTab === "New" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("New")}
+              >
+                New <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs ${
+                  activeTab === "In Progress" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("In Progress")}
+              >
+                In Progress <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  activeTab === "Ready" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Ready")}
+              >
+                Ready <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  activeTab === "Packed" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Packed")}
+              >
+                Packed <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs ${
+                  activeTab === "Dispatched" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Dispatched")}
+              >
+                Dispatched <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  activeTab === "Delivered Orders" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Delivered Orders")}
+              >
+                Delivered Orders <span className="txt-red">(5)</span>
+              </Link>
+              
+              <Link
+                className={`OR-container-2-tabs ${
+                  activeTab === "Cancelled Orders" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("Cancelled Orders")}
+              >
+                Cancelled Orders <span className="txt-red">(5)</span>
+              </Link>
+              <Link
+                className={`OR-container-2-tabs  ${
+                  activeTab === "On hold" ? "txt-purple" : "txt-grey"
+                }`}
+                onClick={() => handleTabClick("On hold")}
+              >
+                On Hold <span className="txt-red">(5)</span>
+              </Link>
+              
+            </div>
+            <div className="OR-container-2-left txt-grey f-14 g-right">
+            <div className="OR-container-2-actions">
+                <p className="OR-container-2-tabs">
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </p>
+                <p className="OR-container-2-tabs">
+                  <FontAwesomeIcon icon={faFilter} />
+                </p>
+              </div>
             </div>
           </div>
         )}
         {/* Pickup Order */}
         {orderTypeTab === "pickup" && (
           <div className="OR-container-2 grid-2">
-          <div className="OR-container-2-left  g-left txt-grey">
+          <div className="OR-container-2-left  g-left txt-grey f-14">
+          <Link
+              className={`OR-container-2-tabs  ${
+                pickupTab === "PA-Live Orders" ? "txt-purple" : "txt-grey"
+              }`}
+              onClick={() => handlePikupClick("PA-Live Orders")}
+            >
+              Live Orders <span className="t-tip"> <FontAwesomeIcon icon={faCircleInfo} /> 
+                <div class="t-tip-text f-12" style={{zIndex:'100'}}>
+                                  Includes: New, In progress, Ready, Packed and Dispatched.
+                                </div>
+                                </span> <span className="txt-red">(5)</span>
+            </Link>
             <Link
               className={`OR-container-2-tabs ${
                 pickupTab === "PA-New" ? "txt-purple" : "txt-grey"
               }`}
               onClick={() => handlePikupClick("PA-New")}
             >
-              New
+              New <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs ${
@@ -486,7 +696,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handlePikupClick("PA-In Progress")}
             >
-              In Progress
+              In Progress <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -494,7 +704,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handlePikupClick("PA-Ready")}
             >
-              Ready
+              Ready <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -502,7 +712,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handlePikupClick("PA-Packed")}
             >
-              Packed
+              Packed <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -510,23 +720,16 @@ React.useEffect(() => {
               }`}
               onClick={() => handlePikupClick("PA-Delivered Orders")}
             >
-              Delivered Orders
+              Delivered Orders <span className="txt-red">(5)</span>
             </Link>
-            <Link
-              className={`OR-container-2-tabs  ${
-                pickupTab === "PA-Live Orders" ? "txt-purple" : "txt-grey"
-              }`}
-              onClick={() => handlePikupClick("PA-Live Orders")}
-            >
-              Live Orders
-            </Link>
+            
             <Link
               className={`OR-container-2-tabs ${
                 pickupTab === "PA-Cancelled Orders" ? "txt-purple" : "txt-grey"
               }`}
               onClick={() => handlePikupClick("PA-Cancelled Orders")}
             >
-              Cancelled Orders
+              Cancelled Orders <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -534,9 +737,11 @@ React.useEffect(() => {
               }`}
               onClick={() => handlePikupClick("PA-On hold")}
             >
-              On Hold
+              On Hold <span className="txt-red">(5)</span>
             </Link>
-            <div className="OR-container-2-actions">
+          </div>
+          <div className="OR-container-2-left g-right f-14 txt-grey">
+          <div className="OR-container-2-actions">
               <p className="OR-container-2-tabs">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </p>
@@ -545,28 +750,19 @@ React.useEffect(() => {
               </p>
             </div>
           </div>
-          <div className="OR-container-2-left g-right">
-            <button className="p-button bg-purple OR-container-2-buttons">
-              Create Order <FontAwesomeIcon icon={faCirclePlus} onClick={CreateOrder} />
-            </button>
-            <button className="p-outline-button OR-container-2-buttons">
-              <FontAwesomeIcon icon={faBars} /> Bulk action
-            </button>
-            <p className="OR-container-2-buttons">View all</p>
-          </div>
         </div>
         )}
         {/* Table order */}
         {orderTypeTab === "tableOrder" && (
           <div className="OR-container-2 grid-2">
-          <div className="OR-container-2-left  g-left txt-grey">
+          <div className="OR-container-2-left  g-left txt-grey f-14">
             <Link
               className={`OR-container-2-tabs ${
                 tableTab === "TB-New" ? "txt-purple" : "txt-grey"
               }`}
               onClick={() => handleTableClick("TB-New")}
             >
-              New
+              New <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs ${
@@ -574,7 +770,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handleTableClick("TB-In Progress")}
             >
-              In Progress
+              In Progress <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -582,7 +778,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handleTableClick("TB-Ready")}
             >
-              Ready
+              Ready <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs  ${
@@ -590,7 +786,7 @@ React.useEffect(() => {
               }`}
               onClick={() => handleTableClick("PA-Delivered Orders")}
             >
-              Delivered Orders
+              Delivered Orders <span className="txt-red">(5)</span>
             </Link>
             <Link
               className={`OR-container-2-tabs ${
@@ -598,9 +794,11 @@ React.useEffect(() => {
               }`}
               onClick={() => handleTableClick("TB-Cancelled Orders")}
             >
-              Cancelled Orders
+              Cancelled Orders <span className="txt-red">(5)</span>
             </Link>
-            <div className="OR-container-2-actions">
+          </div>
+          <div className="OR-container-2-left g-right txt-grey f-14">
+          <div className="OR-container-2-actions">
               <p className="OR-container-2-tabs">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
               </p>
@@ -609,21 +807,781 @@ React.useEffect(() => {
               </p>
             </div>
           </div>
-          <div className="OR-container-2-left g-right">
-            <button className="p-button bg-purple OR-container-2-buttons">
-              Create Order <FontAwesomeIcon icon={faCirclePlus} onClick={CreateOrder} />
-            </button>
-            <button className="p-outline-button OR-container-2-buttons">
-              <FontAwesomeIcon icon={faBars} /> Bulk action
-            </button>
-            <p className="OR-container-2-buttons">View all</p>
-          </div>
         </div>
         )}
         
-
-
       </div>
+
+
+      {/* All order*/}
+      {orderTypeTab === "all" &&  (
+        <div>
+      {allTab === "ALL-New" && (
+        <div className="OR-content-position">
+          <div className="OR-content">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div className="OR-g1-logo-back bg-orange">
+                    <img
+                      src="kb_logo.png"
+                      alt=""
+                      width={"26px"}
+                      height={"25px"}
+                      style={{ marginLeft: "-2px" }}
+                    />
+                    <p className="OR-info-1-brand txt-orange">All-Knight Bite</p>
+                  </div>
+
+                  <div className="OR-info-1-orders bg-green">
+                    <p className="OR-info-1-order-text"> 32 Orders</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: "15px" }}>
+                  Order ID: <b>#20001</b>
+                </p>
+                <p>2:03 AM, Sunday 6th June</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <span>
+                    <FontAwesomeIcon icon={faUser} /> &nbsp;Admin
+                  </span>
+                  <Icon icon="mdi:printer" width={"20px"} />
+                </div>
+              </div>
+
+              <p className="OR-info-line"></p>
+              <div className="OR-info-2-spacing">
+                <p className="txt-black OR-info-2-name">Alex</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <p className="txt-black OR-info-2-phone">8452147859</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <Icon
+                      icon="logos:whatsapp-icon"
+                      color="blue"
+                      width={"18px"}
+                    />
+                    <Icon icon="ic:sharp-call" color="blue" width={"18px"} />
+                    <Icon
+                      icon="fa6-solid:location-dot"
+                      color="#fa4d4d"
+                      width={"12px"}
+                    />
+                  </div>
+                </div>
+                <p>
+                  House/Flat No:st. agnes pg center WH5 7H3,
+                  kadri,Managluru,Karnataka, India
+                </p>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-3-spacing">
+                <p className="OR-info-3-special-request">
+                  Special Request:<b>Spicy</b>
+                </p>
+                <ol>
+                  <li>Boneless Chicken Burger</li>
+                  <li>Water</li>
+                  <li>Tandoori Chicken Burge</li>
+                  <ul>
+                    <li>
+                      Extras: <b>Cheese</b>
+                    </li>
+                  </ul>
+                  <li>Knight Zinger Chicken Burgerrrrrrrrrrrrrrrrrrrrrrrrrr</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                </ol>
+              </div>
+              <p className="OR-info-line"></p>
+
+              <div className="OR-info-4-spacing">
+                <div>
+                  <Icon icon="bxs:offer" color="#3a7cf5" width="30" />
+                  <p style={{ fontSize: "15px" }}>
+                    ₹675 <Icon icon="material-symbols:info" color="#fa4d4d" />
+                  </p>
+                  <p>Applied code</p>
+                  <p>745874521478</p>
+                </div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-5-spacing">
+                <select className="OR-dropbtn" name="languages" id="lang">
+                  <option value="" disabled selected>
+                    Choose DE
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-6-spacing">
+                <button className="OR-code-btn">C.O.D</button>
+                <div className="OR-pament-link">Send Payment link</div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-7-spacing">
+                <select
+                  className="OR-dropbtn"
+                  name="languages"
+                  id="lang"
+                  style={{
+                    textAlign: "center",
+                    width: "110px",
+                    backgroundColor: "#FEFFB6",
+                    borderColor: "#FEFFB6",
+                  }}
+                >
+                  <option value="" disabled selected>
+                    In progress
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-8-spacing">
+                <Icon icon="mdi:pencil" color="#2e2e2e" width="30" />
+              </div>
+            </div>
+          </div>
+          <div className="OR-content">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div className="OR-g1-logo-back bg-orange">
+                    <img
+                      src="kb_logo.png"
+                      alt=""
+                      width={"26px"}
+                      height={"25px"}
+                      style={{ marginLeft: "-2px" }}
+                    />
+                    <p className="OR-info-1-brand txt-orange">Knight Bite</p>
+                  </div>
+
+                  <div className="OR-info-1-orders bg-green">
+                    <p className="OR-info-1-order-text"> 32 Orders</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: "15px" }}>
+                  Order ID: <b>#20001</b>
+                </p>
+                <p>2:03 AM, Sunday 6th June</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <span>
+                    <FontAwesomeIcon icon={faUser} /> &nbsp;Admin
+                  </span>
+                  <Icon icon="mdi:printer" width={"20px"} />
+                </div>
+              </div>
+
+              <p className="OR-info-line"></p>
+              <div className="OR-info-2-spacing">
+                <p className="txt-black OR-info-2-name">Alex</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <p className="txt-black OR-info-2-phone">8452147859</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <Icon
+                      icon="logos:whatsapp-icon"
+                      color="blue"
+                      width={"18px"}
+                    />
+                    <Icon icon="ic:sharp-call" color="blue" width={"18px"} />
+                    <Icon
+                      icon="fa6-solid:location-dot"
+                      color="#fa4d4d"
+                      width={"12px"}
+                    />
+                  </div>
+                </div>
+                <p>
+                  House/Flat No:st. agnes pg center WH5 7H3,
+                  kadri,Managluru,Karnataka, India
+                </p>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-3-spacing">
+                <p className="OR-info-3-special-request">
+                  Special Request:<b>Spicy</b>
+                </p>
+                <ol>
+                  <li>Boneless Chicken Burger</li>
+                  <li>Water</li>
+                  <li>Tandoori Chicken Burge</li>
+                  <ul>
+                    <li>
+                      Extras: <b>Cheese</b>
+                    </li>
+                  </ul>
+                  <li>Knight Zinger Chicken Burgerrrrrrrrrrrrrrrrrrrrrrrrrr</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                </ol>
+              </div>
+              <p className="OR-info-line"></p>
+
+              <div className="OR-info-4-spacing">
+                <div>
+                  <Icon icon="bxs:offer" color="#3a7cf5" width="30" />
+                  <p style={{ fontSize: "15px" }}>
+                    ₹675 <Icon icon="material-symbols:info" color="#fa4d4d" />
+                  </p>
+                  <p>Applied code</p>
+                  <p>745874521478</p>
+                </div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-5-spacing">
+                <select className="OR-dropbtn" name="languages" id="lang">
+                  <option value="" disabled selected>
+                    Choose DE
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-6-spacing">
+                <button className="OR-code-btn">C.O.D</button>
+                <div className="OR-pament-link">Send Payment link</div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-7-spacing">
+                <select
+                  className="OR-dropbtn"
+                  name="languages"
+                  id="lang"
+                  style={{
+                    textAlign: "center",
+                    width: "110px",
+                    backgroundColor: "#73f596",
+                    borderColor: "#73f596",
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Dispatch
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-8-spacing">
+                <Icon icon="mdi:pencil" color="#2e2e2e" width="30" />
+              </div>
+            </div>
+          </div>
+          <div className="OR-content">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div className="OR-g1-logo-back bg-orange">
+                    <img
+                      src="kb_logo.png"
+                      alt=""
+                      width={"26px"}
+                      height={"25px"}
+                      style={{ marginLeft: "-2px" }}
+                    />
+                    <p className="OR-info-1-brand txt-orange">Knight Bite</p>
+                  </div>
+
+                  <div className="OR-info-1-orders bg-green">
+                    <p className="OR-info-1-order-text"> 32 Orders</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: "15px" }}>
+                  Order ID: <b>#20001</b>
+                </p>
+                <p>2:03 AM, Sunday 6th June</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <span>
+                    <FontAwesomeIcon icon={faUser} /> &nbsp;Admin
+                  </span>
+                  <Icon icon="mdi:printer" width={"20px"} />
+                </div>
+              </div>
+
+              <p className="OR-info-line"></p>
+              <div className="OR-info-2-spacing">
+                <p className="txt-black OR-info-2-name">Alex</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <p className="txt-black OR-info-2-phone">8452147859</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <Icon
+                      icon="logos:whatsapp-icon"
+                      color="blue"
+                      width={"18px"}
+                    />
+                    <Icon icon="ic:sharp-call" color="blue" width={"18px"} />
+                    <Icon
+                      icon="fa6-solid:location-dot"
+                      color="#fa4d4d"
+                      width={"12px"}
+                    />
+                  </div>
+                </div>
+                <p>
+                  House/Flat No:st. agnes pg center WH5 7H3,
+                  kadri,Managluru,Karnataka, India
+                </p>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-3-spacing">
+                <p className="OR-info-3-special-request">
+                  Special Request:<b>Spicy</b>
+                </p>
+                <ol>
+                  <li>Boneless Chicken Burger</li>
+                  <li>Water</li>
+                  <li>Tandoori Chicken Burge</li>
+                  <ul>
+                    <li>
+                      Extras: <b>Cheese</b>
+                    </li>
+                  </ul>
+                  <li>Knight Zinger Chicken Burgerrrrrrrrrrrrrrrrrrrrrrrrrr</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                </ol>
+              </div>
+              <p className="OR-info-line"></p>
+
+              <div className="OR-info-4-spacing">
+                <div>
+                  <Icon icon="bxs:offer" color="#3a7cf5" width="30" />
+                  <p style={{ fontSize: "15px" }}>
+                    ₹675 <Icon icon="material-symbols:info" color="#fa4d4d" />
+                  </p>
+                  <p>Applied code</p>
+                  <p>745874521478</p>
+                </div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-5-spacing">
+                <select className="OR-dropbtn" name="languages" id="lang">
+                  <option value="" disabled selected>
+                    Choose DE
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-6-spacing">
+                <button className="OR-code-btn">C.O.D</button>
+                <div className="OR-pament-link">Send Payment link</div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-7-spacing">
+                <select
+                  className="OR-dropbtn"
+                  name="languages"
+                  id="lang"
+                  style={{
+                    textAlign: "center",
+                    width: "110px",
+                    backgroundColor: "#50b66c",
+                    borderColor: "#50b66c",
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Delivered
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-8-spacing">
+                <Icon icon="mdi:pencil" color="#2e2e2e" width="30" />
+              </div>
+            </div>
+          </div>
+          <div className="OR-content">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div className="OR-g1-logo-back bg-orange">
+                    <img
+                      src="kb_logo.png"
+                      alt=""
+                      width={"26px"}
+                      height={"25px"}
+                      style={{ marginLeft: "-2px" }}
+                    />
+                    <p className="OR-info-1-brand txt-orange">Knight Bite</p>
+                  </div>
+
+                  <div className="OR-info-1-orders bg-green">
+                    <p className="OR-info-1-order-text"> 32 Orders</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: "15px" }}>
+                  Order ID: <b>#20001</b>
+                </p>
+                <p>2:03 AM, Sunday 6th June</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <span>
+                    <FontAwesomeIcon icon={faUser} /> &nbsp;Admin
+                  </span>
+                  <Icon icon="mdi:printer" width={"20px"} />
+                </div>
+              </div>
+
+              <p className="OR-info-line"></p>
+              <div className="OR-info-2-spacing">
+                <p className="txt-black OR-info-2-name">Alex</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <p className="txt-black OR-info-2-phone">8452147859</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <Icon
+                      icon="logos:whatsapp-icon"
+                      color="blue"
+                      width={"18px"}
+                    />
+                    <Icon icon="ic:sharp-call" color="blue" width={"18px"} />
+                    <Icon
+                      icon="fa6-solid:location-dot"
+                      color="#fa4d4d"
+                      width={"12px"}
+                    />
+                  </div>
+                </div>
+                <p>
+                  House/Flat No:st. agnes pg center WH5 7H3,
+                  kadri,Managluru,Karnataka, India
+                </p>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-3-spacing">
+                <p className="OR-info-3-special-request">
+                  Special Request:<b>Spicy</b>
+                </p>
+                <ol>
+                  <li>Boneless Chicken Burger</li>
+                  <li>Water</li>
+                  <li>Tandoori Chicken Burge</li>
+                  <ul>
+                    <li>
+                      Extras: <b>Cheese</b>
+                    </li>
+                  </ul>
+                  <li>Knight Zinger Chicken Burgerrrrrrrrrrrrrrrrrrrrrrrrrr</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                </ol>
+              </div>
+              <p className="OR-info-line"></p>
+
+              <div className="OR-info-4-spacing">
+                <div>
+                  <Icon icon="bxs:offer" color="#3a7cf5" width="30" />
+                  <p style={{ fontSize: "15px" }}>
+                    ₹675 <Icon icon="material-symbols:info" color="#fa4d4d" />
+                  </p>
+                  <p>Applied code</p>
+                  <p>745874521478</p>
+                </div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-5-spacing">
+                <select className="OR-dropbtn" name="languages" id="lang">
+                  <option value="" disabled selected>
+                    Choose DE
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-6-spacing">
+                <button className="OR-code-btn">C.O.D</button>
+                <div className="OR-pament-link">Send Payment link</div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-7-spacing">
+                <select
+                  className="OR-dropbtn"
+                  name="languages"
+                  id="lang"
+                  style={{
+                    textAlign: "center",
+                    width: "110px",
+                    backgroundColor: "#9dfff9",
+                    borderColor: "#9dfff9",
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Packed
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-8-spacing">
+                <Icon icon="mdi:pencil" color="#2e2e2e" width="30" />
+              </div>
+            </div>
+          </div>
+          <div className="OR-content">
+            <div className="OR-info">
+              <div className="txt-black OR-info-1-spacing">
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div className="OR-g1-logo-back bg-orange">
+                    <img
+                      src="kb_logo.png"
+                      alt=""
+                      width={"26px"}
+                      height={"25px"}
+                      style={{ marginLeft: "-2px" }}
+                    />
+                    <p className="OR-info-1-brand txt-orange">Knight Bite</p>
+                  </div>
+
+                  <div className="OR-info-1-orders bg-green">
+                    <p className="OR-info-1-order-text"> 32 Orders</p>
+                  </div>
+                </div>
+                <p style={{ fontSize: "15px" }}>
+                  Order ID: <b>#20001</b>
+                </p>
+                <p>2:03 AM, Sunday 6th June</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <span>
+                    <FontAwesomeIcon icon={faUser} /> &nbsp;Admin
+                  </span>
+                  <Icon icon="mdi:printer" width={"20px"} />
+                </div>
+              </div>
+
+              <p className="OR-info-line"></p>
+              <div className="OR-info-2-spacing">
+                <p className="txt-black OR-info-2-name">Alex</p>
+                <div style={{ display: "flex", gap: "40px" }}>
+                  <p className="txt-black OR-info-2-phone">8452147859</p>
+                  <div style={{ display: "flex", gap: "10px" }}>
+                    <Icon
+                      icon="logos:whatsapp-icon"
+                      color="blue"
+                      width={"18px"}
+                    />
+                    <Icon icon="ic:sharp-call" color="blue" width={"18px"} />
+                    <Icon
+                      icon="fa6-solid:location-dot"
+                      color="#fa4d4d"
+                      width={"12px"}
+                    />
+                  </div>
+                </div>
+                <p>
+                  House/Flat No:st. agnes pg center WH5 7H3,
+                  kadri,Managluru,Karnataka, India
+                </p>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-3-spacing">
+                <p className="OR-info-3-special-request">
+                  Special Request:<b>Spicy</b>
+                </p>
+                <ol>
+                  <li>Boneless Chicken Burger</li>
+                  <li>Water</li>
+                  <li>Tandoori Chicken Burge</li>
+                  <ul>
+                    <li>
+                      Extras: <b>Cheese</b>
+                    </li>
+                  </ul>
+                  <li>Knight Zinger Chicken Burgerrrrrrrrrrrrrrrrrrrrrrrrrr</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                  <li>Knight Zinger Chicken Burger</li>
+                </ol>
+              </div>
+              <p className="OR-info-line"></p>
+
+              <div className="OR-info-4-spacing">
+                <div>
+                  <Icon icon="bxs:offer" color="#3a7cf5" width="30" />
+                  <p style={{ fontSize: "15px" }}>
+                    ₹675 <Icon icon="material-symbols:info" color="#fa4d4d" />
+                  </p>
+                  <p>Applied code</p>
+                  <p>745874521478</p>
+                </div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-5-spacing">
+                <select className="OR-dropbtn" name="languages" id="lang">
+                  <option value="" disabled selected>
+                    Choose DE
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-6-spacing">
+                <button className="OR-code-btn">C.O.D</button>
+                <div className="OR-pament-link">Send Payment link</div>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-7-spacing">
+                <select
+                  className="OR-dropbtn"
+                  name="languages"
+                  id="lang"
+                  style={{
+                    textAlign: "center",
+                    width: "110px",
+                    backgroundColor: "#f4f675",
+                    borderColor: "#f4f675",
+                  }}
+                >
+                  <option value="" disabled selected>
+                    Ready
+                  </option>
+                  <option value="javascript">JavaScript</option>
+                  <option value="php">PHP</option>
+                  <option value="java">Java</option>
+                  <option value="golang">Golang</option>
+                  <option value="python">Python</option>
+                  <option value="c#">C#</option>
+                  <option value="C++">C++</option>
+                  <option value="erlang">Erlang</option>
+                </select>
+              </div>
+              <p className="OR-info-line"></p>
+              <div className="OR-info-8-spacing">
+                <Icon icon="mdi:pencil" color="#2e2e2e" width="30" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {allTab === "ALL-Ready" && (
+        <div className="OR-content-position">
+          <div className="OR-content">ALL-Ready</div>
+          <div className="OR-content">hi</div>
+          <div className="OR-content">hi</div>
+          <div className="OR-content">hi</div>
+        </div>
+      )}
+      {allTab === "ALL-In Progress" && (
+        <div className="OR-content-position">
+          <div className="OR-content">ALL-Progress</div>
+          <div className="OR-content">hi</div>
+          <div className="OR-content">hi</div>
+          <div className="OR-content">hi</div>
+        </div>
+      )}
+      {allTab === "ALL-Live Orders" && (
+        <div className="OR-content-position">
+        <div className="OR-content">ALL-Live Orders</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+      </div>
+      )}      
+      </div>
+      )}
+      
 
       {/* Online order*/}
       {orderTypeTab === "onlineOrder" && (
@@ -642,7 +1600,7 @@ React.useEffect(() => {
                       height={"25px"}
                       style={{ marginLeft: "-2px" }}
                     />
-                    <p className="OR-info-1-brand txt-orange">Knight Bite</p>
+                    <p className="OR-info-1-brand txt-orange">ON-Knight Bite</p>
                   </div>
 
                   <div className="OR-info-1-orders bg-green">
@@ -1374,6 +2332,14 @@ React.useEffect(() => {
           <div className="OR-content">hi</div>
           <div className="OR-content">hi</div>
         </div>
+      )}
+      {activeTab === "Live Orders" && (
+        <div className="OR-content-position">
+        <div className="OR-content">Live Orders</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+      </div>
       )}
       </div>
       )}
@@ -2128,6 +3094,14 @@ React.useEffect(() => {
           <div className="OR-content">hi</div>
         </div>
       )}
+       {pickupTab === "PA-Live Orders" && (
+        <div className="OR-content-position">
+        <div className="OR-content">PA-Live Orders</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+      </div>
+      )}
       </div>
       )}
 
@@ -2148,7 +3122,7 @@ React.useEffect(() => {
                       height={"25px"}
                       style={{ marginLeft: "-2px" }}
                     />
-                    <p className="OR-info-1-brand txt-orange">PA-Knight Bite</p>
+                    <p className="OR-info-1-brand txt-orange">TB-Knight Bite</p>
                   </div>
 
                   <div className="OR-info-1-orders bg-green">
@@ -2881,6 +3855,14 @@ React.useEffect(() => {
           <div className="OR-content">hi</div>
         </div>
       )}
+      {tableTab === "TB-Live Orders" && (
+        <div className="OR-content-position">
+        <div className="OR-content">TB-LIve Orders</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+        <div className="OR-content">hi</div>
+      </div>
+      )}
       </div>
       )}
 
@@ -2933,7 +3915,7 @@ React.useEffect(() => {
         {generateLocationLabel()}
         <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
       </Button>
-      <Menu  
+      <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
