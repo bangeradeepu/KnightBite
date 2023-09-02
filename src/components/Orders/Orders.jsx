@@ -478,7 +478,7 @@ React.useEffect(() => {
                 <div class="t-tip-text f-12" style={{zIndex:'100'}}>
                                   Includes: New, In progress, Ready, Packed and Dispatched.
                                 </div>
-                                </span> <span className="txt-red">(5)</span>
+                                </span> <span className="txt-red">(15)</span>
               </Link>
               <Link
                 className={`OR-container-2-tabs ${
