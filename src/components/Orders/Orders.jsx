@@ -303,6 +303,20 @@ React.useEffect(() => {
   setExtraMenusOpen(openMenusCopy);
 }, [selectedOptions]);
 
+
+ const [anchorEl, setAnchorEl] = useState(null);
+  const [mainScrollEnabled, setMainScrollEnabled] = useState(true); // State to control main scroll
+
+  const handleOpen = (event) => {
+    setMainScrollEnabled(false); // Disable main scroll
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setMainScrollEnabled(true); // Enable main scroll
+    setAnchorEl(null);
+  };
+
   return (
     <div>
       
@@ -2919,7 +2933,7 @@ React.useEffect(() => {
         {generateLocationLabel()}
         <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
       </Button>
-      <Menu
+      <Menu  
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
