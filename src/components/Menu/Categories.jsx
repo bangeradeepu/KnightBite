@@ -3,76 +3,18 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-import { makeStyles } from '@mui/styles'
-import Button from '@mui/material/Button'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import Checkbox from '@mui/material/Checkbox'
+import React, { useState } from "react";
 
 
-import {
-  faMapLocationDot,
-  faChevronDown,
-  faCircleXmark,
-} from '@fortawesome/free-solid-svg-icons'
 
-import Select from 'react-select'
-import { colourOptions, Option } from './Filter'
 import './Categories.css';
 
 
 import {Link, Route, BrowserRouter as  Router, Routes, useNavigate } from 'react-router-dom'
 
 // import React from 'react'
-import React, { useState } from 'react';
 import './Items.css';
-
-
-const useStyles = makeStyles({
-  root: {},
-  icon: {},
-  redIcon: {},
-  selectedOptionsContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginLeft: '0px',
-  },
-  selectedOption: {
-    background: '#fffff',
-    border: '1px solid #ccc',
-    borderRadius: 20,
-    padding: '8px 10px',
-    marginRight: 5,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  closeIcon: {
-    marginLeft: 5,
-    cursor: 'pointer',
-  },
-  scrollbar: {
-    height: '80px', // Adjust the scroll height as needed
-    width: '100%', // Adjust the width as needed
-    overflowY: 'auto',
-    scrollbarWidth: 'thin', // For Firefox
-    '&::-webkit-scrollbar': {
-      width: '8px', // For Chrome, Safari, and Opera
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: '#ccc', // Customize the thumb color
-      borderRadius: '4px', // Rounder corners for the thumb
-    },
-  },
-
-  selectedOptionsRow: {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'nowrap', // Set to 'nowrap' initially to prevent wrapping
-  },
-})
-// ... (import statements and makeStyles definition)
+import LocationFilter from '../../LocationFilter';
 
 
 const Categories = () => {
@@ -97,57 +39,6 @@ const handleAddItem = () =>{
       closeModal();
     }
   };
-  //filter
-  const classes = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [selectedLocation, setSelectedLocation] = React.useState(null)
-  const [selectedOptions, setSelectedOptions] = React.useState([])
-  const [extraMenuOpen, setExtraMenuOpen] = React.useState(false)
-  const [secondaryMenuOpen, setSecondaryMenuOpen] = React.useState(false)
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  const handleLocationSelect = (location) => {
-    setSelectedLocation(location)
-    handleClose()
-    setExtraMenuOpen(false)
-    setSelectedOptions([])
-    setSecondaryMenuOpen(false)
-  }
-
-  const handleExtraMenuOpen = () => {
-    setExtraMenuOpen(true)
-    setSecondaryMenuOpen(false)
-  }
-
-  const handleOptionSelect = (option) => {
-    if (!selectedOptions.includes(option)) {
-      setSelectedOptions([...selectedOptions, option])
-    }
-    setSecondaryMenuOpen(true)
-  }
-
-  const handleOptionDeselect = (option) => {
-    setSelectedOptions(
-      selectedOptions.filter((selected) => selected !== option)
-    )
-  }
-
-  const optionsPerRow = 2; // Adjust this number as needed
-  const optionsRows = [];
-
-  for (let i = 0; i < selectedOptions.length; i += optionsPerRow) {
-    const row = selectedOptions.slice(i, i + optionsPerRow);
-    optionsRows.push(row);
-  }
-
-
 
   
     return (
@@ -155,160 +46,7 @@ const handleAddItem = () =>{
           <div className="cat-div">
           <div className='item-top'>
             {/* Drop down filter */}
-            <div className="cat-frame">
-            <Button
-        style={{
-          border: '1px solid black',
-          borderRadius: '30px',
-          color: 'black',
-          marginLeft: '200px',
-        
-        }}
-        className={classes.root}
-        onClick={handleClick}
-      >
-        <LocationOnIcon className={`${classes.icon} ${classes.redIcon}`} />
-        {selectedLocation || 'Location'}
-        <ArrowDropDownIcon className={classes.icon} />
-      </Button>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        PaperProps={{
-          style: {
-            marginTop: '10px',
-            width: '250px',
-            border: '1px solid',
-            borderRadius: '5px',
-            outline: 'none',
-          },
-        }}
-      >
-        <MenuItem onClick={() => handleLocationSelect('Mangalore')}>
-          <Checkbox checked={selectedLocation === 'Mangalore'} />
-          Mangalore
-        </MenuItem>
-        <MenuItem onClick={() => handleLocationSelect('Bangalore')}>
-          <Checkbox checked={selectedLocation === 'Bangalore'} />
-          Bangalore
-        </MenuItem>
-      </Menu>
-      {selectedLocation && (
-        <div>
-          <Button
-            style={{
-              border: '1px solid black',
-              borderRadius: '30px',
-              color: 'black',
-          
-              marginLeft: '10px',
-            }}
-            onClick={handleExtraMenuOpen}
-          >
-            {selectedLocation}
-            <ArrowDropDownIcon className={classes.icon} />
-          </Button>
-
-          {extraMenuOpen && (
-            <Menu
-              anchorEl={anchorEl}
-              open={extraMenuOpen}
-              onClose={() => setExtraMenuOpen(false)}
-              PaperProps={{
-                className: classes.scrollbar,
-                style: {
-                  marginLeft: '365px',
-                  borderRadius: '5px',
-                  border: '1px solid',
-                  width: '250px',
-                  marginTop: '-320px',
-                  height: '200px',
-                  overflow: 'auto',
-                },
-              }}
-            >
-              {selectedLocation === 'Mangalore' && (
-                <div>
-                  <MenuItem onClick={() => handleOptionSelect('Knight Bite')}>
-                    <Checkbox
-                      checked={selectedOptions.includes('Knight Bite')}
-                    />
-                    Knight Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('Pancake Bite')}>
-                    <Checkbox
-                      checked={selectedOptions.includes('Pancake Bite')}
-                    />
-                    Pancake Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('cake Bite')}>
-                    <Checkbox checked={selectedOptions.includes('cake Bite')} />
-                    Cake Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('Some Bite')}>
-                    <Checkbox checked={selectedOptions.includes('Some Bite')} />
-                    Some Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('S Bite')}>
-                    <Checkbox checked={selectedOptions.includes('S Bite')} />
-                    S Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('o Bite')}>
-                    <Checkbox checked={selectedOptions.includes('o Bite')} />
-                    o Bite
-                  </MenuItem>
-                </div>
-              )}
-              {selectedLocation === 'Bangalore' && (
-                <div>
-                  <MenuItem onClick={() => handleOptionSelect('Chicken Bite')}>
-                    <Checkbox
-                      checked={selectedOptions.includes('Chicken Bite')}
-                    />
-                    Chicken Bite
-                  </MenuItem>
-                  <MenuItem onClick={() => handleOptionSelect('Masala Bite')}>
-                    <Checkbox
-                      checked={selectedOptions.includes('Masala Bite')}
-                    />
-                    Masala Bite
-                  </MenuItem>
-                </div>
-              )}
-            </Menu>
-          )}
-        </div>
-      )}
-      <div>
-      {selectedOptions.length > 0 && (
-        <div className={classes.selectedOptionsContainer}>
-          {Array.from({
-            length: Math.ceil(selectedOptions.length / optionsPerRow),
-          }).map((_, rowIndex) => (
-            <div key={rowIndex} className={classes.selectedOptionsRow}>
-              {selectedOptions
-                .slice(rowIndex * optionsPerRow, (rowIndex + 1) * optionsPerRow)
-                .map((option) => (
-                  <div key={option} className={classes.selectedOption}>
-                    {option}
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      style={{
-                        color: '#d11f1f',
-                        fontSize: '20px',
-                        marginLeft: '10px',
-                      }}
-                      onClick={() => handleOptionDeselect(option)}
-                    />
-                  </div>
-                ))}
-            </div>
-          ))}
-        </div>
-      )}
-      </div>
-            </div>
+            
             
             <div className="cat-add-multi-item">
               <button className="p-button bg-purple" onClick={openModal}>
@@ -708,8 +446,9 @@ const handleAddItem = () =>{
                   modalVisible ? "cat-modal-open" : ""
                 }`}
               >
+               
                 <div className="cat-modal-content">
-                  <span className="cat-modal-close" onClick={closeModal}>
+                <span className="cat-modal-close" onClick={closeModal}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -723,6 +462,8 @@ const handleAddItem = () =>{
                     </svg>
                   </span>
                   <p className="cat-create-header txt-black">Create new Category</p>
+                  <div className="cat-modal-content-inside">
+
                   <p className="cat-create-name txt-grey">Category Name</p>
                   <input
                     className="custom-input"
@@ -730,9 +471,28 @@ const handleAddItem = () =>{
                     name=""
                     id=""
                     placeholder="Enter Category"
+                    style={{width:'50%'}}
                   />
+                  <p className="cat-create-name txt-grey">Addon Groups</p>
+                  <select
+                          class="dropbtn txt-dark-grey"
+                          name="languages"
+                          id="lang"
+                          style={{width:'54%'}}
+                        >
+                          <option value="" disabled="">
+                            Choose Addon groups
+                          </option>
+                          <option value="javascript">C.O.D</option>
+                          <option value="php">Online Payment</option>
+                        </select>
+                  <p className="cat-create-name txt-grey">Brands</p>
+                  <LocationFilter />
+                     
                   <br /><br />
                                       <button class="add-item-button">Add Category</button>
+                    </div>
+                  
 
                 </div>
               </div>

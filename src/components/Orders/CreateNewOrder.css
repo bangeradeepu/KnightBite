@@ -6,7 +6,7 @@
     background-color: #ffff;
     width: 100%;
     /* height:14%; */
-    margin-top: 10%;
+    margin-top: 150px;
     position: fixed;
 }
 .CO-content{
@@ -19,7 +19,8 @@
 }
 
 .CO-side-1{
-    margin-left: 1%;
+
+    margin-left: 10px;
     background-color: #ffff;
     border-radius: 20px;
     margin-top: 17.5%;
@@ -206,28 +207,6 @@
     text-align: center;
   }
   
-.CO-b-button{
-    position: relative;
-    border: none;
-    font-size: 15px;
-    color: #585858;
-    padding: 10px 0px 25px 0px;
-    width: 170px;
-    text-align: center;
-    border-radius: 70px;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
-    border:1px solid #585858;
-    background-color: #ffff;
-    height: 30px;
-    opacity: 1;
-}
-.CO-b-button:hover {
-    background-color: #585858;
-    color:#ffff;
-}
 
 .CO-btn-inc{
   position: relative;
@@ -457,17 +436,51 @@ width: 200px;
   margin-left: 17%
 }
 
-.CO-location-first-step{
-  margin-left: 25%;
-    background-color: #ffff;
-    border-radius: 20px;
-    margin-top: 17.5%;
-    width: 50%;
-    height: 60%;
-    position: fixed;
-    padding: 1%;
- 
+.CO-location-first-step {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
 }
+    
+    .CO-location-first-step-open {
+      display: block;
+    }
+    
+    .CO-location-first-step-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0px 20px 20px;
+      border: 1px solid #888;
+      width: 50%;
+      height: 70%;
+      border-radius: 20px 20px 20px 20px;
+    
+    }
+    .CO-location-first-step-content-inside{
+      width: 100%;
+      height: 90%;
+      overflow-y: auto;
+
+    }
+    .CO-location-first-step-content-inside::-webkit-scrollbar {
+      width: 8px; /* Adjust the width of the scrollbar */
+    }
+    
+    .CO-location-first-step-content-inside::-webkit-scrollbar-track {
+      background: #e2dddd;
+      margin-top: 50px;
+
+    }
+    
+    .CO-location-first-step-content-inside::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 8px;
+    }
 .CO-location-second-step{
   margin-left: 25%;
     background-color: #ffff;

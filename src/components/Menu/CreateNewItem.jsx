@@ -332,7 +332,7 @@ function CreateNewItem() {
                     <div className="overlap-group-4">
                       {/* <div className='text-wrapper-12'>Image</div> */}
 
-                      <input type="file" className="custom-file-input" />
+                      <input type="file" className="input-file-custom" />
                     </div>
                   </div>
                   <div className="cat-textbox-3">
@@ -699,7 +699,7 @@ function CreateNewItem() {
                     <div className="overlap-group-4">
                       {/* <div className='text-wrapper-12'>Image</div> */}
 
-                      <input type="file" className="custom-file-input" />
+                      <input type="file" className="input-file-custom" />
                     </div>
                   </div>
                   <div className="cat-textbox-3">
@@ -1065,7 +1065,7 @@ function CreateNewItem() {
                     <div className="overlap-group-4">
                       {/* <div className='text-wrapper-12'>Image</div> */}
 
-                      <input type="file" className="custom-file-input" />
+                      <input type="file" className="input-file-custom" />
                     </div>
                   </div>
                   <div className="cat-textbox-3">

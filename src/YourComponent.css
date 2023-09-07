@@ -128,7 +128,7 @@ body {
   width: 380px;
   /* Set the initial width of the sidebar */
   position: fixed;
-  z-index: 2;
+  z-index: 40;
   top: 150px;
   right: -250px;
   /* Start with the sidebar off-screen to the right */
@@ -310,3 +310,48 @@ body {
   margin-left: 1020px;
   margin-top: 70px;
 }
+.location-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+    
+    .location-modal-open {
+      display: block;
+    }
+    
+    .location-modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0px 20px 20px;
+      border: 1px solid #888;
+      width: 50%;
+      height: 70%;
+      border-radius: 20px 20px 20px 20px;
+    
+    }
+    .location-modal-content-inside{
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+
+    }
+    .location-modal-content-inside::-webkit-scrollbar {
+      width: 8px; /* Adjust the width of the scrollbar */
+    }
+    
+    .location-modal-content-inside::-webkit-scrollbar-track {
+      background: #e2dddd;
+      margin-top: 50px;
+
+    }
+    
+    .location-modal-content-inside::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 8px;
+    }

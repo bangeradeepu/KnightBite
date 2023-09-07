@@ -24,6 +24,10 @@ import ItemsStock from "./components/Menu/ItemsStock";
 import Orders from "./components/Orders/Orders";
 import CreateNewOrder from "./components/Orders/CreateNewOrder";
 import CreateOrderTS from "./components/Orders/CreateOrderTS";
+import LocationFilter from "./LocationFilter";
+import DeliverySideBar from "./components/Delivery/DeliverySideBar";
+import DeliveryBoys from "./components/Delivery/DeliveryBoys";
+import AddDeliveryBoys from "./components/Delivery/AddDeliveryBoys";
 
 const YourComponent = () => {
   const [stockTab, setStockTab] = useState("all");
@@ -58,6 +62,16 @@ const YourComponent = () => {
   const closeStock = () => {
     setStocklVisible(false);
   };
+    // Open location
+    const [locationVisible, setLocationVisible] = useState(false);
+
+    const openLocation = () => {
+      setLocationVisible(true);
+    };
+  
+    const closeLocation = () => {
+      setLocationVisible(false);
+    };
   return (
     <div>
       <Router>
@@ -108,18 +122,18 @@ const YourComponent = () => {
                 Accounts
               </Link>
             </div>
-
-            <div className="store-pos">
-              <button className="store-btn" onClick={openNav}>
-                {" "}
-                <FontAwesomeIcon icon={faBars} /> Store settings
-              </button>
-            </div>
-            <div className="store-pos">
+            <div className="store-pos d-flex" style={{gap:'10px',marginTop:'-1px'}}>
+              <button className="store-btn" onClick={openLocation}>Outlet</button>
               <button className="store-btn" onClick={openStock}>
                 {" "}
                 Stock Control
               </button>
+              <button className="store-btn" onClick={openNav}>
+                {" "}
+                <FontAwesomeIcon icon={faBars} /> Store settings
+              </button>
+             
+
             </div>
           </div>
           <div>
@@ -143,12 +157,9 @@ const YourComponent = () => {
                     </option>
                     <option value="knightbite">Knight Bite</option>
                     <option value="pancake">Pancake Bite</option>
-                    <option value="java">Java</option>
-                    <option value="golang">Golang</option>
-                    <option value="python">Python</option>
-                    <option value="c#">C#</option>
-                    <option value="C++">C++</option>
-                    <option value="erlang">Erlang</option>
+                    <option value="desibite">Desi Bite</option>
+                    <option value="wafflebite">Waffle Bite</option>
+                    <option value="sandwichbite">Sandwich Bite</option>
                   </select>
                 </div>
                 <br />
@@ -165,7 +176,7 @@ const YourComponent = () => {
                 </div>
 
                 <div className="store-set-grid-container">
-                  <div className="store-set-left">Chicken Bite</div>
+                  <div className="store-set-left">Pancake Bite</div>
                   <div className="store-set-right">
                     <label className="switch">
                       <input type="checkbox"></input>
@@ -273,7 +284,7 @@ const YourComponent = () => {
 
 
             {/* Manage Route */}
-            <Route path="/manage" element={<ManageSideBar />} />
+            <Route path="/manage" element={<><ManageSideBar /> </>} />
             <Route
               path="/manage/contactdetails"
               element={
@@ -282,6 +293,20 @@ const YourComponent = () => {
                 </ManageSideBar>
               }
             />
+
+            {/* Delivery Route */}
+            <Route path="/deliveryboy" element={<><DeliverySideBar /><DeliveryBoys /></>}/>
+            <Route path="/addDeliveryBoys" element={<DeliverySideBar><AddDeliveryBoys /></DeliverySideBar>} />
+            <Route
+              path="/deliveryboy/db"
+              element={
+                <DeliverySideBar>
+                  <DeliveryBoys />
+                </DeliverySideBar>
+              }
+            />
+             
+
           </Routes>
 
           <Routes>
@@ -896,6 +921,44 @@ const YourComponent = () => {
           </div>
         </div>
       )}
+      {/* Location modal */}
+      {locationVisible && (
+        <div
+          className={`location-modal ${
+            locationVisible ? "location-modal-open" : ""
+          }`}
+        >
+          <div className="location-modal-content">
+            <div className="location-modal-content-inside">
+            <div className="grid-2">
+              <p className="" style={{fontSize:'20px',marginLeft:'10px'}}>OutletFilter</p>
+              <span
+                className=""
+                style={{ textAlign: "right", marginTop: "14px" }}
+                onClick={closeLocation}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#2e2e2e"
+                    d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <LocationFilter />
+           
+
+
+          </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

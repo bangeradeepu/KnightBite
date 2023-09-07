@@ -9,8 +9,9 @@ import {
   faMinus,
   faCircleInfo,
   faCopyright,
-  faPizzaSlice,
+  faPlateWheat,
   faCircleArrowLeft,
+  faX,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Icon } from "@iconify/react";
@@ -22,6 +23,7 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
+import LocationFilter from "../../LocationFilter";
 
 const CreateNewOrder = () => {
   //Submit payment link
@@ -50,11 +52,7 @@ const CreateNewOrder = () => {
     setActiveTab(tab);
   };
 
-  // Open Touch Screen
-  const navigate = useNavigate();
-  const openTouchScreen = () => {
-    navigate("/touchScreen");
-  };
+
   // Go back
   const goBack = () => {
     window.history.back();
@@ -163,7 +161,6 @@ const CreateNewOrder = () => {
     const inputValue = e.target.value;
     setSearchMenuInput(inputValue);
   };
-
 
   const addToCart = (productName) => {
     const existingItemIndex = cartItems.findIndex(
@@ -292,7 +289,6 @@ const CreateNewOrder = () => {
     setIsPopupOpen(false);
   };
 
-
   // location and custoer details step
   const [showLocation, setShowLocation] = useState(true);
   const [showTextBox, setShowTextBox] = useState(false);
@@ -312,6 +308,24 @@ const CreateNewOrder = () => {
   const handleOpenTextbox = () => {
     setShowTextBox(true);
     setShowResult(false);
+  };
+
+  // submit button
+  const [selectedItem, setSelectedItem] = useState("Place An Order");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const dropdownItems = ["Place An Order", "Send Payment Link"];
+
+  const handleDropdownChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedItem(selectedValue);
+  };
+
+  const handleButtonClick = () => {
+    if (selectedItem) {
+      // Perform an action with the selected item, e.g., send it to an API
+      console.log(`Selected Item: ${selectedItem}`);
+    }
   };
 
   return (
@@ -365,7 +379,7 @@ const CreateNewOrder = () => {
               </div>
             </div>
             <div className="g-right d-flex" style={{ marginLeft: "55%" }}>
-              {activeTab === "online" ? (
+              {/* {activeTab === "online" ? (
                 <div>
                   <button
                     onClick={handleOpenLocation}
@@ -397,35 +411,46 @@ const CreateNewOrder = () => {
                 </div>
               ) : (
                 <div></div>
-              )}
+              )} */}
 
-              <button
-                className="CO-b-button"
-                style={{ marginRight: "40px" }}
-                onClick={openTouchScreen}
-              >
-                Touch screen mode
-              </button>
+             
             </div>
           </div>
         </div>
+        {showLocation && (
+          <div
+          className="CO-location-first-step CO-location-first-step-open"
+        >
+          <div className="CO-location-first-step-content">
+            
+            <div className="grid-2">
+              <p className="" style={{fontSize:'20px',marginLeft:'10px'}}>Outlet Filter</p>
+              <FontAwesomeIcon icon={faX} onClick={goBack} style={{cursor:'pointer', marginTop:'5%', marginLeft:'95%'}} />
+            </div>
+            <div className="CO-location-first-step-content-inside">
+            <LocationFilter />
 
-        {activeTab === "online" ? (
+              <button
+                className="p-button bg-purple"
+                onClick={handleLocationSubmit}
+                style={{
+                  marginTop: "20px",
+                  marginLeft: "10px",
+                }}
+              >
+                Next
+              </button>
+           
+
+
+          </div>
+          </div>
+        </div>
+        )}
+        {showResult && (
           <div>
-            {showLocation && (
-              <div className="CO-location-first-step">
-                <div>Location</div>
-                <button
-                  className="p-button bg-purple"
-                  onClick={handleLocationSubmit}
-                >
-                  Next
-                </button>
-              </div>
-            )}
-
-            {showResult && (
-              <div>
+            {activeTab === "online" ? (
+              <div className="">
                 <div className="CO-side-1">
                   <input
                     className="CO-side-search"
@@ -434,7 +459,7 @@ const CreateNewOrder = () => {
                     onChange={handleCategorySearchInputChange}
                   ></input>
                   <div className="CO-side-1-content">
-                  {filteredCategories.map((category, index) => (
+                    {filteredCategories.map((category, index) => (
                       <div className="CO-cat-gap" key={index}>
                         <Link
                           className={`CO-cat-dec ${
@@ -467,7 +492,7 @@ const CreateNewOrder = () => {
                         <div>{selectedCategory}</div>
                       </div>
                       <div style={{ marginTop: "22px" }}>
-                      {filteredProducts.map((product) => (
+                        {filteredProducts.map((product) => (
                           <div style={{ fontSize: "12px" }}>
                             <div className="CO-sde-2-content-left">
                               <div key={product.name}>
@@ -648,7 +673,7 @@ const CreateNewOrder = () => {
                             Quantity
                           </div>
                           <div style={{ float: "left", width: "14%" }}>
-                            Addons
+                            Extras
                           </div>
                           <div style={{ float: "left", width: "10%" }}>
                             Price{" "}
@@ -780,7 +805,7 @@ const CreateNewOrder = () => {
                                   style={{ marginLeft: "5%", width: "5%" }}
                                 >
                                   <FontAwesomeIcon
-                                    icon={faPizzaSlice}
+                                    icon={faPlateWheat}
                                     onClick={() => openPopup(index)}
                                     style={{ fontSize: "120%" }}
                                   />
@@ -933,7 +958,7 @@ const CreateNewOrder = () => {
                             style={{ marginBottom: "10px" }}
                           >
                             <div className="g-left">
-                              Aditional charges{" "}
+                              Additional charges{" "}
                               <FontAwesomeIcon
                                 icon={faCircleInfo}
                                 className="txt-dark-grey"
@@ -1014,21 +1039,41 @@ const CreateNewOrder = () => {
                             }}
                           >
                             <button className="p-outline-button">Cancel</button>
-                            <select
-                              className="OR-droptype"
-                              style={{ width: "34%" }}
-                              id="actions"
-                              value={selectedButtonAction}
-                              onChange={(e) =>
-                                handleActionChange(e.target.value)
-                              }
-                            >
-                              <option value="">Select an action</option>
-                              <option value="placeOrder">Place Order</option>
-                              <option value="sendPaymentLink">
-                                Send Payment Link
-                              </option>
-                            </select>
+                            <div className="d-flex">
+                              <button
+                                className="p-button bg-purple"
+                                style={{
+                                  borderRadius: "30px 0px 0px 30px",
+                                  width: "auto",
+                                  height:'auto',
+                                  padding: "10px 10px 10px 20px ",
+                                }}
+                                onClick={handleButtonClick}
+                              >
+                                {selectedItem}
+                              </button>
+                              <select
+                                className="R-droptype"
+                                style={{
+                                  borderRadius: "0px 30px 30px 0px",
+                                  width: "10%",
+                                  outline: "none",
+                                }}
+                                onClick={() => setDropdownOpen(!dropdownOpen)}
+                                onChange={handleDropdownChange}
+                                value={selectedItem}
+                              >
+                                {dropdownItems.map((item) => (
+                                  <option
+                                    value={item}
+                                    key={item}
+                                    className="custom-option"
+                                  >
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                             {submitButtonVisible && (
                               <div className="submit-button">
                                 {selectedButtonAction === "placeOrder" ? (
@@ -1055,853 +1100,909 @@ const CreateNewOrder = () => {
                   </div>
                 </div>
               </div>
+            ) : activeTab === "pickup" ? (
+              <div className="CO-side-3">
+                <div
+                  className="CO-side-3-content"
+                  style={{ display: "flex", gap: "10px" }}
+                >
+                  <div className="CO-side-3-fields">
+                    Enter Customer details
+                    <div>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Phone Number"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Name"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Alternative Number"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <textarea
+                        class="CO-custom-input"
+                        placeholder="Enter address"
+                        style={{ marginTop: "15px", width: "92%" }}
+                      ></textarea>
+                      <select
+                        class="CO-dropbtn txt-dark-grey"
+                        name="languages"
+                        id="lang"
+                      >
+                        <option value="" disabled="">
+                          Choose payment method
+                        </option>
+                        <option value="javascript">Cash</option>
+                        <option value="php">Online Payment</option>
+                      </select>
+                    </div>
+                    <div></div>{" "}
+                  </div>
+                  {isPopupOpen && selectedPopupIndex !== null && (
+                    <div
+                      className="CO-addons-modal CO-addons-modal-open"
+                      onClick={closePopup}
+                    >
+                      <div className="CO-addons-modal-content">
+                        <div className="grid-2"></div>
+                        <div className="CO-addons-container">
+                          {cartAddons.map((addon, addonIndex) => (
+                            <label key={addon.name}>
+                              <div className="g-left">
+                                <input
+                                  type="checkbox"
+                                  checked={cartItems[
+                                    selectedPopupIndex
+                                  ].selectedAddons.includes(addon.name)}
+                                  onChange={(e) => {
+                                    const newCartItems = [...cartItems];
+                                    const newSelectedAddons =
+                                      newCartItems[selectedPopupIndex]
+                                        .selectedAddons;
+                                    if (e.target.checked) {
+                                      newSelectedAddons.push(addon.name);
+                                    } else {
+                                      const addonIndex =
+                                        newSelectedAddons.indexOf(addon.name);
+                                      if (addonIndex !== -1) {
+                                        newSelectedAddons.splice(addonIndex, 1);
+                                      }
+                                    }
+                                    newCartItems[
+                                      selectedPopupIndex
+                                    ].selectedAddons = newSelectedAddons;
+                                    setCartItems(newCartItems);
+                                  }}
+                                />{" "}
+                                {`${addon.name} (+${addon.price})`}
+                              </div>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {cartItems.length === 0 ? (
+                    <p className="CO-no-orders f-20">No orders</p>
+                  ) : (
+                    <div className="CO-side-3-items">
+                      <div className="CO-side-3-items-billing ">
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">
+                            Discount{" "}
+                            <select
+                              className="CO-dis-per-textbox"
+                              value={selectedDiscountType}
+                              onChange={(e) =>
+                                setSelectedDiscountType(e.target.value)
+                              }
+                            >
+                              <option value={null}>Select Discount Type</option>
+                              <option value="PERCENTAGE">Percentage</option>
+                              <option value="AMOUNT">Amount</option>
+                              <option value="COUPON">Coupon</option>
+                            </select>
+                            {selectedDiscountType === "PERCENTAGE" && (
+                              <input
+                                className="CO-dis-per-textbox"
+                                type="number"
+                                placeholder="Percentage"
+                                value={discountPercentage}
+                                onChange={(e) =>
+                                  setDiscountPercentage(
+                                    parseFloat(e.target.value)
+                                  )
+                                }
+                              />
+                            )}
+                            {selectedDiscountType === "AMOUNT" && (
+                              <input
+                                className="CO-dis-per-textbox"
+                                type="number"
+                                placeholder="Amount"
+                                value={discountAmount}
+                                onChange={(e) =>
+                                  setDiscountAmount(parseFloat(e.target.value))
+                                }
+                              />
+                            )}
+                            {selectedDiscountType === "COUPON" && (
+                              <select
+                                className="CO-dis-per-textbox"
+                                value={selectedCoupon}
+                                onChange={(e) =>
+                                  setSelectedCoupon(e.target.value)
+                                }
+                              >
+                                <option value={null}>Select Coupon Code</option>
+                                {couponCodes.map((coupon) => (
+                                  <option key={coupon.code} value={coupon.code}>
+                                    {coupon.code} - {coupon.discountPercentage}%
+                                    Off
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                          </div>
+                          <div className="g-right CO-m-r">
+                            - ₹{calculateDiscount().toFixed(2)}
+                          </div>
+                        </div>
+
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">
+                            Aditional charges{" "}
+                            <FontAwesomeIcon
+                              icon={faCircleInfo}
+                              className="txt-dark-grey"
+                            />
+                          </div>
+                          <div className="g-right CO-m-r">
+                            ₹{addCharge().toFixed(2)}
+                          </div>
+                        </div>
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left t-tip">
+                            Tax charges{" "}
+                            <FontAwesomeIcon
+                              icon={faCircleInfo}
+                              className="txt-dark-grey"
+                            />
+                            <div className="t-tip-text">
+                              <p>
+                                CGST (2.5%): ₹{calculateTax().cgst.toFixed(2)}
+                              </p>
+                              <p>
+                                SGST (2.5%): ₹{calculateTax().sgst.toFixed(2)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="g-right CO-m-r">
+                            ₹
+                            {(
+                              calculateTax().cgst + calculateTax().sgst
+                            ).toFixed(2)}
+                          </div>
+                        </div>
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">Round off</div>
+                          <div className="g-right CO-m-r">
+                            (₹{calculateGrandTotal().toFixed(2)}) ₹
+                            {Math.round(calculateGrandTotal().toFixed(2))}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            width: "540px",
+                            backgroundColor: "#aeaeae",
+                            height: "1px",
+                          }}
+                        ></div>
+                        <div className="grid-2" style={{ marginTop: "7px" }}>
+                          <div className="g-left">
+                            <b>Total</b>
+                          </div>
+                          <div className="g-right CO-m-r">
+                            <b>
+                              ₹{Math.round(calculateGrandTotal().toFixed(2))}
+                            </b>
+                          </div>
+                        </div>
+                        <div className="grid-2" style={{ marginTop: "7px" }}>
+                          <textarea
+                            className="CO-custom-input"
+                            placeholder="Special Request"
+                          ></textarea>
+                        </div>
+                        <div
+                          style={{
+                            marginTop: "10px",
+                            display: "flex",
+                            gap: "10px",
+                            bottom: "0",
+                          }}
+                        >
+                          <button className="p-outline-button">Cancel</button>
+                          <select
+                            className="OR-droptype"
+                            style={{ width: "170px" }}
+                            id="actions"
+                            value={selectedButtonAction}
+                            onChange={(e) => handleActionChange(e.target.value)}
+                          >
+                            <option value="">Select an action</option>
+                            <option value="placeOrder">Place Order</option>
+                            <option value="sendPaymentLink">
+                              Send Payment Link
+                            </option>
+                          </select>
+                          {submitButtonVisible && (
+                            <div className="submit-button">
+                              {selectedButtonAction === "placeOrder" ? (
+                                <button
+                                  className="p-button bg-purple"
+                                  onClick={handleOrderSubmit}
+                                >
+                                  Submit
+                                </button>
+                              ) : (
+                                <button
+                                  className="p-button bg-purple"
+                                  onClick={handlePaymentLinkSubmit}
+                                >
+                                  Submit
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="CO-side-3-items-head">
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "87px",
+                            fontSize: "13px",
+                            color: "#2e2e2e",
+                          }}
+                        >
+                          <div style={{ marginLeft: "7px" }}>No</div>
+                          <div style={{ marginLeft: "-70px" }}>Item</div>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "30px",
+                              fontSize: "13px",
+                              color: "#2e2e2e",
+                              marginLeft: "40px",
+                            }}
+                          >
+                            <div>Quantity</div>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "23px",
+                              fontSize: "13px",
+                              color: "#2e2e2e",
+                              marginLeft: "-46px",
+                            }}
+                          >
+                            <div>Addons</div>
+                            <div>Price </div>
+                            <div>Amount</div>
+                            <div>Remove</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {cartItems.map((item, index) => (
+                        <div key={index}>
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              marginTop: "40px",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <div
+                              className="CO-sde-2-content-left"
+                              style={{ width: "480px" }}
+                            >
+                              <p class="txt-black CO-item-no-spacing">
+                                {index + 1}
+                              </p>
+                              <p class="txt-black CO-item-name-spacing tooltip">
+                                {item.product}
+                                <div>
+                                  {item.selectedAddons.length > 0 && (
+                                    <div>
+                                      <b>Addons:</b>
+
+                                      {item.selectedAddons.map((addonName) => (
+                                        <li key={addonName}>
+                                          {addonName} (+₹
+                                          {
+                                            cartAddons.find(
+                                              (addon) =>
+                                                addon.name === addonName
+                                            ).price
+                                          }
+                                          )
+                                        </li>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                                <div
+                                  style={{
+                                    width: "29rem",
+                                    height: "1px",
+                                    backgroundColor: "#aeaeae",
+                                    marginTop: "20px",
+                                    marginRight: "140px",
+                                  }}
+                                ></div>
+                              </p>
+                              <p class="txt-orange CO-item-cat-spacing">
+                                <button
+                                  className="CO-btn-inc"
+                                  type="button"
+                                  onClick={() => decrementQuantity(index)}
+                                >
+                                  -
+                                </button>
+                                <span></span>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  value={item.quantity || 1}
+                                  onChange={(e) =>
+                                    updateQuantity(
+                                      index,
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  className="CO-qty-input"
+                                />
+
+                                <button
+                                  className="CO-btn-dec"
+                                  type="button"
+                                  onClick={() => incrementQuantity(index)}
+                                >
+                                  +
+                                </button>
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "24px" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCopyright}
+                                  style={{ fontSize: "18px" }}
+                                />
+                                &nbsp; &nbsp;
+                                <FontAwesomeIcon
+                                  icon={faPlateWheat}
+                                  onClick={() => openPopup(index)}
+                                  style={{ fontSize: "18px" }}
+                                />
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "3px" }}
+                              >
+                                ₹
+                                {
+                                  products.find((p) => p.name === item.product)
+                                    .price
+                                }{" "}
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "7px" }}
+                              >
+                                ₹{item.productTotal}
+                              </p>
+                            </div>
+                            <div className="CO-sde-2-content-right">
+                              <p
+                                class="txt-dark-grey CO-item-extras-spacing"
+                                style={{ marginLeft: "-10px" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  onClick={() => removeFromCart(index)}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : activeTab === "table" ? (
+              <div className="CO-side-3">
+                <div
+                  className="CO-side-3-content"
+                  style={{ display: "flex", gap: "10px" }}
+                >
+                  <div className="CO-side-3-fields">
+                    Enter Customer details
+                    <div>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Table Number"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Phone Number"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Name"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <input
+                        type="text"
+                        className="CO-side-search"
+                        placeholder="Enter Alternative Number"
+                        style={{ marginTop: "15px" }}
+                      ></input>
+                      <textarea
+                        class="CO-custom-input"
+                        placeholder="Enter address"
+                        style={{ marginTop: "15px", width: "92%" }}
+                      ></textarea>
+                      <select
+                        class="CO-dropbtn txt-dark-grey"
+                        name="languages"
+                        id="lang"
+                      >
+                        <option value="" disabled="">
+                          Choose payment method
+                        </option>
+                        <option value="javascript">C.O.D</option>
+                        <option value="php">Online Payment</option>
+                      </select>
+                    </div>
+                    <div></div>{" "}
+                  </div>
+                  {isPopupOpen && selectedPopupIndex !== null && (
+                    <div
+                      className="CO-addons-modal CO-addons-modal-open"
+                      onClick={closePopup}
+                    >
+                      <div className="CO-addons-modal-content">
+                        <div className="grid-2"></div>
+                        <div className="CO-addons-container">
+                          {cartAddons.map((addon, addonIndex) => (
+                            <label key={addon.name}>
+                              <div className="g-left">
+                                <input
+                                  type="checkbox"
+                                  checked={cartItems[
+                                    selectedPopupIndex
+                                  ].selectedAddons.includes(addon.name)}
+                                  onChange={(e) => {
+                                    const newCartItems = [...cartItems];
+                                    const newSelectedAddons =
+                                      newCartItems[selectedPopupIndex]
+                                        .selectedAddons;
+                                    if (e.target.checked) {
+                                      newSelectedAddons.push(addon.name);
+                                    } else {
+                                      const addonIndex =
+                                        newSelectedAddons.indexOf(addon.name);
+                                      if (addonIndex !== -1) {
+                                        newSelectedAddons.splice(addonIndex, 1);
+                                      }
+                                    }
+                                    newCartItems[
+                                      selectedPopupIndex
+                                    ].selectedAddons = newSelectedAddons;
+                                    setCartItems(newCartItems);
+                                  }}
+                                />{" "}
+                                {`${addon.name} (+${addon.price})`}
+                              </div>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {cartItems.length === 0 ? (
+                    <p className="CO-no-orders f-20">No orders</p>
+                  ) : (
+                    <div className="CO-side-3-items">
+                      <div className="CO-side-3-items-billing ">
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">
+                            Discount{" "}
+                            <select
+                              className="CO-dis-per-textbox"
+                              value={selectedDiscountType}
+                              onChange={(e) =>
+                                setSelectedDiscountType(e.target.value)
+                              }
+                            >
+                              <option value={null}>Select Discount Type</option>
+                              <option value="PERCENTAGE">Percentage</option>
+                              <option value="AMOUNT">Amount</option>
+                              <option value="COUPON">Coupon</option>
+                            </select>
+                            {selectedDiscountType === "PERCENTAGE" && (
+                              <input
+                                className="CO-dis-per-textbox"
+                                type="number"
+                                placeholder="Percentage"
+                                value={discountPercentage}
+                                onChange={(e) =>
+                                  setDiscountPercentage(
+                                    parseFloat(e.target.value)
+                                  )
+                                }
+                              />
+                            )}
+                            {selectedDiscountType === "AMOUNT" && (
+                              <input
+                                className="CO-dis-per-textbox"
+                                type="number"
+                                placeholder="Amount"
+                                value={discountAmount}
+                                onChange={(e) =>
+                                  setDiscountAmount(parseFloat(e.target.value))
+                                }
+                              />
+                            )}
+                            {selectedDiscountType === "COUPON" && (
+                              <select
+                                className="CO-dis-per-textbox"
+                                value={selectedCoupon}
+                                onChange={(e) =>
+                                  setSelectedCoupon(e.target.value)
+                                }
+                              >
+                                <option value={null}>Select Coupon Code</option>
+                                {couponCodes.map((coupon) => (
+                                  <option key={coupon.code} value={coupon.code}>
+                                    {coupon.code} - {coupon.discountPercentage}%
+                                    Off
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                          </div>
+                          <div className="g-right CO-m-r">
+                            - ₹{calculateDiscount().toFixed(2)}
+                          </div>
+                        </div>
+
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">
+                            Aditional charges{" "}
+                            <FontAwesomeIcon
+                              icon={faCircleInfo}
+                              className="txt-dark-grey"
+                            />
+                          </div>
+                          <div className="g-right CO-m-r">
+                            ₹{addCharge().toFixed(2)}
+                          </div>
+                        </div>
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left t-tip">
+                            Tax charges{" "}
+                            <FontAwesomeIcon
+                              icon={faCircleInfo}
+                              className="txt-dark-grey"
+                            />
+                            <div className="t-tip-text">
+                              <p>
+                                CGST (2.5%): ₹{calculateTax().cgst.toFixed(2)}
+                              </p>
+                              <p>
+                                SGST (2.5%): ₹{calculateTax().sgst.toFixed(2)}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="g-right CO-m-r">
+                            ₹
+                            {(
+                              calculateTax().cgst + calculateTax().sgst
+                            ).toFixed(2)}
+                          </div>
+                        </div>
+                        <div
+                          className="grid-2"
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <div className="g-left">Round off</div>
+                          <div className="g-right CO-m-r">
+                            (₹{calculateGrandTotal().toFixed(2)}) ₹
+                            {Math.round(calculateGrandTotal().toFixed(2))}
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            width: "540px",
+                            backgroundColor: "#aeaeae",
+                            height: "1px",
+                          }}
+                        ></div>
+                        <div className="grid-2" style={{ marginTop: "7px" }}>
+                          <div className="g-left">
+                            <b>Total</b>
+                          </div>
+                          <div className="g-right CO-m-r">
+                            <b>
+                              ₹{Math.round(calculateGrandTotal().toFixed(2))}
+                            </b>
+                          </div>
+                        </div>
+                        <div className="grid-2" style={{ marginTop: "7px" }}>
+                          <textarea
+                            className="CO-custom-input"
+                            placeholder="Special Request"
+                          ></textarea>
+                        </div>
+                        <div
+                          style={{
+                            marginTop: "10px",
+                            display: "flex",
+                            gap: "10px",
+                          }}
+                        >
+                          <button className="p-outline-button">Cancel</button>
+                          <select
+                            className="OR-droptype"
+                            style={{ width: "170px" }}
+                            id="actions"
+                            value={selectedButtonAction}
+                            onChange={(e) => handleActionChange(e.target.value)}
+                          >
+                            <option value="">Select an action</option>
+                            <option value="placeOrder">Place Order</option>
+                            <option value="sendPaymentLink">
+                              Send Payment Link
+                            </option>
+                          </select>
+                          {submitButtonVisible && (
+                            <div className="submit-button">
+                              {selectedButtonAction === "placeOrder" ? (
+                                <button
+                                  className="p-button bg-purple"
+                                  onClick={handleOrderSubmit}
+                                >
+                                  Submit
+                                </button>
+                              ) : (
+                                <button
+                                  className="p-button bg-purple"
+                                  onClick={handlePaymentLinkSubmit}
+                                >
+                                  Submit
+                                </button>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="CO-side-3-items-head">
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "87px",
+                            fontSize: "13px",
+                            color: "#2e2e2e",
+                          }}
+                        >
+                          <div style={{ marginLeft: "7px" }}>No</div>
+                          <div style={{ marginLeft: "-70px" }}>Item</div>
+
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "30px",
+                              fontSize: "13px",
+                              color: "#2e2e2e",
+                              marginLeft: "40px",
+                            }}
+                          >
+                            <div>Quantity</div>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "23px",
+                              fontSize: "13px",
+                              color: "#2e2e2e",
+                              marginLeft: "-46px",
+                            }}
+                          >
+                            <div>Extras</div>
+                            <div>Price </div>
+                            <div>Amount</div>
+                            <div>Remove</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {cartItems.map((item, index) => (
+                        <div key={index}>
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              marginTop: "40px",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <div
+                              className="CO-sde-2-content-left"
+                              style={{ width: "480px" }}
+                            >
+                              <p class="txt-black CO-item-no-spacing">
+                                {index + 1}
+                              </p>
+                              <p class="txt-black CO-item-name-spacing tooltip">
+                                {item.product}
+                                <div>
+                                  {item.selectedAddons.length > 0 && (
+                                    <div>
+                                      <b>Addons:</b>
+
+                                      {item.selectedAddons.map((addonName) => (
+                                        <li key={addonName}>
+                                          {addonName} (+₹
+                                          {
+                                            cartAddons.find(
+                                              (addon) =>
+                                                addon.name === addonName
+                                            ).price
+                                          }
+                                          )
+                                        </li>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                                <div
+                                  style={{
+                                    width: "29rem",
+                                    height: "1px",
+                                    backgroundColor: "#aeaeae",
+                                    marginTop: "20px",
+                                    marginRight: "140px",
+                                  }}
+                                ></div>
+                              </p>
+                              <p class="txt-orange CO-item-cat-spacing">
+                                <button
+                                  className="CO-btn-inc"
+                                  type="button"
+                                  onClick={() => decrementQuantity(index)}
+                                >
+                                  -
+                                </button>
+                                <span></span>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  value={item.quantity || 1}
+                                  onChange={(e) =>
+                                    updateQuantity(
+                                      index,
+                                      parseInt(e.target.value)
+                                    )
+                                  }
+                                  className="CO-qty-input"
+                                />
+
+                                <button
+                                  className="CO-btn-dec"
+                                  type="button"
+                                  onClick={() => incrementQuantity(index)}
+                                >
+                                  +
+                                </button>
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "24px" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faCopyright}
+                                  style={{ fontSize: "18px" }}
+                                />
+                                &nbsp; &nbsp;
+                                <FontAwesomeIcon
+                                  icon={faPlateWheat}
+                                  onClick={() => openPopup(index)}
+                                  style={{ fontSize: "18px" }}
+                                />
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "3px" }}
+                              >
+                                ₹
+                                {
+                                  products.find((p) => p.name === item.product)
+                                    .price
+                                }{" "}
+                              </p>
+                              <p
+                                class="txt-black CO-item-extras-spacing"
+                                style={{ marginLeft: "7px" }}
+                              >
+                                ₹{item.productTotal}
+                              </p>
+                            </div>
+                            <div className="CO-sde-2-content-right">
+                              <p
+                                class="txt-dark-grey CO-item-extras-spacing"
+                                style={{ marginLeft: "-4px" }}
+                              >
+                                <FontAwesomeIcon
+                                  icon={faTrash}
+                                  onClick={() => removeFromCart(index)}
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div></div>
             )}
           </div>
-        ) : activeTab === "pickup" ? (
-          <div className="CO-side-3">
-            <div
-              className="CO-side-3-content"
-              style={{ display: "flex", gap: "10px" }}
-            >
-              <div className="CO-side-3-fields">
-                Enter Customer details
-                <div>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Phone Number"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Name"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Alternative Number"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <textarea
-                    class="CO-custom-input"
-                    placeholder="Enter address"
-                    style={{ marginTop: "15px", width: "92%" }}
-                  ></textarea>
-                  <select
-                    class="CO-dropbtn txt-dark-grey"
-                    name="languages"
-                    id="lang"
-                  >
-                    <option value="" disabled="">
-                      Choose payment method
-                    </option>
-                    <option value="javascript">Cash</option>
-                    <option value="php">Online Payment</option>
-                  </select>
-                </div>
-                <div></div>{" "}
-              </div>
-              {isPopupOpen && selectedPopupIndex !== null && (
-                <div
-                  className="CO-addons-modal CO-addons-modal-open"
-                  onClick={closePopup}
-                >
-                  <div className="CO-addons-modal-content">
-                    <div className="grid-2"></div>
-                    <div className="CO-addons-container">
-                      {cartAddons.map((addon, addonIndex) => (
-                        <label key={addon.name}>
-                          <div className="g-left">
-                            <input
-                              type="checkbox"
-                              checked={cartItems[
-                                selectedPopupIndex
-                              ].selectedAddons.includes(addon.name)}
-                              onChange={(e) => {
-                                const newCartItems = [...cartItems];
-                                const newSelectedAddons =
-                                  newCartItems[selectedPopupIndex]
-                                    .selectedAddons;
-                                if (e.target.checked) {
-                                  newSelectedAddons.push(addon.name);
-                                } else {
-                                  const addonIndex = newSelectedAddons.indexOf(
-                                    addon.name
-                                  );
-                                  if (addonIndex !== -1) {
-                                    newSelectedAddons.splice(addonIndex, 1);
-                                  }
-                                }
-                                newCartItems[
-                                  selectedPopupIndex
-                                ].selectedAddons = newSelectedAddons;
-                                setCartItems(newCartItems);
-                              }}
-                            />{" "}
-                            {`${addon.name} (+${addon.price})`}
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {cartItems.length === 0 ? (
-                <p className="CO-no-orders f-20">No orders</p>
-              ) : (
-                <div className="CO-side-3-items">
-                  <div className="CO-side-3-items-billing ">
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">
-                        Discount{" "}
-                        <select
-                          className="CO-dis-per-textbox"
-                          value={selectedDiscountType}
-                          onChange={(e) =>
-                            setSelectedDiscountType(e.target.value)
-                          }
-                        >
-                          <option value={null}>Select Discount Type</option>
-                          <option value="PERCENTAGE">Percentage</option>
-                          <option value="AMOUNT">Amount</option>
-                          <option value="COUPON">Coupon</option>
-                        </select>
-                        {selectedDiscountType === "PERCENTAGE" && (
-                          <input
-                            className="CO-dis-per-textbox"
-                            type="number"
-                            placeholder="Percentage"
-                            value={discountPercentage}
-                            onChange={(e) =>
-                              setDiscountPercentage(parseFloat(e.target.value))
-                            }
-                          />
-                        )}
-                        {selectedDiscountType === "AMOUNT" && (
-                          <input
-                            className="CO-dis-per-textbox"
-                            type="number"
-                            placeholder="Amount"
-                            value={discountAmount}
-                            onChange={(e) =>
-                              setDiscountAmount(parseFloat(e.target.value))
-                            }
-                          />
-                        )}
-                        {selectedDiscountType === "COUPON" && (
-                          <select
-                            className="CO-dis-per-textbox"
-                            value={selectedCoupon}
-                            onChange={(e) => setSelectedCoupon(e.target.value)}
-                          >
-                            <option value={null}>Select Coupon Code</option>
-                            {couponCodes.map((coupon) => (
-                              <option key={coupon.code} value={coupon.code}>
-                                {coupon.code} - {coupon.discountPercentage}% Off
-                              </option>
-                            ))}
-                          </select>
-                        )}
-                      </div>
-                      <div className="g-right CO-m-r">
-                        - ₹{calculateDiscount().toFixed(2)}
-                      </div>
-                    </div>
-
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">
-                        Aditional charges{" "}
-                        <FontAwesomeIcon
-                          icon={faCircleInfo}
-                          className="txt-dark-grey"
-                        />
-                      </div>
-                      <div className="g-right CO-m-r">
-                        ₹{addCharge().toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left t-tip">
-                        Tax charges{" "}
-                        <FontAwesomeIcon
-                          icon={faCircleInfo}
-                          className="txt-dark-grey"
-                        />
-                        <div className="t-tip-text">
-                          <p>CGST (2.5%): ₹{calculateTax().cgst.toFixed(2)}</p>
-                          <p>SGST (2.5%): ₹{calculateTax().sgst.toFixed(2)}</p>
-                        </div>
-                      </div>
-                      <div className="g-right CO-m-r">
-                        ₹
-                        {(calculateTax().cgst + calculateTax().sgst).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">Round off</div>
-                      <div className="g-right CO-m-r">
-                        (₹{calculateGrandTotal().toFixed(2)}) ₹
-                        {Math.round(calculateGrandTotal().toFixed(2))}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "540px",
-                        backgroundColor: "#aeaeae",
-                        height: "1px",
-                      }}
-                    ></div>
-                    <div className="grid-2" style={{ marginTop: "7px" }}>
-                      <div className="g-left">
-                        <b>Total</b>
-                      </div>
-                      <div className="g-right CO-m-r">
-                        <b>₹{Math.round(calculateGrandTotal().toFixed(2))}</b>
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginTop: "7px" }}>
-                      <textarea
-                        className="CO-custom-input"
-                        placeholder="Special Request"
-                      ></textarea>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "10px",
-                        display: "flex",
-                        gap: "10px",
-                        bottom: "0",
-                      }}
-                    >
-                      <button className="p-outline-button">Cancel</button>
-                      <select
-                        className="OR-droptype"
-                        style={{ width: "170px" }}
-                        id="actions"
-                        value={selectedButtonAction}
-                        onChange={(e) => handleActionChange(e.target.value)}
-                      >
-                        <option value="">Select an action</option>
-                        <option value="placeOrder">Place Order</option>
-                        <option value="sendPaymentLink">
-                          Send Payment Link
-                        </option>
-                      </select>
-                      {submitButtonVisible && (
-                        <div className="submit-button">
-                          {selectedButtonAction === "placeOrder" ? (
-                            <button
-                              className="p-button bg-purple"
-                              onClick={handleOrderSubmit}
-                            >
-                              Submit
-                            </button>
-                          ) : (
-                            <button
-                              className="p-button bg-purple"
-                              onClick={handlePaymentLinkSubmit}
-                            >
-                              Submit
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="CO-side-3-items-head">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "87px",
-                        fontSize: "13px",
-                        color: "#2e2e2e",
-                      }}
-                    >
-                      <div style={{ marginLeft: "7px" }}>No</div>
-                      <div style={{ marginLeft: "-70px" }}>Item</div>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "30px",
-                          fontSize: "13px",
-                          color: "#2e2e2e",
-                          marginLeft: "40px",
-                        }}
-                      >
-                        <div>Quantity</div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "23px",
-                          fontSize: "13px",
-                          color: "#2e2e2e",
-                          marginLeft: "-46px",
-                        }}
-                      >
-                        <div>Addons</div>
-                        <div>Price </div>
-                        <div>Amount</div>
-                        <div>Remove</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {cartItems.map((item, index) => (
-                    <div key={index}>
-                      <div
-                        style={{
-                          fontSize: "12px",
-                          marginTop: "40px",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <div
-                          className="CO-sde-2-content-left"
-                          style={{ width: "480px" }}
-                        >
-                          <p class="txt-black CO-item-no-spacing">
-                            {index + 1}
-                          </p>
-                          <p class="txt-black CO-item-name-spacing tooltip">
-                            {item.product}
-                            <div>
-                              {item.selectedAddons.length > 0 && (
-                                <div>
-                                  <b>Addons:</b>
-
-                                  {item.selectedAddons.map((addonName) => (
-                                    <li key={addonName}>
-                                      {addonName} (+₹
-                                      {
-                                        cartAddons.find(
-                                          (addon) => addon.name === addonName
-                                        ).price
-                                      }
-                                      )
-                                    </li>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                            <div
-                              style={{
-                                width: "29rem",
-                                height: "1px",
-                                backgroundColor: "#aeaeae",
-                                marginTop: "20px",
-                                marginRight: "140px",
-                              }}
-                            ></div>
-                          </p>
-                          <p class="txt-orange CO-item-cat-spacing">
-                            <button
-                              className="CO-btn-inc"
-                              type="button"
-                              onClick={() => decrementQuantity(index)}
-                            >
-                              -
-                            </button>
-                            <span></span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              value={item.quantity || 1}
-                              onChange={(e) =>
-                                updateQuantity(index, parseInt(e.target.value))
-                              }
-                              className="CO-qty-input"
-                            />
-
-                            <button
-                              className="CO-btn-dec"
-                              type="button"
-                              onClick={() => incrementQuantity(index)}
-                            >
-                              +
-                            </button>
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "24px" }}
-                          >
-                            <FontAwesomeIcon
-                              icon={faCopyright}
-                              style={{ fontSize: "18px" }}
-                            />
-                            &nbsp; &nbsp;
-                            <FontAwesomeIcon
-                              icon={faPizzaSlice}
-                              onClick={() => openPopup(index)}
-                              style={{ fontSize: "18px" }}
-                            />
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "3px" }}
-                          >
-                            ₹
-                            {
-                              products.find((p) => p.name === item.product)
-                                .price
-                            }{" "}
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "7px" }}
-                          >
-                            ₹{item.productTotal}
-                          </p>
-                        </div>
-                        <div className="CO-sde-2-content-right">
-                          <p
-                            class="txt-dark-grey CO-item-extras-spacing"
-                            style={{ marginLeft: "-10px" }}
-                          >
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              onClick={() => removeFromCart(index)}
-                              style={{ cursor: "pointer" }}
-                            />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ) : activeTab === "table" ? (
-          <div className="CO-side-3">
-            <div
-              className="CO-side-3-content"
-              style={{ display: "flex", gap: "10px" }}
-            >
-              <div className="CO-side-3-fields">
-                Enter Customer details
-                <div>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Table Number"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Phone Number"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Name"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <input
-                    type="text"
-                    className="CO-side-search"
-                    placeholder="Enter Alternative Number"
-                    style={{ marginTop: "15px" }}
-                  ></input>
-                  <textarea
-                    class="CO-custom-input"
-                    placeholder="Enter address"
-                    style={{ marginTop: "15px", width: "92%" }}
-                  ></textarea>
-                  <select
-                    class="CO-dropbtn txt-dark-grey"
-                    name="languages"
-                    id="lang"
-                  >
-                    <option value="" disabled="">
-                      Choose payment method
-                    </option>
-                    <option value="javascript">C.O.D</option>
-                    <option value="php">Online Payment</option>
-                  </select>
-                </div>
-                <div></div>{" "}
-              </div>
-              {isPopupOpen && selectedPopupIndex !== null && (
-                <div
-                  className="CO-addons-modal CO-addons-modal-open"
-                  onClick={closePopup}
-                >
-                  <div className="CO-addons-modal-content">
-                    <div className="grid-2"></div>
-                    <div className="CO-addons-container">
-                      {cartAddons.map((addon, addonIndex) => (
-                        <label key={addon.name}>
-                          <div className="g-left">
-                            <input
-                              type="checkbox"
-                              checked={cartItems[
-                                selectedPopupIndex
-                              ].selectedAddons.includes(addon.name)}
-                              onChange={(e) => {
-                                const newCartItems = [...cartItems];
-                                const newSelectedAddons =
-                                  newCartItems[selectedPopupIndex]
-                                    .selectedAddons;
-                                if (e.target.checked) {
-                                  newSelectedAddons.push(addon.name);
-                                } else {
-                                  const addonIndex = newSelectedAddons.indexOf(
-                                    addon.name
-                                  );
-                                  if (addonIndex !== -1) {
-                                    newSelectedAddons.splice(addonIndex, 1);
-                                  }
-                                }
-                                newCartItems[
-                                  selectedPopupIndex
-                                ].selectedAddons = newSelectedAddons;
-                                setCartItems(newCartItems);
-                              }}
-                            />{" "}
-                            {`${addon.name} (+${addon.price})`}
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {cartItems.length === 0 ? (
-                <p className="CO-no-orders f-20">No orders</p>
-              ) : (
-                <div className="CO-side-3-items">
-                  <div className="CO-side-3-items-billing ">
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">
-                        Discount{" "}
-                        <select
-                          className="CO-dis-per-textbox"
-                          value={selectedDiscountType}
-                          onChange={(e) =>
-                            setSelectedDiscountType(e.target.value)
-                          }
-                        >
-                          <option value={null}>Select Discount Type</option>
-                          <option value="PERCENTAGE">Percentage</option>
-                          <option value="AMOUNT">Amount</option>
-                          <option value="COUPON">Coupon</option>
-                        </select>
-                        {selectedDiscountType === "PERCENTAGE" && (
-                          <input
-                            className="CO-dis-per-textbox"
-                            type="number"
-                            placeholder="Percentage"
-                            value={discountPercentage}
-                            onChange={(e) =>
-                              setDiscountPercentage(parseFloat(e.target.value))
-                            }
-                          />
-                        )}
-                        {selectedDiscountType === "AMOUNT" && (
-                          <input
-                            className="CO-dis-per-textbox"
-                            type="number"
-                            placeholder="Amount"
-                            value={discountAmount}
-                            onChange={(e) =>
-                              setDiscountAmount(parseFloat(e.target.value))
-                            }
-                          />
-                        )}
-                        {selectedDiscountType === "COUPON" && (
-                          <select
-                            className="CO-dis-per-textbox"
-                            value={selectedCoupon}
-                            onChange={(e) => setSelectedCoupon(e.target.value)}
-                          >
-                            <option value={null}>Select Coupon Code</option>
-                            {couponCodes.map((coupon) => (
-                              <option key={coupon.code} value={coupon.code}>
-                                {coupon.code} - {coupon.discountPercentage}% Off
-                              </option>
-                            ))}
-                          </select>
-                        )}
-                      </div>
-                      <div className="g-right CO-m-r">
-                        - ₹{calculateDiscount().toFixed(2)}
-                      </div>
-                    </div>
-
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">
-                        Aditional charges{" "}
-                        <FontAwesomeIcon
-                          icon={faCircleInfo}
-                          className="txt-dark-grey"
-                        />
-                      </div>
-                      <div className="g-right CO-m-r">
-                        ₹{addCharge().toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left t-tip">
-                        Tax charges{" "}
-                        <FontAwesomeIcon
-                          icon={faCircleInfo}
-                          className="txt-dark-grey"
-                        />
-                        <div className="t-tip-text">
-                          <p>CGST (2.5%): ₹{calculateTax().cgst.toFixed(2)}</p>
-                          <p>SGST (2.5%): ₹{calculateTax().sgst.toFixed(2)}</p>
-                        </div>
-                      </div>
-                      <div className="g-right CO-m-r">
-                        ₹
-                        {(calculateTax().cgst + calculateTax().sgst).toFixed(2)}
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginBottom: "10px" }}>
-                      <div className="g-left">Round off</div>
-                      <div className="g-right CO-m-r">
-                        (₹{calculateGrandTotal().toFixed(2)}) ₹
-                        {Math.round(calculateGrandTotal().toFixed(2))}
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        width: "540px",
-                        backgroundColor: "#aeaeae",
-                        height: "1px",
-                      }}
-                    ></div>
-                    <div className="grid-2" style={{ marginTop: "7px" }}>
-                      <div className="g-left">
-                        <b>Total</b>
-                      </div>
-                      <div className="g-right CO-m-r">
-                        <b>₹{Math.round(calculateGrandTotal().toFixed(2))}</b>
-                      </div>
-                    </div>
-                    <div className="grid-2" style={{ marginTop: "7px" }}>
-                      <textarea
-                        className="CO-custom-input"
-                        placeholder="Special Request"
-                      ></textarea>
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "10px",
-                        display: "flex",
-                        gap: "10px",
-                      }}
-                    >
-                      <button className="p-outline-button">Cancel</button>
-                      <select
-                        className="OR-droptype"
-                        style={{ width: "170px" }}
-                        id="actions"
-                        value={selectedButtonAction}
-                        onChange={(e) => handleActionChange(e.target.value)}
-                      >
-                        <option value="">Select an action</option>
-                        <option value="placeOrder">Place Order</option>
-                        <option value="sendPaymentLink">
-                          Send Payment Link
-                        </option>
-                      </select>
-                      {submitButtonVisible && (
-                        <div className="submit-button">
-                          {selectedButtonAction === "placeOrder" ? (
-                            <button
-                              className="p-button bg-purple"
-                              onClick={handleOrderSubmit}
-                            >
-                              Submit
-                            </button>
-                          ) : (
-                            <button
-                              className="p-button bg-purple"
-                              onClick={handlePaymentLinkSubmit}
-                            >
-                              Submit
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="CO-side-3-items-head">
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "87px",
-                        fontSize: "13px",
-                        color: "#2e2e2e",
-                      }}
-                    >
-                      <div style={{ marginLeft: "7px" }}>No</div>
-                      <div style={{ marginLeft: "-70px" }}>Item</div>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "30px",
-                          fontSize: "13px",
-                          color: "#2e2e2e",
-                          marginLeft: "40px",
-                        }}
-                      >
-                        <div>Quantity</div>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "23px",
-                          fontSize: "13px",
-                          color: "#2e2e2e",
-                          marginLeft: "-46px",
-                        }}
-                      >
-                        <div>Addons</div>
-                        <div>Price </div>
-                        <div>Amount</div>
-                        <div>Remove</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {cartItems.map((item, index) => (
-                    <div key={index}>
-                      <div
-                        style={{
-                          fontSize: "12px",
-                          marginTop: "40px",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <div
-                          className="CO-sde-2-content-left"
-                          style={{ width: "480px" }}
-                        >
-                          <p class="txt-black CO-item-no-spacing">
-                            {index + 1}
-                          </p>
-                          <p class="txt-black CO-item-name-spacing tooltip">
-                            {item.product}
-                            <div>
-                              {item.selectedAddons.length > 0 && (
-                                <div>
-                                  <b>Addons:</b>
-
-                                  {item.selectedAddons.map((addonName) => (
-                                    <li key={addonName}>
-                                      {addonName} (+₹
-                                      {
-                                        cartAddons.find(
-                                          (addon) => addon.name === addonName
-                                        ).price
-                                      }
-                                      )
-                                    </li>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                            <div
-                              style={{
-                                width: "29rem",
-                                height: "1px",
-                                backgroundColor: "#aeaeae",
-                                marginTop: "20px",
-                                marginRight: "140px",
-                              }}
-                            ></div>
-                          </p>
-                          <p class="txt-orange CO-item-cat-spacing">
-                            <button
-                              className="CO-btn-inc"
-                              type="button"
-                              onClick={() => decrementQuantity(index)}
-                            >
-                              -
-                            </button>
-                            <span></span>
-                            <input
-                              type="text"
-                              class="form-control"
-                              value={item.quantity || 1}
-                              onChange={(e) =>
-                                updateQuantity(index, parseInt(e.target.value))
-                              }
-                              className="CO-qty-input"
-                            />
-
-                            <button
-                              className="CO-btn-dec"
-                              type="button"
-                              onClick={() => incrementQuantity(index)}
-                            >
-                              +
-                            </button>
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "24px" }}
-                          >
-                            <FontAwesomeIcon
-                              icon={faCopyright}
-                              style={{ fontSize: "18px" }}
-                            />
-                            &nbsp; &nbsp;
-                            <FontAwesomeIcon
-                              icon={faPizzaSlice}
-                              onClick={() => openPopup(index)}
-                              style={{ fontSize: "18px" }}
-                            />
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "3px" }}
-                          >
-                            ₹
-                            {
-                              products.find((p) => p.name === item.product)
-                                .price
-                            }{" "}
-                          </p>
-                          <p
-                            class="txt-black CO-item-extras-spacing"
-                            style={{ marginLeft: "7px" }}
-                          >
-                            ₹{item.productTotal}
-                          </p>
-                        </div>
-                        <div className="CO-sde-2-content-right">
-                          <p
-                            class="txt-dark-grey CO-item-extras-spacing"
-                            style={{ marginLeft: "-4px" }}
-                          >
-                            <FontAwesomeIcon
-                              icon={faTrash}
-                              onClick={() => removeFromCart(index)}
-                              style={{ cursor: "pointer" }}
-                            />
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div></div>
         )}
       </div>
     </div>

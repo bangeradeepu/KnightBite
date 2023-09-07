@@ -258,11 +258,13 @@
     color: #ffff;
     background-color: #8d4ac2;
     outline: none;
-    padding-left: 15px;
+    padding: 10px 5px 10px 10px;
     font-size: 14px;
     width: 120px;
     border-radius: 30px;
+  
   }
+  
 
   /* Styling the dropdown arrow */
   .OR-droptype::-ms-expand {
@@ -330,51 +332,7 @@
       margin-top: 40px;
   }
 
-  .location-modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-      
-      .location-modal-open {
-        display: block;
-      }
-      
-      .location-modal-content {
-        background-color: white;
-        margin: 5% auto;
-        padding: 0px 20px 20px;
-        border: 1px solid #888;
-        width: 50%;
-        height: 70%;
-        border-radius: 20px 20px 20px 20px;
-      
-      }
-      .location-modal-content-inside{
-        width: 100%;
-        height: 100%;
-        overflow-y: auto;
 
-      }
-      .location-modal-content-inside::-webkit-scrollbar {
-        width: 8px; /* Adjust the width of the scrollbar */
-      }
-      
-      .location-modal-content-inside::-webkit-scrollbar-track {
-        background: #e2dddd;
-        margin-top: 50px;
-
-      }
-      
-      .location-modal-content-inside::-webkit-scrollbar-thumb {
-        background-color: #ccc;
-        border-radius: 8px;
-      }
 
       .OR-datefilter-modal {
         display: none;
@@ -434,7 +392,7 @@
           .OR-datefilter-btn:hover {opacity: 0.8}
           .OR-h-modal{
             margin-top: -36.5px;
-            margin-left: 300px;
+            margin-left: 150px;
             width: 120px;
           }
           .OR-h-modal-open{

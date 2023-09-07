@@ -1,0 +1,293 @@
+.ADB-app {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    background-color: #FAF9F5;
+  }
+  .ADB-textbox {
+    flex: 1;
+    margin-right: 20px;
+  }
+  .ADB-left-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    margin-top: 10.5rem;
+    margin-left: 13.5rem;
+    margin-bottom: 1rem;
+    border-radius: 20px 0px 0px 20px;
+    background-color: #ffff;
+  }
+  .ADB-left-box::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+  }
+  
+  .ADB-left-box::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+  }
+  
+  .ADB-left-box::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  
+  .ADB-right-box {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    margin-top: 10.5rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    border-radius: 0px 20px 20px 0px;
+    background-color: #ffff;
+  }
+  
+  .ADB-container {
+    margin-bottom: 20px;
+  }
+  
+  .ADB-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .ADB-row-left-right-align {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow items to wrap */
+  }
+  
+  .ADB-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .ADB-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    outline-color: #8d4ac2;
+    border: 1px solid #aeaeae;
+  }
+  .ADB-dropdown {
+    width: 108%;
+    outline-color: #8d4ac2;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    border: 1px solid #aeaeae;
+  }
+  .ADB-textarea{
+    border-radius: 10px;
+    border: 1px solid #aeaeae;
+    outline-color: #8d4ac2;
+  }
+  
+  .ADB-checkbox {
+    margin-right: 10px;
+  }
+  
+  button {
+    align-self: flex-end;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .ADB-app {
+      flex-direction: column;
+    }
+  
+    .ADB-left-box {
+      overflow-y: auto;
+    }
+  }
+
+  .ADB-language {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
+      
+      .ADB-language-open {
+        display: block;
+      }
+      
+      .ADB-language-content {
+        background-color: white;
+        margin-top: 22rem;
+        margin-left: 26rem;
+        padding: 0px 20px 20px;
+        width: 10%;
+        height: 23%;
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 5px 10px 8px 5px rgba(0,0,0,0.1);
+
+      
+      }
+      .ADB-language-content-inside{
+        width: 100%;
+        height: 70%;
+        overflow-y: auto;
+      }
+      .ADB-language-content-inside::-webkit-scrollbar {
+        width: 8px; /* Adjust the width of the scrollbar */
+      }
+      
+      .ADB-language-content-inside::-webkit-scrollbar-track {
+        background: #e2dddd;
+        margin-top: 0px;
+  
+      }
+      
+      .ADB-language-content-inside::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 8px;
+      }
+
+
+
+
+      .ADB-right-box-container {
+        display: flex;
+    }
+
+    .ADB-right-box-left-column {
+        flex: 1;
+    }
+
+    .ADB-right-box-right-column {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ADB-right-box-row {
+        display: flex;
+
+    }
+
+    .ADB-right-box-column {
+        flex: 1;
+        margin-top: 1.3rem;
+
+    }
+ 
+/* upload */
+.ADB-input-file-custom {
+    position: relative;
+  }
+  
+  .ADB-input-file-custom::file-selector-button {
+    width: 150px;
+    color: transparent;
+  }
+  
+  
+  .ADB-input-file-custom::before {
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    left: 16px;
+    height: 20px;
+    width: 20px;
+    content: "";
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M11 16V7.85l-2.6 2.6L7 9l5-5l5 5l-1.4 1.45l-2.6-2.6V16h-2Zm-5 4q-.825 0-1.413-.588T4 18v-3h2v3h12v-3h2v3q0 .825-.588 1.413T18 20H6Z"%2F%3E%3C%2Fsvg%3E');
+  }
+  
+  
+  
+  .ADB-input-file-custom::file-selector-button {
+    border-radius: 30px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #aeaeae;
+    border: 1px solid #aeaeae;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+  
+  .ADB-input-file-custom::file-selector-button:hover {
+    background-color: #8d4ac2;
+  }
+  
+  .ADB-input-file-custom::file-selector-button:active {
+    background-color: #e5e7eb;
+  }
+
+
+/* after uploading a photo */
+.ADB-input-file-custom-DB-photo::after{
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    left: 40px;
+    color: #ffffff;
+    content: "Upload Photo";
+  }
+  
+  .ADB-input-file-custom.uploaded::file-selector-button {
+    border-radius: 30px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #50B66C;
+    border: 1px solid #50B66C;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+ 
+  .ADB-input-file-custom-DB-photo.txt-uploaded::after{
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    left: 40px;
+    color: #ffffff;
+    content: "Photo Uploaded";
+  }
+
+/* Upload file status */
+.ADB-input-file-custom-DB-data-Upload::after{
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    left: 40px;
+    color: #ffffff;
+    content: "Upload File";
+  }
+  
+  .ADB-input-file-custom.color-data-uploaded::file-selector-button {
+    border-radius: 30px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #50B66C;
+    border: 1px solid #50B66C;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+ 
+  .ADB-input-file-custom.txt-data-uploaded::after{
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    left: 40px;
+    color: #ffffff;
+    content: "File Uploaded";
+  }
+  
+  
