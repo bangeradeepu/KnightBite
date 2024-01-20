@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
+import { faCircleArrowLeft,faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 import Select from "react-select";
 import { colourOptions, Option } from "./Filter";
@@ -7,158 +9,297 @@ import { colourOptions, Option } from "./Filter";
 import React, { useState } from "react";
 import "./CreateNewAddons.css";
 const CreateNewAddons = () => {
- 
+  // Go back
+  const navigate = useNavigate();
+  const goBacktoDB = () => {
+    navigate("/menu/addons");
+  };
+  // preview and input page switch
+  const [page, setPage] = useState(1);
+  const showPage1 = () => {
+    setPage(1);
+  };
+  const showPage2 = () => {
+    setPage(2);
+  };
+  //   Preview for addons name
+  const [AN, setAN] = useState(""); // State to store the input text
+
+  const handleAN = (event) => {
+    setAN(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for addons group
+  const [AG, setAG] = useState(""); // State to store the input text
+
+  const handleAG = (event) => {
+    setAG(event.target.value);
+    setIsAnyInput(true);
+  };
+    //   Preview for addons Price
+    const [Price, setPrice] = useState(""); // State to store the input text
+
+    const handlePrice = (event) => {
+      setPrice(event.target.value);
+      setIsAnyInput(true);
+    };
+
+        //   Preview for addons Type
+        const [Type, setType] = useState(""); // State to store the input text
+
+        const handleType = (event) => {
+          setType(event.target.value);
+          setIsAnyInput(true);
+        };
   return (
-    <div>
-      <div className="addons-margin ">
-        <div className="addons-filter">
-         
-         
-          <div class="grid-container">
-            <div class="item3">
-              <div className="left-section">
-                <div className="addons-heading">Create Addons</div>
-                <p className="addonsname txt-grey">Addon Name</p>
-                <div className="addonname-position">
-                  <input
-                    className="custom-input"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Enter Addon name"
-                  />
-                </div>
-
-                <p className="soldout txt-grey">Addon Group</p>
-                <div className="soldout-position">
-                  <div class="dropdown">
-                    <select class="dropbtn" name="languages" id="lang">
-                      <option value="" disabled="">
-                        Select Addon group
-                      </option>
-                      <option value="javascript">JavaScript</option>
-                      <option value="php">PHP</option>
-                      <option value="java">Java</option>
-                      <option value="golang">Golang</option>
-                      <option value="python">Python</option>
-                      <option value="c#">C#</option>
-                      <option value="C++">C++</option>
-                      <option value="erlang">Erlang</option>
-                    </select>
-                  </div>
-                </div>
-
-                <p className="addons-price txt-grey">Price</p>
-                <div className="addons-price-left">
-                  <div className="addons-price-position">
-                    <i class="rs-icon">
-                      <svg
-                        aria-hidden="true"
-                        focusable="false"
-                        data-prefix="fas"
-                        data-icon="indian-rupee-sign"
-                        class="svg-inline--fa fa-indian-rupee-sign "
-                        role="img"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 320 512"
-                      >
-                        <path
-                          fill="currentColor"
-                          d="M0 64C0 46.3 14.3 32 32 32H96h16H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H231.8c9.6 14.4 16.7 30.6 20.7 48H288c17.7 0 32 14.3 32 32s-14.3 32-32 32H252.4c-13.2 58.3-61.9 103.2-122.2 110.9L274.6 422c14.4 10.3 17.7 30.3 7.4 44.6s-30.3 17.7-44.6 7.4L13.4 314C2.1 306-2.7 291.5 1.5 278.2S18.1 256 32 256h80c32.8 0 61-19.7 73.3-48H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H185.3C173 115.7 144.8 96 112 96H96 32C14.3 96 0 81.7 0 64z"
-                        ></path>
-                      </svg>{" "}
-                    </i>
-                    <input
-                      class="custom-button-left-default custom-input-half-width"
-                      name="languages"
-                      id="lang"
-                      placeholder="Enter Price"
-                    ></input>
-                  </div>
-                </div>
-                <div className="addons-price-right">
-                  <p className="addontype txt-grey">Addon Type</p>
-                  <div className="addontype-position">
-                    <div class="dropdown">
-                      <select class="dropbtn" name="languages" id="lang">
-                        <option value="" disabled="">
-                          Select Addon Type
-                        </option>
-                        <option value="javascript">JavaScript</option>
-                        <option value="php">PHP</option>
-                        <option value="java">Java</option>
-                        <option value="golang">Golang</option>
-                        <option value="python">Python</option>
-                        <option value="c#">C#</option>
-                        <option value="C++">C++</option>
-                        <option value="erlang">Erlang</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="addons-submit">
-                    <button class="add-item-button">Add Addon</button>
-                  </div>
-                  <div className="line-position">
-                    <img src="Images/line.svg" alt="" />
-                  </div>
-                </div>
+    <div className="AO-create ">
+      {/* Desktop mode */}
+      <div className="AO-desktop d-flex g-20">
+        <div className="AO-left">
+          <div className="f-20">
+            <FontAwesomeIcon
+              icon={faCircleArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "}
+            Create Addons
+          </div>
+          <br />
+          <br />
+          <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Addons name
+            </label>
+            <div>
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Enter addons name"
+                value={AN}
+                onChange={handleAN}
+              />
+            </div>
+          </div>
+          <br />
+          <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Addons group
+            </label>
+            <div>
+              <select name="" id="" value={AG} onChange={handleAG}>
+                <option value="" selected disabled>
+                  Addons Group
+                </option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex g-30">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Price
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter Price"
+                  style={{ width: "16vw" }}
+                  value={Price}
+                  onChange={handlePrice}
+                />
               </div>
             </div>
-            <div class="item4">
-              <div className="addons-preview-header">
-                <p className="txt-dark-grey">Preview</p>
-              </div>
-              <div className="addons-right-left">
-                <div className="addons-name-review">
-                  <p className="txt-grey">Addon name</p>
-                </div>
-                <div className="addons-name-content-review">
-                  <p className="text-black">White Chocolate Sauce</p>
-                </div>
-
-                <div className="addons-soldout-review">
-                  <p className="txt-grey">Sold Out</p>
-                </div>
-                <div className="addons-soldout-content-review">
-                  <p className="text-black">None</p>
-                </div>
-
-                <div className="addons-price-review">
-                  <p className="txt-grey">Price</p>
-                </div>
-                <div className="addons-price-content-review">
-                  <p className="text-black">100</p>
-                </div>
-              </div>
-              <div className="addons-right-right">
-                <div className="addons-group-review">
-                  <p className="txt-grey">Addon Group</p>
-                </div>
-                <div className="addons-group-content-review">
-                  <p className="text-black">5</p>
-                </div>
-                <div className="addons-type-review">
-                  <p className="txt-grey">Addon Type</p>
-                </div>
-                <div className="addons-type-content-review">
-                  <p className="txt-green">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"
-                      />
-                    </svg>
-                  </p>
-                </div>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Type
+              </label>
+              <div>
+                <select name="" id="" value={Type} onChange={handleType}>
+                  <option value="" selected disabled>
+                    Addon type
+                  </option>
+                  <option value="Veg">Veg</option>
+                  <option value="Non-Veg">Non Veg</option>
+                </select>
               </div>
             </div>
           </div>
         </div>
+        <div className="AO-right">
+          <div className="f-20">Preview</div>
+          <br />
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Addons Name</div>
+              <div>
+                {AN}
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Addons Group</div>
+              <div>{AG}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Price</div>
+              <div>₹{Price}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Addons Type</div>
+              <div>
+              {Type === "Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-green" />
+                ) : Type === "Non-Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-red" />
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <div className="d-flex">
+            <button
+              className="p-outline-button"
+              style={{ padding: "0.7vw 3.5vw", marginTop: "7.2vw" }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Phone Mode */}
+      <div className="AO-phone">
+        <div className="ADD-p-top">
+          <div> <FontAwesomeIcon
+              icon={faArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "} Create Addons</div>
+        </div>
+        {page === 1 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container">
+              <input
+                type="text"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Addons Name"
+              />
+              <br />
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+              >
+                <option value="" selected disabled>
+                  Select Addons Group
+                </option>
+              </select>
+              <input
+                type="text"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Price"
+              />
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+              >
+                <option value="" selected disabled>
+                  Select Addon type
+                </option>
+              </select>
+
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Go to Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {page === 2 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container" style={{ padding: "4vw" }}>
+              <div className="f-18">
+                <FontAwesomeIcon
+                  icon={faCircleArrowLeft}
+                  onClick={showPage1}
+                  className="txt-black"
+                  style={{ cursor: "pointer" }}
+                />{" "}
+                Preview
+              </div>
+              <br />
+              <div className="d-flex align-item-center">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Addons name</div>
+                  <div className="d-flex align-item-center">
+                    Chocolate &nbsp;
+                    <Icon
+                      className="txt-green"
+                      icon="mdi:square-circle"
+                      width="20"
+                      height="20"
+                    />
+                  </div>
+                </div>
+                {/* <div className="flex-1">
+    <div className="f-12 txt-grey"></div>
+    <div className="f-12 txt-grey">&nbsp;</div>
+    <div className="txt-green"><Icon icon="mdi:square-circle" width="20" height="20" /></div>
+    </div> */}
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Addons group</div>
+                  <div>5</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Price</div>
+                  <div>₹30</div>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

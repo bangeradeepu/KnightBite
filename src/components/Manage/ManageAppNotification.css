@@ -1,0 +1,130 @@
+.ManageAppNotification .MAN-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageAppNotification .MAN-desktop .MAN-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: auto;
+
+}
+.MAN-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MAN-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MAN-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MAN-left-side-w{
+    width: 15vw;
+    text-align: right;
+  }
+  .MAN-textarea{
+    border: 1px solid #aeaeae;
+    border-radius: 0.5vw;
+    outline-color: #8d4ac2;
+    width: 25vw;
+    height: 8vh;
+  }
+  .MAN-custom-file-upload-logo{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    color: black;
+    /* width: 5vw; */
+  }
+  .MAN-custom-file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #a6a6a6;
+    color: #fff;
+    width: 4vw;
+    padding: 0.5vw;
+  }
+  
+  .MAN-file-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .MAN-img-logo{
+    width: 2vw;
+    height: 2vw;
+  }
+  .MAN-image-preview{
+    background-color: white;
+    padding: 1vw;
+    width: 20vw;
+    border-radius: 1vw;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  .MAN-preview-image-box{
+    background-color: #f3f3f3;
+    width: auto;
+    height: 20vh;
+    overflow: hidden;
+  }
+
+  .MAN-preview-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width:900px) {
+    .ManageAppNotification .MAN-desktop{
+        display: none;
+    }
+    .MAN-textarea{
+        border: 1px solid #aeaeae;
+        border-radius: 1.5vw;
+        outline-color: #8d4ac2;
+        width: 85vw;
+        height: 8vh;
+      }
+
+      .MAN-img-logo{
+        width: 8vw;
+        height: 8vw;
+      }
+      .MAN-image-preview{
+        background-color: white;
+        padding: 4vw;
+        width: 100%;
+        border-radius: 4vw;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+      }
+      .MAN-preview-image-box{
+        background-color: rgb(241, 244, 241);
+        width: auto;
+        height: 20vh;
+        overflow: hidden;
+      }
+  }

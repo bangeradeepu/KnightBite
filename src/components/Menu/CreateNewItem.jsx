@@ -1,80 +1,18 @@
 import "./CreateNewItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIndianRupeeSign } from "@fortawesome/free-solid-svg-icons";
-// import TagDropdown from './TagDropdown';
-import Select from "react-select";
-import { colourOptions, Option } from "./Filter";
+import {
+  faCircleArrowLeft,
+  faArrowLeft,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
-import React, { useState } from "react";
-import { Dropdown } from "@mui/base/Dropdown";
-import { Menu } from "@mui/base/Menu";
-import { MenuButton } from "@mui/base/MenuButton";
-import { Checkbox } from "@mui/material";
-import { MenuItem } from "@mui/base/MenuItem";
-import { styled } from "@mui/system";
-import CloseIcon from "@mui/icons-material/Close";
-// import './TagDropdown.css'
+import React, { useState, useRef } from "react";
 
-const StyledMenuItem = styled(MenuItem)(
-  ({ theme }) => `
-      /* Your StyledMenuItem styles */
-    `
-);
-
-const StyledListbox = styled("ul")(
-  ({ theme }) => `
-      max-height: 120px;
-      overflow-y: auto;
-      border: 10px , #000;
-      border-radius: 10px;
-      background-color: #e2dddd;
-      list-style: none;
-      width: 170px;
-      left: 50px;
-      margin-left: 10px;
-      padding-left: 10px;
-      margin-top: 10px;
-      /* Your StyledListbox styles */
-    `
-);
-
-const TriggerButton = styled(MenuButton)(
-  ({ theme }) => `
-      /* Your TriggerButton styles */
-    `
-);
+const tagsSet = ["Spicy", "New", "Combo", "Sweet"];
 
 function CreateNewItem() {
-  // Tags
-  const allTags = ["Best Seller", "New", "Spicy", "Must try", "spicy"]; // Add more tags as needed
-  const [selectedTags, setSelectedTags] = useState([]);
-
-  const handleTagCheckboxChange = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(
-        selectedTags.filter((selectedTag) => selectedTag !== tag)
-      );
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove) => {
-    setSelectedTags((prevSelectedTags) =>
-      prevSelectedTags.filter((selectedTag) => selectedTag !== tagToRemove)
-    );
-  };
-
-  const availableTags = allTags.filter((tag) => !selectedTags.includes(tag));
-
-  const tagRows = [];
-  const rowSize = 2;
-
-  for (let i = 0; i < selectedTags.length; i += rowSize) {
-    const tagRow = selectedTags.slice(i, i + rowSize);
-    tagRows.push(tagRow);
-  }
-
   // tab switch
   const [activeTab, setActiveTab] = useState("Single"); // Set 'Items' as the default active tab
   const [filter, setFilter] = useState("all");
@@ -83,16 +21,177 @@ function CreateNewItem() {
     setActiveTab(tab);
   };
 
-  return (
-    <div>
-      {/* <Head /> */}
-      {/* <Nav /> */}
-      {/* <TagDropdown/> */}
+  // Go back
+  const navigate = useNavigate();
+  const goBacktoDB = () => {
+    navigate("/menu/items");
+  };
+  // preview and input page switch
+  const [page, setPage] = useState(1);
+  const showPage1 = () => {
+    setPage(1);
+  };
+  const showPage2 = () => {
+    setPage(2);
+  };
+  // Open select tags modal -desktop mode
+  const [selectTagsVisible, setSelectTagsVisible] = useState(false);
 
-      <div className="box-create-item">
-        <div className="group-wrapper">
-          <div className="CI-add-multi-item">
-            <div className="add-items-filter-buttons-container">
+  const openselectTags = () => {
+    setSelectTagsVisible(true);
+  };
+
+  const closeselectTags = () => {
+    setSelectTagsVisible(false);
+  };
+
+  // Open select tags modal -phone
+  const [selectTagsPhoneVisible, setSelectTagsPhoneVisible] = useState(false);
+
+  const openselectPhoneTags = () => {
+    setSelectTagsPhoneVisible(true);
+  };
+
+  const closeselectPhoneTags = () => {
+    setSelectTagsPhoneVisible(false);
+  };
+  //   Select and display the selectd lanuages
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+
+  const handleTagsCheckboxChange = (event) => {
+    const selectedLanguage = event.target.name;
+    if (event.target.checked) {
+      setSelectedLanguages((prevSelectedLanguages) => [
+        ...prevSelectedLanguages,
+        selectedLanguage,
+      ]);
+    } else {
+      setSelectedLanguages((prevSelectedLanguages) =>
+        prevSelectedLanguages.filter((lang) => lang !== selectedLanguage)
+      );
+    }
+    setIsAnyInput(true);
+  };
+  //   Preview for item name
+  const [inputItemName, setInputItemName] = useState(""); // State to store the input text
+
+  const setInhandleInputItemNameChange = (event) => {
+    setInputItemName(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for category
+  const [inputCategory, setCategory] = useState(""); // State to store the input text
+
+  const handleSetCategory = (event) => {
+    setCategory(event.target.value);
+    setIsAnyInput(true);
+  };
+
+  //   Preview for Type
+  const [inputType, setType] = useState(""); // State to store the input text
+
+  const handleType = (event) => {
+    setType(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for Sort order
+  const [inputSetOrder, setSetOrder] = useState(""); // State to store the input text
+
+  const handleSetOrder = (event) => {
+    setSetOrder(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for Recommended
+  const [inputRecommended, setRecommended] = useState(false); // State to store the input text
+
+  const handleRecommended = (event) => {
+    setRecommended(event.target.checked);
+    setIsAnyInput(true);
+  };
+
+  //   Preview for Weight
+  const [inputWeight, setWeight] = useState(""); // State to store the input text
+
+  const handleWeight = (event) => {
+    setWeight(event.target.value);
+    setIsAnyInput(true);
+  };
+
+  //   Preview for DSP
+  const [inputDSP, setDSP] = useState(""); // State to store the input text
+
+  const handleDSP = (event) => {
+    setDSP(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for MP
+  const [inputMP, setMP] = useState(""); // State to store the input text
+
+  const handleMP = (event) => {
+    setMP(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for PID
+  const [inputPID, setPID] = useState(""); // State to store the input text
+
+  const handlePID = (event) => {
+    setPID(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for DESC
+  const [inputDESC, setDESC] = useState(""); // State to store the input text
+
+  const handleDESC = (event) => {
+    setDESC(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for Serves
+  const [inputServes, setServes] = useState(""); // State to store the input text
+
+  const handleServes = (event) => {
+    setServes(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for FM
+  const [inputFM, setFM] = useState(""); // State to store the input text
+
+  const handleFM = (event) => {
+    setFM(event.target.value);
+    setIsAnyInput(true);
+  };
+
+  // file upload for photo
+  const fileInputPhotoRef = useRef(null);
+  const [fileUploadedPhoto, fsetFileUploadedPhoto] = useState(false);
+
+  // Function to handle file selection
+  const handleFileChangePhoto = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      fsetFileUploadedPhoto(true); // Set the fileUploadedPhoto state to true
+    }
+    setIsAnyInput(true);
+  };
+
+  const fileInputPhotoClass = fileUploadedPhoto
+    ? "ADB-input-file-custom ADB-input-file-custom-DB-photo uploaded ADB-input-file-custom-DB-photo txt-uploaded"
+    : "ADB-input-file-custom ADB-input-file-custom-DB-photo";
+  return (
+    <div className="ITM-create">
+      {/* Desktop mode */}
+      <div className="ITM-desktop d-flex g-20">
+        <div className="ITM-left">
+          <div className="d-flex space-between align-item-center">
+            <div className="f-20">
+              <FontAwesomeIcon
+                icon={faCircleArrowLeft}
+                onClick={goBacktoDB}
+                className="txt-black"
+                style={{ cursor: "pointer" }}
+              />{" "}
+              Create Items
+            </div>
+            <div className="d-flex g-10">
               <button
                 className={
                   activeTab === "Single" ? "active-filter" : "filter-button"
@@ -119,1109 +218,767 @@ function CreateNewItem() {
               </button>
             </div>
           </div>
+          <br />
+          <br />
+          <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Item name
+            </label>
+            <div>
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Enter Item name"
+                value={inputItemName}
+                onChange={setInhandleInputItemNameChange}
+              />
+            </div>
+          </div>
 
-          <div className="group">
-            {activeTab === "Single" && (
-              <div className="items-right">
-                <img
-                  className="line"
-                  alt="Line"
-                  src="https://generation-sessions.s3.amazonaws.com/50da0663f6c1174b4030adb0f4371c15/img/line-11.svg"
-                />
-
-                <div className="input">
-                  <div className="title-group">
-                    <div className="overlap-group-3">
-                      <input
-                        className="custom-input"
-                        placeholder="Enter Title"
-                      />
-                    </div>
-                    <p className="add-items-header">Add Items</p>
-                    <div className="text-wrapper-5">Title</div>
-                  </div>
-
-                  <div className="cat-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Category
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-5">Category</div>
-                  </div>
-                  <div className="posid-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter POS ID"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">POS ID</div>
-                  </div>
-                  <div className="fullfillment-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Fulfilment modes
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Fulfilment Modes</div>
-                  </div>
-                  <div className="item-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Enter Item group
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-10">Item groups</div>
-                  </div>
-                  <div className="weight-group">
-                    <div className="div-2">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter weight"
-                      />
-                    </div>
-                    <div className="text-wrapper-10">Weight (in gms)</div>
-                  </div>
-                  <div className="overlap-3">
-                    <div className="serves-group">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="ENter serves"
-                      />
-                      <div className="top-up">Serves</div>
-                    </div>
-                  </div>
-                  <div className="tags-group">
-                    <div className="div-2">
-                      <div className="ellipse-wrapper">
-                        <label className="switch">
-                          <input type="checkbox"></input>
-                          <span className="b-slider"></span>
-                        </label>
-                      </div>{" "}
-                    </div>
-                    <div className="text-wrapper-8">Pre order enabled</div>
-                  </div>
-
-                  <div className="sort-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter sort order"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Sort Order</div>
-                  </div>
-                  <div className="default-sales-price">
-                    <div className="div-2">
-                      <i className="rs-icon">
-                        <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                      </i>
-                      <input
-                        className="custom-button-left-default custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter default sales price"
-                      />
-                    </div>
-                    <div className="text-wrapper-8">Default sales Price</div>
-                  </div>
-                  <div className="markup-group">
-                    <div className="text-wrapper-15">
-                      Markup Price (Optional)
-                    </div>
-                    <div className="sales-price-textbox-2">
-                      <div className="overlap-group-markup">
-                        <i className="rs-icon">
-                          <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                        </i>
-                        <input
-                          className="custom-button-left-default custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter Markup price"
-                        />
-                        <div className="text-wrapper-14"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cat-group-2">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Food Type
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Food Type</div>
-                  </div>
-                  <div className="desc-group">
-                    <textarea className="rectangle"></textarea>
-                    <div className="text-wrapper-16">Description</div>
-                  </div>
-                  <div className="is-recommended">
-                    <div className="text-wrapper-10">Is Recommended</div>
-                    <div className="radio-button">
-                      <label className="switch">
-                        <input type="checkbox"></input>
-                        <span className="b-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                  <div className="pre-order-group">
-                    <div className="text-wrapper-image">Image</div>
-                    <div className="overlap-group-4">
-                      {/* <div className='text-wrapper-12'>Image</div> */}
-
-                      <input type="file" className="input-file-custom" />
-                    </div>
-                  </div>
-                  <div className="cat-textbox-3">
-                    <div className="tag-dropdown-container">
-                      <Dropdown>
-                        <TriggerButton className="tag-menu-button">
-                          Tags
-                        </TriggerButton>
-                        <Menu slots={{ listbox: StyledListbox }}>
-                          {availableTags.map((tag) => (
-                            <StyledMenuItem key={tag}>
-                              <Checkbox
-                                onChange={() => handleTagCheckboxChange(tag)}
-                              />
-                              {tag}
-                            </StyledMenuItem>
-                          ))}
-                        </Menu>
-                      </Dropdown>
-                      <div className="selected-tags-container">
-                        {tagRows.map((row, rowIndex) => (
-                          <div key={rowIndex} className="tag-row">
-                            {row.map((tag) => (
-                              <div key={tag} className="selected-tag-container">
-                                <div className="selected-tag">
-                                  <span className="tag-label">{tag}</span>
-                                  <button
-                                    className="remove-tag-button"
-                                    onClick={() => handleRemoveTag(tag)}
-                                    onMouseOver={(e) =>
-                                      (e.target.style.color = "red")
-                                    }
-                                    onMouseOut={(e) =>
-                                      (e.target.style.color = "#000")
-                                    }
-                                  >
-                                    <CloseIcon
-                                      style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        marginRight: "10px",
-                                      }}
-                                    />
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="add-item">
-                  <button className="add-item-button">Add Item</button>
-                </div>
-                <h1 className="h-1">Preview</h1>
-
-                <div className="text-wrapper-17">Tags</div>
-                <div className="text-wrapper-18">Title</div>
-                <div className="text-wrapper-19">Category</div>
-                <div className="text-wrapper-20">Zinger Burger</div>
-                <div className="text-wrapper-21">Bite of the day</div>
-                <div className="text-wrapper-22">Food type</div>
-                <div className="text-wrapper-23">Sort Order</div>
-                <div className="text-wrapper-24">Is recommended</div>
-                <p className="nonveg-icon txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"
-                    />
-                  </svg>
-                </p>
-                <div className="text-wrapper-25">0</div>
-                <div className="text-wrapper-26">Yes</div>
-                <div className="text-wrapper-27">Default sales price</div>
-                <div className="text-wrapper-28">Markup Price</div>
-                <div className="text-wrapper-29">100</div>
-                <div className="text-wrapper-30">100</div>
-                <div className="text-wrapper-31">Description</div>
-                <div className="text-wrapper-32">POS ID</div>
-                <p className="p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus dui odio, lacinia molestie turpis sed, lobortis
-                  aliquet felis. Vivamus enim quam, fringilla imperdiet
-                  tincidunt
-                </p>
-                <div className="text-wrapper-33">Lorem ipsum</div>
-                <div className="text-wrapper-34">CRM Title</div>
-                <div className="text-wrapper-35">Fulfilment Modes</div>
-                <div className="text-wrapper-36">2354</div>
-                <div className="text-wrapper-37">Tags</div>
-                <div className="text-wrapper-38">Item groups</div>
-                <div className="new">
-                  <div className="overlap-4">
-                    <div className="text-wrapper-39">New</div>
-                  </div>
-                </div>
-                <div className="spicy">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-40">Spicy</div>
-                  </div>
-                </div>
-                <div className="must-try">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-41">Must try</div>
-                  </div>
-                </div>
-                <div className="best-seller">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-42">Best Seller</div>
-                  </div>
-                </div>
-                <div className="text-wrapper-43">Pre-order timing</div>
-                <div className="text-wrapper-44">Weight (in gms)</div>
-                <div className="text-wrapper-45">Pre-order enabled</div>
-                <div className="text-wrapper-46">No</div>
-                <div className="text-wrapper-47">Serves</div>
-                <div className="text-wrapper-48">2</div>
-
-                <p className="ellipse-4 txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
-                <p className="ellipse-5 txt-red">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
+          <br />
+          <div className="d-flex g-10">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Category
+              </label>
+              <div>
+                <select
+                  name=""
+                  id=""
+                  value={inputCategory}
+                  onChange={handleSetCategory}
+                >
+                  <option value="" selected disabled>
+                    Select Category
+                  </option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
               </div>
-            )}
-
-            {activeTab === "Combo" && (
-              <div className="items-right">
-                <img
-                  className="line"
-                  alt="Line"
-                  src="https://generation-sessions.s3.amazonaws.com/50da0663f6c1174b4030adb0f4371c15/img/line-11.svg"
-                />
-
-                <div className="input">
-                  <div className="title-group">
-                    <div className="overlap-group-3">
-                      <input
-                        className="custom-input"
-                        placeholder="Enter Title"
-                      />
-                    </div>
-                    <p className="add-items-header">Add Combo</p>
-                    <div className="text-wrapper-5">Title</div>
-                  </div>
-
-                  <div className="cat-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Category
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-5">Category</div>
-                  </div>
-                  <div className="posid-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter POS ID"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">POS ID</div>
-                  </div>
-                  <div className="fullfillment-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Fulfilment modes
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Fulfilment Modes</div>
-                  </div>
-                  <div className="item-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Enter Item group
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-10">Item groups</div>
-                  </div>
-                  <div className="weight-group">
-                    <div className="div-2">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter weight"
-                      />
-                    </div>
-                    <div className="text-wrapper-10">Weight (in gms)</div>
-                  </div>
-                  <div className="overlap-3">
-                    <div className="serves-group">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="ENter serves"
-                      />
-                      <div className="top-up">Serves</div>
-                    </div>
-                  </div>
-                  <div className="tags-group">
-                    <div className="div-2">
-                      <div className="ellipse-wrapper">
-                        <label className="switch">
-                          <input type="checkbox"></input>
-                          <span className="b-slider"></span>
-                        </label>
-                      </div>{" "}
-                    </div>
-                    <div className="text-wrapper-8">Pre order enabled</div>
-                  </div>
-
-                  <div className="sort-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter sort order"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Sort Order</div>
-                  </div>
-                  <div className="default-sales-price">
-                    <div className="div-2">
-                      <i className="rs-icon">
-                        <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                      </i>
-                      <input
-                        className="custom-button-left-default custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter default sales price"
-                      />
-                    </div>
-                    <div className="text-wrapper-8">Default sales Price</div>
-                  </div>
-                  <div className="markup-group">
-                    <div className="text-wrapper-15">
-                      Markup Price (Optional)
-                    </div>
-                    <div className="sales-price-textbox-2">
-                      <div className="overlap-group-markup">
-                        <i className="rs-icon">
-                          <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                        </i>
-                        <input
-                          className="custom-button-left-default custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter Markup price"
-                        />
-                        <div className="text-wrapper-14"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cat-group-2">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Food Type
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Food Type</div>
-                  </div>
-                  <div className="desc-group">
-                    <textarea className="rectangle"></textarea>
-                    <div className="text-wrapper-16">Description</div>
-                  </div>
-                  <div className="is-recommended">
-                    <div className="text-wrapper-10">Is Recommended</div>
-                    <div className="radio-button">
-                      <label className="switch">
-                        <input type="checkbox"></input>
-                        <span className="b-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                  <div className="pre-order-group">
-                    <div className="text-wrapper-image">Image</div>
-                    <div className="overlap-group-4">
-                      {/* <div className='text-wrapper-12'>Image</div> */}
-
-                      <input type="file" className="input-file-custom" />
-                    </div>
-                  </div>
-                  <div className="cat-textbox-3">
-                    <div className="tag-dropdown-container">
-                      <Dropdown>
-                        <TriggerButton className="tag-menu-button">
-                          Tags
-                        </TriggerButton>
-                        <Menu slots={{ listbox: StyledListbox }}>
-                          {availableTags.map((tag) => (
-                            <StyledMenuItem key={tag}>
-                              <Checkbox
-                                onChange={() => handleTagCheckboxChange(tag)}
-                              />
-                              {tag}
-                            </StyledMenuItem>
-                          ))}
-                        </Menu>
-                      </Dropdown>
-                      <div className="selected-tags-container">
-                        {tagRows.map((row, rowIndex) => (
-                          <div key={rowIndex} className="tag-row">
-                            {row.map((tag) => (
-                              <div key={tag} className="selected-tag-container">
-                                <div className="selected-tag">
-                                  <span className="tag-label">{tag}</span>
-                                  <button
-                                    className="remove-tag-button"
-                                    onClick={() => handleRemoveTag(tag)}
-                                    onMouseOver={(e) =>
-                                      (e.target.style.color = "red")
-                                    }
-                                    onMouseOut={(e) =>
-                                      (e.target.style.color = "#000")
-                                    }
-                                  >
-                                    <CloseIcon
-                                      style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        marginRight: "10px",
-                                      }}
-                                    />
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="add-item">
-                  <button className="add-item-button">Add Item</button>
-                </div>
-                <h1 className="h-1">Preview</h1>
-                <div className="text-wrapper-17">Tags</div>
-                <div className="text-wrapper-18">Title</div>
-                <div className="text-wrapper-19">Category</div>
-                <div className="text-wrapper-20">Zinger Burger</div>
-                <div className="text-wrapper-21">Bite of the day</div>
-                <div className="text-wrapper-22">Food type</div>
-                <div className="text-wrapper-23">Sort Order</div>
-                <div className="text-wrapper-24">Is recommended</div>
-                <p className="nonveg-icon txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"
-                    />
-                  </svg>
-                </p>
-                <div className="text-wrapper-25">0</div>
-                <div className="text-wrapper-26">Yes</div>
-                <div className="text-wrapper-27">Default sales price</div>
-                <div className="text-wrapper-28">Markup Price</div>
-                <div className="text-wrapper-29">100</div>
-                <div className="text-wrapper-30">100</div>
-                <div className="text-wrapper-31">Description</div>
-                <div className="text-wrapper-32">POS ID</div>
-                <p className="p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus dui odio, lacinia molestie turpis sed, lobortis
-                  aliquet felis. Vivamus enim quam, fringilla imperdiet
-                  tincidunt
-                </p>
-                <div className="text-wrapper-33">Lorem ipsum</div>
-                <div className="text-wrapper-34">CRM Title</div>
-                <div className="text-wrapper-35">Fulfilment Modes</div>
-                <div className="text-wrapper-36">2354</div>
-                <div className="text-wrapper-37">Tags</div>
-                <div className="text-wrapper-38">Item groups</div>
-                <div className="new">
-                  <div className="overlap-4">
-                    <div className="text-wrapper-39">New</div>
-                  </div>
-                </div>
-                <div className="spicy">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-40">Spicy</div>
-                  </div>
-                </div>
-                <div className="must-try">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-41">Must try</div>
-                  </div>
-                </div>
-                <div className="best-seller">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-42">Best Seller</div>
-                  </div>
-                </div>
-                <div className="text-wrapper-43">Pre-order timing</div>
-                <div className="text-wrapper-44">Weight (in gms)</div>
-                <div className="text-wrapper-45">Pre-order enabled</div>
-                <div className="text-wrapper-46">No</div>
-                <div className="text-wrapper-47">Serves</div>
-                <div className="text-wrapper-48">2</div>
-
-                <p className="ellipse-4 txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
-                <p className="ellipse-5 txt-red">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
+            </div>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Food Type
+              </label>
+              <div>
+                <select name="" id="" value={inputType} onChange={handleType}>
+                  <option value="" selected disabled>
+                    Select food type
+                  </option>
+                  <option value="Veg">Veg</option>
+                  <option value="Non-Veg">Non-Veg</option>
+                </select>
               </div>
-            )}
-
-            {activeTab === "MRP" && (
-              <div className="items-right">
-                <img
-                  className="line"
-                  alt="Line"
-                  src="https://generation-sessions.s3.amazonaws.com/50da0663f6c1174b4030adb0f4371c15/img/line-11.svg"
+            </div>
+          </div>
+          <br />
+          <div className="d-flex" style={{ gap: "1vw" }}>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Sort Order
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter Sort Order"
+                  style={{ width: "16vw" }}
+                  value={inputSetOrder}
+                  onChange={handleSetOrder}
                 />
-
-                <div className="input">
-                  <div className="title-group">
-                    <div className="overlap-group-3">
-                      <input
-                        className="custom-input"
-                        placeholder="Enter Title"
-                      />
-                    </div>
-                    <p className="add-items-header">Add MRP</p>
-                    <div className="text-wrapper-5">Title</div>
-                  </div>
-
-                  <div className="cat-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Category
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-5">Category</div>
-                  </div>
-                  <div className="posid-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter POS ID"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">POS ID</div>
-                  </div>
-                  <div className="fullfillment-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Fulfilment modes
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Fulfilment Modes</div>
-                  </div>
-                  <div className="item-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Enter Item group
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-10">Item groups</div>
-                  </div>
-                  <div className="weight-group">
-                    <div className="div-2">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter weight"
-                      />
-                    </div>
-                    <div className="text-wrapper-10">Weight (in gms)</div>
-                  </div>
-                  <div className="overlap-3">
-                    <div className="serves-group">
-                      <input
-                        className="custom-input custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="ENter serves"
-                      />
-                      <div className="top-up">Serves</div>
-                    </div>
-                  </div>
-                  <div className="tags-group">
-                    <div className="div-2">
-                      <div className="ellipse-wrapper">
-                        <label className="switch">
-                          <input type="checkbox"></input>
-                          <span className="b-slider"></span>
-                        </label>
-                      </div>{" "}
-                    </div>
-                    <div className="text-wrapper-8">Pre order enabled</div>
-                  </div>
-
-                  <div className="sort-group">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <input
-                          className="custom-input custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter sort order"
-                        />
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Sort Order</div>
-                  </div>
-                  <div className="default-sales-price">
-                    <div className="div-2">
-                      <i className="rs-icon">
-                        <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                      </i>
-                      <input
-                        className="custom-button-left-default custom-input-half-width"
-                        name="languages"
-                        id="lang"
-                        placeholder="Enter default sales price"
-                      />
-                    </div>
-                    <div className="text-wrapper-8">Default sales Price</div>
-                  </div>
-                  <div className="markup-group">
-                    <div className="text-wrapper-15">
-                      Markup Price (Optional)
-                    </div>
-                    <div className="sales-price-textbox-2">
-                      <div className="overlap-group-markup">
-                        <i className="rs-icon">
-                          <FontAwesomeIcon icon={faIndianRupeeSign} />{" "}
-                        </i>
-                        <input
-                          className="custom-button-left-default custom-input-half-width"
-                          name="languages"
-                          id="lang"
-                          placeholder="Enter Markup price"
-                        />
-                        <div className="text-wrapper-14"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cat-group-2">
-                    <div className="div-2">
-                      <div className="dropdown">
-                        <select className="dropbtn" name="languages" id="lang">
-                          <option value="" disabled selected>
-                            Select Food Type
-                          </option>
-                          <option value="javascript">JavaScript</option>
-                          <option value="php">PHP</option>
-                          <option value="java">Java</option>
-                          <option value="golang">Golang</option>
-                          <option value="python">Python</option>
-                          <option value="c#">C#</option>
-                          <option value="C++">C++</option>
-                          <option value="erlang">Erlang</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="text-wrapper-8">Food Type</div>
-                  </div>
-                  <div className="desc-group">
-                    <textarea className="rectangle"></textarea>
-                    <div className="text-wrapper-16">Description</div>
-                  </div>
-                  <div className="is-recommended">
-                    <div className="text-wrapper-10">Is Recommended</div>
-                    <div className="radio-button">
-                      <label className="switch">
-                        <input type="checkbox"></input>
-                        <span className="b-slider"></span>
-                      </label>
-                    </div>
-                  </div>
-                  <div className="pre-order-group">
-                    <div className="text-wrapper-image">Image</div>
-                    <div className="overlap-group-4">
-                      {/* <div className='text-wrapper-12'>Image</div> */}
-
-                      <input type="file" className="input-file-custom" />
-                    </div>
-                  </div>
-                  <div className="cat-textbox-3">
-                    <div className="tag-dropdown-container">
-                      <Dropdown>
-                        <TriggerButton className="tag-menu-button">
-                          Tags
-                        </TriggerButton>
-                        <Menu slots={{ listbox: StyledListbox }}>
-                          {availableTags.map((tag) => (
-                            <StyledMenuItem key={tag}>
-                              <Checkbox
-                                onChange={() => handleTagCheckboxChange(tag)}
-                              />
-                              {tag}
-                            </StyledMenuItem>
-                          ))}
-                        </Menu>
-                      </Dropdown>
-                      <div className="selected-tags-container">
-                        {tagRows.map((row, rowIndex) => (
-                          <div key={rowIndex} className="tag-row">
-                            {row.map((tag) => (
-                              <div key={tag} className="selected-tag-container">
-                                <div className="selected-tag">
-                                  <span className="tag-label">{tag}</span>
-                                  <button
-                                    className="remove-tag-button"
-                                    onClick={() => handleRemoveTag(tag)}
-                                    onMouseOver={(e) =>
-                                      (e.target.style.color = "red")
-                                    }
-                                    onMouseOut={(e) =>
-                                      (e.target.style.color = "#000")
-                                    }
-                                  >
-                                    <CloseIcon
-                                      style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        marginRight: "10px",
-                                      }}
-                                    />
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="add-item">
-                  <button className="add-item-button">Add Item</button>
-                </div>
-                <h1 className="h-1">Preview</h1>
-
-                <div className="text-wrapper-17">Tags</div>
-                <div className="text-wrapper-18">Title</div>
-                <div className="text-wrapper-19">Category</div>
-                <div className="text-wrapper-20">Zinger Burger</div>
-                <div className="text-wrapper-21">Bite of the day</div>
-                <div className="text-wrapper-22">Food type</div>
-                <div className="text-wrapper-23">Sort Order</div>
-                <div className="text-wrapper-24">Is recommended</div>
-                <p className="nonveg-icon txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"
-                    />
-                  </svg>
-                </p>
-                <div className="text-wrapper-25">0</div>
-                <div className="text-wrapper-26">Yes</div>
-                <div className="text-wrapper-27">Default sales price</div>
-                <div className="text-wrapper-28">Markup Price</div>
-                <div className="text-wrapper-29">100</div>
-                <div className="text-wrapper-30">100</div>
-                <div className="text-wrapper-31">Description</div>
-                <div className="text-wrapper-32">POS ID</div>
-                <p className="p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus dui odio, lacinia molestie turpis sed, lobortis
-                  aliquet felis. Vivamus enim quam, fringilla imperdiet
-                  tincidunt
-                </p>
-                <div className="text-wrapper-33">Lorem ipsum</div>
-                <div className="text-wrapper-34">CRM Title</div>
-                <div className="text-wrapper-35">Fulfilment Modes</div>
-                <div className="text-wrapper-36">2354</div>
-                <div className="text-wrapper-37">Tags</div>
-                <div className="text-wrapper-38">Item groups</div>
-                <div className="new">
-                  <div className="overlap-4">
-                    <div className="text-wrapper-39">New</div>
-                  </div>
-                </div>
-                <div className="spicy">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-40">Spicy</div>
-                  </div>
-                </div>
-                <div className="must-try">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-41">Must try</div>
-                  </div>
-                </div>
-                <div className="best-seller">
-                  <div className="overlap-5">
-                    <div className="text-wrapper-42">Best Seller</div>
-                  </div>
-                </div>
-                <div className="text-wrapper-43">Pre-order timing</div>
-                <div className="text-wrapper-44">Weight (in gms)</div>
-                <div className="text-wrapper-45">Pre-order enabled</div>
-                <div className="text-wrapper-46">No</div>
-                <div className="text-wrapper-47">Serves</div>
-                <div className="text-wrapper-48">2</div>
-
-                <p className="ellipse-4 txt-green">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
-                <p className="ellipse-5 txt-red">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    />
-                  </svg>
-                </p>
               </div>
-            )}
+            </div>
+            <div style={{ marginBottom: "0vw" }}>
+              <label htmlFor="" className="f-12 txt-grey">
+                Is recommended
+              </label>
+              <div>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={inputRecommended}
+                    onChange={handleRecommended}
+                  ></input>
+                  <span className="slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex g-10">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Default sales price
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter default sales price"
+                  style={{ width: "16vw" }}
+                  value={inputDSP}
+                  onChange={handleDSP}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Markup price
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter markup price"
+                  style={{ width: "16vw" }}
+                  value={inputMP}
+                  onChange={handleMP}
+                />
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Description
+            </label>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Enter Decription"
+              value={inputDESC}
+              onChange={handleDESC}
+            ></textarea>
+          </div>
+          <br />
+          <div className="d-flex g-10">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                POS ID
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter POS ID"
+                  style={{ width: "16vw" }}
+                  value={inputPID}
+                  onChange={handlePID}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Weight (in gms)
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter Weight"
+                  style={{ width: "16vw" }}
+                  value={inputWeight}
+                  onChange={handleWeight}
+                />
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex g-10">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Serves
+              </label>
+              <div>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter serves"
+                  style={{ width: "16vw" }}
+                  value={inputServes}
+                  onChange={handleServes}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Fulfilment modes
+              </label>
+              <div>
+                <select name="" id="" value={inputFM} onChange={handleFM}>
+                  <option value="" selected disabled>
+                    Select Fulfilment mode
+                  </option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex g-10 align-item-center">
+            <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Tags
+              </label>
+              <div>
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "0.8vw 6.5vw" }}
+                  onClick={openselectTags}
+                >
+                  Select Tags
+                </button>
+              </div>
+            </div>
+            <div>
+              {selectedLanguages.map((tagsmap, index) => (
+                <>
+                  <button className="ITM-tags f-10" key={index}>
+                    {tagsmap}
+                  </button>{" "}
+                  &nbsp;
+                </>
+              ))}
+            </div>
+          </div>
+          {selectTagsVisible && (
+            <div
+              className="main-modal main-modal-open"
+              onClick={closeselectTags}
+            >
+              <div className="main-modal-content">
+                Select Tags
+                <div className="main-modal-content-inside">
+                  {tagsSet.map((tagsmap, index) => (
+                    <div key={index}>
+                      <input
+                        className="ITM-select-tags"
+                        type="checkbox"
+                        name={tagsmap}
+                        id={tagsmap}
+                        onChange={handleTagsCheckboxChange}
+                        checked={selectedLanguages.includes(tagsmap)}
+                      />
+                      {tagsmap}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+          <br />
+          <br />
+          <input
+            type="file"
+            className={fileInputPhotoClass}
+            ref={fileInputPhotoRef}
+            onChange={handleFileChangePhoto}
+            style={{ border: "none", padding: "0vw 0vw 0vw 0vw" }}
+          />
+          <br />
+        </div>
+        <div className="ITM-right">
+          <div className="f-20" style={{ paddingTop: "0.7vw" }}>
+            Preview
+          </div>
+          <br />
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Item name</div>
+              <div>{inputItemName}</div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Category</div>
+              <div>{inputCategory}</div>
+            </div>
+
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Type</div>
+              <div>
+                {inputType === "Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-green" />
+                ) : inputType === "Non-Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-red" />
+                ) : null}
+              </div>
+            </div>
+            <div className="flex-1"></div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Sort order</div>
+              <div>{inputSetOrder}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Is recommended</div>
+              <div>{inputRecommended ? "Yes" : "No"}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Weight (in gms)</div>
+              <div>{inputWeight}</div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Default Sales price</div>
+              <div>₹{inputDSP}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Markup price</div>
+              <div>₹{inputMP}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">POS ID</div>
+              <div>{inputPID}</div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Description</div>
+              <div>{inputDESC}</div>
+            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Serves</div>
+              <div>{inputServes}</div>
+            </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Fulfilment modes</div>
+              <div>{inputFM}</div>
+            </div>
+            <div className="flex-1"> </div>
+          </div>
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Tags</div>
+              <div>
+                {selectedLanguages.map((tagsmap, index) => (
+                  <>
+                    <button className="ITM-tags f-10" key={index}>
+                      {tagsmap}
+                    </button>{" "}
+                    &nbsp;
+                  </>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="d-flex">
+            <button
+              className="p-outline-button"
+              style={{ padding: "0.7vw 3.5vw", marginTop: "4vw" }}
+            >
+              Submit
+            </button>
           </div>
         </div>
+      </div>
+
+      {/* Phone Mode */}
+      <div className="ITM-phone">
+        <div className="p-top-container">
+          <div>
+            {" "}
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "}
+            Create new Item
+          </div>
+          <br />
+          <div className="d-flex g-10">
+            <button
+              className={
+                activeTab === "Single" ? "active-filter" : "filter-button"
+              }
+              onClick={() => handleTabClick("Single")}
+            >
+              Single
+            </button>
+            <button
+              className={
+                activeTab === "Combo" ? "active-filter" : "filter-button"
+              }
+              onClick={() => handleTabClick("Combo")}
+            >
+              Combo
+            </button>
+            <button
+              className={
+                activeTab === "MRP" ? "active-filter" : "filter-button"
+              }
+              onClick={() => handleTabClick("MRP")}
+            >
+              MRP
+            </button>
+          </div>
+        </div>
+
+        {page === 1 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container">
+              <input
+                type="text"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Item name"
+                value={inputItemName}
+                onChange={setInhandleInputItemNameChange}
+              />
+              <br />
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+                value={inputCategory}
+                  onChange={handleSetCategory}
+              >
+                <option value="" selected disabled>
+                  Select Category
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+                value={inputType} onChange={handleType}
+              >
+                <option value="" selected disabled>
+                  Select food type
+                </option>
+                <option value="Veg">Veg</option>
+                  <option value="Non-Veg">Non-Veg</option>
+              </select>
+
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Sort order"
+                value={inputSetOrder}
+                  onChange={handleSetOrder}
+              />
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter default sales price"
+                value={inputDSP}
+                  onChange={handleDSP}
+              />
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter markup price (Optional)"
+                value={inputMP}
+                  onChange={handleMP}
+              />
+              <textarea
+                name=""
+                className="ADD-p-input-textbox"
+                style={{ borderRadius: "2vw" }}
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="Enter description"
+                value={inputDESC}
+              onChange={handleDESC}
+              ></textarea>
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter POS ID"
+                value={inputPID}
+                  onChange={handlePID}
+              />
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter weght (in gms"
+                value={inputWeight}
+                  onChange={handleWeight}
+              />
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter serves)"
+                value={inputServes}
+                  onChange={handleServes}
+              />
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+                value={inputFM} onChange={handleFM}
+              >
+                <option value="" selected disabled>
+                  Select fulfilment modes
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+
+              <div className="d-flex space-between align-item-center">
+                <div>
+                  <button
+                    className="p-button bg-purple"
+                    onClick={openselectPhoneTags}
+                    style={{ marginTop: "1vw" }}
+                  >
+                    Select Tags
+                  </button>
+                </div>
+
+                <div>
+                  <label htmlFor="" className="f-12 txt-grey">
+                    Is Recommended
+                  </label>
+                  <div>
+                    <label className="switch">
+                      <input type="checkbox"
+                      checked={inputRecommended}
+                      onChange={handleRecommended}
+                      ></input>
+                      <span className="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <div>
+                {selectedLanguages.map((tagsmap, index) => (
+                  <>
+                    <button className="ITM-tags f-10" key={index}>
+                      {tagsmap}
+                    </button>{" "}
+                    &nbsp;
+                  </>
+                ))}
+              </div>
+
+              {selectTagsPhoneVisible && (
+                <div
+                  className="main-modal main-modal-open"
+                  onClick={closeselectPhoneTags}
+                >
+                  <div className="main-modal-content">
+                    <div className="d-flex space-between">
+                      <div className="f-18">Select Tags</div>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="f-24"
+                          onClick={closeselectPhoneTags}
+                        />
+                      </div>
+                    </div>
+                    <div className="p-main-modal-content-inside f-18">
+                      {tagsSet.map((tagsmap, index) => (
+                        <div key={index}>
+                          <input
+                            className="ITM-select-tags"
+                            type="checkbox"
+                            name={tagsmap}
+                            id={tagsmap}
+                            onChange={handleTagsCheckboxChange}
+                            checked={selectedLanguages.includes(tagsmap)}
+                          />
+                          {tagsmap}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <br />
+              <div>
+                <input
+                  type="file"
+                  className={fileInputPhotoClass}
+                  ref={fileInputPhotoRef}
+                  onChange={handleFileChangePhoto}
+                  style={{ border: "none", padding: "0vw 3vw 0vw 0vw" }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Go to Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {page === 2 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container" style={{ padding: "4vw" }}>
+              <div className="f-18">
+                <FontAwesomeIcon
+                  icon={faCircleArrowLeft}
+                  onClick={showPage1}
+                  className="txt-black"
+                  style={{ cursor: "pointer" }}
+                />{" "}
+                Preview
+              </div>
+              <br />
+              <div className="d-flex align-item-center">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Item name</div>
+                  <div className="d-flex align-item-center">
+                  {inputItemName} &nbsp;
+                  {inputType === "Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-green" />
+                ) : inputType === "Non-Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-red" />
+                ) : null}
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+              <div className="flex-1">
+                  <div className="f-12 txt-grey">Category</div>
+                  <div className="txt-orange">{inputCategory}</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Sort Order</div>
+                  <div>{inputSetOrder}</div>
+                </div>
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Is recommended</div>
+                  <div>{inputRecommended ? "Yes" : "No"}</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Weight(In gms)</div>
+                  <div>{inputWeight}</div>
+                </div>
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">POS ID</div>
+                  <div>{inputPID}</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Default Sales price</div>
+                  <div>₹{inputDSP}</div>
+                </div>
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Markup price</div>
+                  <div>₹{inputMP}</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Description</div>
+                  <div>{inputDESC}</div>
+                </div>
+            
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Serves</div>
+                  <div>{inputServes}</div>
+                </div>
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Fulfilment modes</div>
+                  <div>{inputFM}</div>
+                </div>
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Tags</div>
+                  <div>
+                  {selectedLanguages.map((tagsmap, index) => (
+                  <>
+                    <button className="ITM-tags f-10" key={index}>
+                      {tagsmap}
+                    </button>{" "}
+                    &nbsp;
+                  </>
+                ))}
+                  </div>
+                </div>
+            
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <div className="d-flex space-evenly g-20">
+                  <button className="p-outline-button" style={{ padding: "calc(3vw - 1px) 6vw", borderRadius: "10vw" }} onClick={showPage1}>Back</button>
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Submit
+                </button>
+                </div>
+               
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,188 @@
+.ManageCandO .MCO-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 81vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageCandO .MCO-desktop .MCO-layer{
+    background-color: transparent;
+/* padding: 1vw; */
+width: 100%;
+border-radius: 0vw 0vw 1vw 1vw;
+height: 68vh;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-tab{
+    background-color: transparent;
+    height: 3vw;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-tab .MCO-tab-content{
+    background-color: white;
+    padding: 0.8vw;
+    border-radius: 0.5vw 0.5vw 0vw 0vw;
+    cursor: pointer;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-tab .MCO-tab-content-active{
+    background-color: white;
+    border-bottom: 3px solid #df9f65;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-tab .MCO-tab-content-inactive{
+    background-color: white;
+    border-bottom: 3px solid transparent;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-content{
+    background-color: white;
+    border-radius: 0vw 1vw 1vw 1vw;
+    height: 94%;
+    padding: 1vw;
+    
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-content-header{
+background-color: white;
+padding: 0.5vw 0vw;
+}
+.ManageCandO .MCO-desktop .MCO-layer .MCO-content-scrollable{
+    overflow-y: scroll;
+    height: 59vh;
+}
+.MCO-content-scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MCO-content-scrollable::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MCO-content-scrollable::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MCO-invite-button{
+    background-color: #8d4ac2;
+    padding: 0.6vw 0.8vw;
+    color: white;
+    border-radius: 5vw;
+  }
+  .MCO-archive-button{
+    background-color: white;
+    padding: 0.6vw 0.8vw;
+    color: #8d4ac2;
+    border-radius: 5vw;
+    border: 1px solid #8d4ac2;
+  }
+  .MCO-archive-button:hover{
+    background-color: #8d4ac2;
+    color: white;
+    transition: 0.5s;
+  }
+  .MCO-content-header{
+    display: grid;
+    grid-template-columns:  3vw 5vw 15vw 15vw 8vw 8vw 6vw 8vw 8vw;
+    background-color: white;
+    text-align: center;
+    padding: 1vw 0vw;
+    font-weight: 600;
+    margin-right: 0.5vw;
+  }
+  .MCO-content-card{
+    display: grid;
+    grid-template-columns:  3vw 5vw 15vw 15vw 8vw 8vw 6vw 8vw 8vw; 
+    background-color: white;
+    text-align: center;
+    padding: 1vw 0vw;
+    font-weight: 600;
+    border-bottom: 1px solid #aeaeae;
+  }
+  .MCO-active{
+    border: 1px solid #229753;
+    padding: 0.3vw;
+    border-radius: 5vw;
+    color: #229753;
+  }
+  .MCO-inactive{
+    border: 1px solid #ED6D6D;
+    padding: 0.3vw;
+    border-radius: 5vw;
+    color: #ED6D6D;
+  }
+.MCO-all-scroll{
+    cursor: all-scroll;
+}
+.MCO-new-cop-tb{
+    padding: 0.7vw;
+    border:  2px solid #aeaeae;
+    border-radius: 0.3vw;
+    outline-color: #8d4ac2;
+    width: 15vw;
+}
+.MCO-new-cop-dd{
+    padding: 0.65vw;
+    border:  2px solid #aeaeae;
+    border-radius: 0.3vw;
+    outline-color: #8d4ac2;
+    width: 16.5vw;
+}
+
+.nCV .main-modal-content-inside{
+    overflow-y: auto;
+    height: 75vh;
+}
+
+.nCV .main-modal-content-inside-p{
+  display: none;
+}
+@media (max-width:900px) {
+  .ManageCandO .MCO-desktop{
+    display: none;
+  }
+  .nCV .main-modal-content-inside-p{
+    display: block;
+  }
+  .MCO-scroll-conentent-p{
+    padding: 5vw;
+    overflow-y: scroll;
+    height: 40vh;
+  }
+  .MCO-tab-button-p{
+    padding: 1vw;
+  }
+  .MCO-tab-button-active-p{
+    padding: 1vw;
+    border-bottom: 3px solid #df9f65;
+  }
+  .MCO-active{
+    border: 1px solid #229753;
+    padding: 1vw 3vw;
+    border-radius: 5vw;
+    color: #229753;
+  }
+  .MCO-inactive{
+    border: 1px solid #ED6D6D;
+    padding: 1vw 3vw;
+    border-radius: 5vw;
+    color: #ED6D6D;
+  }
+  .MCO-new-coupon-tb{
+    border: 1.5px solid #aeaeae;
+    padding: 2vw;
+    border-radius: 1vw;
+    width: 94%;
+    outline-color: #8d4ac2;
+  }
+  .MCO-new-coupon-bb{
+    border: 1.5px solid #aeaeae;
+    padding: 2vw;
+    border-radius: 1vw;
+    width: 100%;
+    background-color: white;
+    outline-color: #8d4ac2;
+  }
+
+}

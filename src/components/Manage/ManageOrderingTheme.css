@@ -1,0 +1,50 @@
+.ManageOrderingTheme .MOT-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageOrderingTheme .MOT-desktop .MOT-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+/* overflow-y: auto; */
+
+}
+.MOT-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MOT-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MOT-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MOT-center-message{
+    margin-top: 26vh;
+  }
+  @media (max-width:900px) {
+    .ManageOrderingTheme .MOT-desktop{
+        display: none;
+    }
+    .ManageOrderingTheme .ADD-p-container{
+        height: 52vh;
+    }
+    .MOT-center-message{
+        margin-top: 23vh;
+      }
+  }

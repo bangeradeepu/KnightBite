@@ -1,0 +1,114 @@
+.ManageReviews .MR-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageReviews .MR-desktop .MR-layer{
+    background-color: transparent;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+
+}
+.ManageReviews .MR-desktop .MR-layer .MR-layer-inside{
+    background-color: transparent;
+    height: 55vh;
+    padding: 1vw;
+    overflow-y: scroll;
+}
+.MR-layer-inside::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MR-layer-inside::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MR-layer-inside::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MR-upper-buttons{
+    padding:0.6vw 1vw;
+    border: 2px solid #aeaeae;
+    border-radius: 0.8vw;
+    outline-color: #8d4ac2;
+  }
+  .MR-dd-control{
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  .MR-export-button{
+    padding:0.6vw 1.5vw;
+    border: 2px solid #aeaeae;
+    border-radius: 50vw;
+    outline-color: #8d4ac2;
+  }
+  .MR-review-card{
+    background-color: white;
+    padding: 1.5vw;
+    width: 34vw;
+    height: 16vh;
+    border-radius: 1vw;
+  }
+  .MR-review-card-right{
+    background-color: white;
+    padding: 0vw 1vw;
+    width: 22vw;
+    height: 15vh;
+    border-left: 2px solid #aeaeae;
+    overflow-y: auto;
+  }
+  .MR-review-card-right::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  .MR-review-card-right::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 0vw;
+    margin-bottom: 0vw;
+  }
+  
+  .MR-review-card-right::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  @media (max-width:900px) {
+    .ManageReviews .MR-desktop{
+      display: none;
+    }
+    .MR-mobile .ADD-p-container{
+      background-color: transparent;
+    }
+    .MR-upper-buttons{
+      border-radius: 2vw;
+      padding: 1.5vw;
+    }
+    .MR-export-button{
+      padding: 1.8vw 4vw;
+    }
+    .MR-phone-card{
+      background-color: white;
+      padding: 2vw;
+      border-radius: 3vw;
+    }
+    .MR-phone-card-review{
+      border-top: 1px solid #aeaeae;
+      background-color: white;
+      padding: 1vw;
+      overflow-y: auto;
+      height: 10vh;
+    }
+  }

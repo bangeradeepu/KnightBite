@@ -1,512 +1,512 @@
 
 /* ---Navbar CSS */
 .Msidebarnavbar {
-  background-color: #fff;
-  box-shadow: 0px 5px 10px rgba(90, 116, 148, 0.Msidebar3);
-  border-radius: 5px;
-}
-
-.Msidebarnavbar-brand {
-  color: #5a8dee;
-  margin-right: 0;
-}
-
-.Msidebarform-inline .Msidebarbtn-primary {
-  border-color: #5a8dee;
-  background-color: #5a8dee;
-  color: #fff;
-}
-
-/* ---Sidebar CSS */
-.Msidebarsidebar {
-  width: 280px;
-  min-height: 100vh;
-  box-shadow: 0px 4px 8px rgb(0 0 0 / 16%);
-  background-color: #fff;
-  position: fixed;
-  top: 0;
-  right: 0%; /* Slide in from the right side */
-  z-index: 1;
-  transition: 0.5s;
-}
-
-.Msidebarsidebar.Msidebaractive {
-  right: 0; /* Show the sidebar when active */
-}
-
-.Msidebarsd-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-}
-
-.Msidebarsd-header h4 {
-  margin: 0;
-}
-
-.Msidebarsd-body {
-  padding: 15px;
-  max-height: calc(100vh - 67px);
-  overflow-x: hidden;
-}
-
-.Msidebarsd-body ul {
-  list-style: none;
-  padding: 0;
-}
-
-.Msidebarsd-body ul li {
-  margin-bottom: 8px;
-}
-
-.Msidebarsd-body ul li a {
-  display: block;
-  padding: 10px 16px;
-  color: #475f7b;
-  background-color: #e5e8ec;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-/* ---Sidebar Overlay CSS */
-.Msidebarsidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.Msidebar4);
-  transition: 0.5s;
-  opacity: 0;
-  visibility: hidden;
-}
-
-.Msidebarsidebar-overlay.Msidebaractive {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* ---Responsive CSS */
-/* For screens with width up to 800px */
-@media (max-width: 900px) {
-  .Msidebarsidebar {
-    width: 280px; /* Set the original width */
-    right: -280px; /* Slide in from the right side */
-    zoom: 1.35; /* Set the zoom level to 135% */
+    background-color: #fff;
+    box-shadow: 0px 5px 10px rgba(90, 116, 148, 0.Msidebar3);
+    border-radius: 5px;
   }
-
+  
+  .Msidebarnavbar-brand {
+    color: #5a8dee;
+    margin-right: 0;
+  }
+  
+  .Msidebarform-inline .Msidebarbtn-primary {
+    border-color: #5a8dee;
+    background-color: #5a8dee;
+    color: #fff;
+  }
+  
+  /* ---Sidebar CSS */
+  .Msidebarsidebar {
+    width: 280px;
+    min-height: 100vh;
+    box-shadow: 0px 4px 8px rgb(0 0 0 / 16%);
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: 0%; /* Slide in from the right side */
+    z-index: 1;
+    transition: 0.5s;
+  }
+  
   .Msidebarsidebar.Msidebaractive {
     right: 0; /* Show the sidebar when active */
   }
   
-  .Msidebarsd-body {
-    max-height: none;
+  .Msidebarsd-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-/* header */
-.Msidebarframe {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-
-}
-
-.Msidebarframe .Msidebardiv {
-  background-color: #ffffff;
-  border: 1px none;
-  height: 56px;
-  position: relative;
-  width: 360px;
-}
-
-.Msidebarframe .Msidebarlogo-and-knight-bite {
-  height: 25px;
-  left: 8px;
-  position: absolute;
-  top: 15px;
-  width: 137px;
-}
-
-.Msidebarframe .Msidebarkb-logo {
-  height: 33px;
-  left: -14px;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  width: 33px;
-}
-
-.Msidebarframe .Msidebargroup {
-  height: 30px;
-  left: 22px;
-  position: absolute;
-  top: 3px;
-  width: 107px;
-}
-
-.Msidebarframe .Msidebartext-wrapper {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 16px;
-  font-weight: 700;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  white-space: nowrap;
-}
-
-.Msidebarframe .Msidebarvector {
-  height: 8px;
-  left: 91px;
-  position: absolute;
-  top: 6px;
-  width: 14px;
-}
-
-.Msidebarframe .Msidebarsearch-bar {
-  height: 25px;
-  left: 153px;
-  position: absolute;
-  top: 15px;
-  width: 154px;
-}
-
-.Msidebarframe .Msidebarsearch {
-  height: 25px;
-  width: 156px;
-}
-
-.Msidebarframe .Msidebaroverlap-group {
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #d6d6d6;
-  border-radius: 30px;
-  height: 25px;
-  position: relative;
-  width: 154px;
-}
-
-.Msidebarframe .Msidebarseach-icon {
-  height: 14px;
-  left: 10px;
-  position: absolute;
-  top: 5px;
-  width: 13px;
-}
-
-.Msidebarframe .Msidebartext-wrapper-2 {
-  color: #aeaeae;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 400;
-  left: 20px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 6px;
-  white-space: nowrap;
-  width: 65px;
-}
-
-.Msidebarframe .Msidebarmenu-bar {
-  height: 25px;
-  left: 322px;
-  position: absolute;
-  top: 15px;
-  width: 25px;
-}
-
-
-/* sidebar open */
-
-.Msidebarandroid-large-side {
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  right:100%;
-}
-
-.Msidebarandroid-large-side .Msidebargroup-wrapper {
-  background-color: #ffffff;
-  border: 1px none;
-  height: 626px;
-  overflow: hidden;
-  width: 380px;
-}
-
-
-.Msidebarandroid-large-side .Msidebardiv {
-  height: 463px;
-  left:30px;
-  position: relative;
-  top: 5px;
-  width: 211px;
-}
-
-.Msidebarandroid-large-side .Msidebarnotification-group {
-  height: 30px;
-  left: 159px;
-  position: absolute;
-  top: 65px;
-  width: 30px;
-}
-
-.Msidebarandroid-large-side .Msidebarline {
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 106px;
-  width: 199px;
-}
-
-.Msidebarandroid-large-side .Msidebarimg {
-  height: 1px;
-  left: 0;
-  object-fit: cover;
-  position: absolute;
-  top: 364px;
-  width: 199px;
-}
-
-.Msidebarandroid-large-side .Msidebarep-close-bold {
-  height: 20px;
-  left: -10px;
-  position: absolute;
-  top: 10px;
-  width: 20px;
-}
-
-.Msidebarandroid-large-side .Msidebargroup-2 {
-  height: 68px;
-  left: 9px;
-  position: absolute;
-  top: 19px;
-  width: 81px;
-}
-
-.Msidebarandroid-large-side .Msidebarprofile {
-  height: 19px;
-  left: 0;
-  position: absolute;
-  top: 49px;
-  width: 83px;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 500;
-  left: 0;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 5px;
-  width: 90px;
-}
-
-.Msidebarandroid-large-side .Msidebaroverlap-group {
-  background-color: #ffcda0;
-  border-radius: 20px;
-  height: 40px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 40px;
-}
-
-.Msidebarandroid-large-side .Msidebarvector {
-  height: 28px;
-  left: 10px;
-  position: absolute;
-  top: 5px;
-  width: 21px;
-}
-
-.Msidebarandroid-large-side .Msidebargroup-3 {
-  height: 208px;
-  left: 9px;
-  position: absolute;
-  top: 130px;
-  width: 133px;
-}
-
-.Msidebarandroid-large-side .Msidebariconamoon-delivery {
-  height: 15px;
-  left: 1px;
-  position: absolute;
-  top: 114px;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebarmaterial-symbols {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-2 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 0;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-3 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 38px;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-4 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 76px;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-5 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 114px;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-6 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 152px;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-7 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 33px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 190px;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebarmaterial-symbols-2 {
-  height: 15px;
-  left: 2px;
-  position: absolute;
-  top: 152px;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebarmdi-accounts {
-  height: 15px;
-  left: 3px;
-  position: absolute;
-  top: 193px;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebarmaterial-symbols-3 {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 76px;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebarfluent-food {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 39px;
-  width: 15px;
-}
-
-.Msidebarandroid-large-side .Msidebargroup-4 {
-  height: 18px;
-  left: 13px;
-  position: absolute;
-  top: 395px;
-  width: 77px;
-}
-
-.Msidebarandroid-large-side .Msidebartext-wrapper-8 {
-  color: #2e2e2e;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 29px;
-  letter-spacing: -0.Msidebar75px;
-  line-height: normal;
-  position: absolute;
-  top: 0;
-  white-space: nowrap;
-}
-
-.Msidebarandroid-large-side .Msidebarfa-solid-power-off {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 2px;
-  width: 15px;
-}
+  
+  .Msidebarsd-header h4 {
+    margin: 0;
+  }
+  
+  .Msidebarsd-body {
+    padding: 15px;
+    max-height: calc(100vh - 67px);
+    overflow-x: hidden;
+  }
+  
+  .Msidebarsd-body ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .Msidebarsd-body ul li {
+    margin-bottom: 8px;
+  }
+  
+  .Msidebarsd-body ul li a {
+    display: block;
+    padding: 10px 16px;
+    color: #475f7b;
+    background-color: #e5e8ec;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  /* ---Sidebar Overlay CSS */
+  .Msidebarsidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.Msidebar4);
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .Msidebarsidebar-overlay.Msidebaractive {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* ---Responsive CSS */
+  /* For screens with width up to 800px */
+  @media (max-width: 900px) {
+    .Msidebarsidebar {
+      width: 280px; /* Set the original width */
+      right: -280px; /* Slide in from the right side */
+      zoom: 1.35; /* Set the zoom level to 135% */
+    }
+  
+    .Msidebarsidebar.Msidebaractive {
+      right: 0; /* Show the sidebar when active */
+    }
+    
+    .Msidebarsd-body {
+      max-height: none;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /* header */
+  .Msidebarframe {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+  
+  }
+  
+  .Msidebarframe .Msidebardiv {
+    background-color: #ffffff;
+    border: 1px none;
+    height: 56px;
+    position: relative;
+    width: 360px;
+  }
+  
+  .Msidebarframe .Msidebarlogo-and-knight-bite {
+    height: 25px;
+    left: 8px;
+    position: absolute;
+    top: 15px;
+    width: 137px;
+  }
+  
+  .Msidebarframe .Msidebarkb-logo {
+    height: 33px;
+    left: -14px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 33px;
+  }
+  
+  .Msidebarframe .Msidebargroup {
+    height: 30px;
+    left: 22px;
+    position: absolute;
+    top: 3px;
+    width: 107px;
+  }
+  
+  .Msidebarframe .Msidebartext-wrapper {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    white-space: nowrap;
+  }
+  
+  .Msidebarframe .Msidebarvector {
+    height: 8px;
+    left: 91px;
+    position: absolute;
+    top: 6px;
+    width: 14px;
+  }
+  
+  .Msidebarframe .Msidebarsearch-bar {
+    height: 25px;
+    left: 153px;
+    position: absolute;
+    top: 15px;
+    width: 154px;
+  }
+  
+  .Msidebarframe .Msidebarsearch {
+    height: 25px;
+    width: 156px;
+  }
+  
+  .Msidebarframe .Msidebaroverlap-group {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #d6d6d6;
+    border-radius: 30px;
+    height: 25px;
+    position: relative;
+    width: 154px;
+  }
+  
+  .Msidebarframe .Msidebarseach-icon {
+    height: 14px;
+    left: 10px;
+    position: absolute;
+    top: 5px;
+    width: 13px;
+  }
+  
+  .Msidebarframe .Msidebartext-wrapper-2 {
+    color: #aeaeae;
+    font-family: "Inter", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 6px;
+    white-space: nowrap;
+    width: 65px;
+  }
+  
+  .Msidebarframe .Msidebarmenu-bar {
+    height: 25px;
+    left: 322px;
+    position: absolute;
+    top: 15px;
+    width: 25px;
+  }
+  
+  
+  /* sidebar open */
+  
+  .Msidebarandroid-large-side {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    right:100%;
+  }
+  
+  .Msidebarandroid-large-side .Msidebargroup-wrapper {
+    background-color: #ffffff;
+    border: 1px none;
+    height: 626px;
+    overflow: hidden;
+    width: 380px;
+  }
+  
+  
+  .Msidebarandroid-large-side .Msidebardiv {
+    height: 463px;
+    left:30px;
+    position: relative;
+    top: 5px;
+    width: 211px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarnotification-group {
+    height: 30px;
+    left: 159px;
+    position: absolute;
+    top: 65px;
+    width: 30px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarline {
+    height: 1px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 106px;
+    width: 199px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarimg {
+    height: 1px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 364px;
+    width: 199px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarep-close-bold {
+    height: 20px;
+    left: -10px;
+    position: absolute;
+    top: 10px;
+    width: 20px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebargroup-2 {
+    height: 68px;
+    left: 9px;
+    position: absolute;
+    top: 19px;
+    width: 81px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarprofile {
+    height: 19px;
+    left: 0;
+    position: absolute;
+    top: 49px;
+    width: 83px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 500;
+    left: 0;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    width: 90px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebaroverlap-group {
+    background-color: #ffcda0;
+    border-radius: 20px;
+    height: 40px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 40px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarvector {
+    height: 28px;
+    left: 10px;
+    position: absolute;
+    top: 5px;
+    width: 21px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebargroup-3 {
+    height: 208px;
+    left: 9px;
+    position: absolute;
+    top: 130px;
+    width: 133px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebariconamoon-delivery {
+    height: 15px;
+    left: 1px;
+    position: absolute;
+    top: 114px;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarmaterial-symbols {
+    height: 15px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-2 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-3 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 38px;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-4 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 76px;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-5 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 114px;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-6 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 152px;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-7 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 33px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 190px;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarmaterial-symbols-2 {
+    height: 15px;
+    left: 2px;
+    position: absolute;
+    top: 152px;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarmdi-accounts {
+    height: 15px;
+    left: 3px;
+    position: absolute;
+    top: 193px;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarmaterial-symbols-3 {
+    height: 15px;
+    left: 0;
+    position: absolute;
+    top: 76px;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarfluent-food {
+    height: 15px;
+    left: 0;
+    position: absolute;
+    top: 39px;
+    width: 15px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebargroup-4 {
+    height: 18px;
+    left: 13px;
+    position: absolute;
+    top: 395px;
+    width: 77px;
+  }
+  
+  .Msidebarandroid-large-side .Msidebartext-wrapper-8 {
+    color: #2e2e2e;
+    font-family: "Inter", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 29px;
+    letter-spacing: -0.Msidebar75px;
+    line-height: normal;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+  }
+  
+  .Msidebarandroid-large-side .Msidebarfa-solid-power-off {
+    height: 15px;
+    left: 0;
+    position: absolute;
+    top: 2px;
+    width: 15px;
+  }

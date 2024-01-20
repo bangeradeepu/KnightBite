@@ -1,0 +1,760 @@
+/* Left */
+.animatedrec-container {
+    border: 0px none;
+  
+  }
+  
+  .animatedrec-group {
+    background-color: #fffbfb;
+    border: 1px solid;
+    border-color: #00000038;
+    box-shadow: 10px 0px 10px #00000040;
+    height:18.5vw;
+    width: 12vw;
+    border-radius: 1.5vw 1.5vw 0vw 0vw;
+  }
+  
+  .animatedrec-overlap-group {
+    background-color: #8d4ac2;
+    border-radius: 1vw 1vw 0vw 0vw;
+    height: 17.7vw;
+    left: 1vw;
+    position: relative;
+    top: 0.8vw;
+    width: 10vw;
+  }
+  
+  .animatedrec-div {
+    height: 1vw;
+    left: 0.6vw;
+    position: relative;
+    width: 9vw;
+  }
+  
+  .animatedrec-rectangle {
+    background-color: #fffbfb;
+    border-radius: 0px 0px 5px 5px;
+    height: 0.8vw;
+    left: 1.7vw;
+    position: absolute;
+    top: 0;
+    width: 5.5vw;
+  }
+  
+  .animatedrec-ellipse {
+    background-color: #d9d9d9;
+    border-radius: 4.29px/3.5px;
+    height: 0.6vw;
+    left: 8vw;
+    position: absolute;
+    top: 0.2vw;
+    width: 0.6vw;
+  }
+  
+  .animatedrec-rectangle-2 {
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    height: 0.3vw;
+    left: 0;
+    position: absolute;
+    top: 0.4vw;
+    width: 1.2vw;
+  }
+  
+  /* Animated rectangles */
+  .animatedrec-rectangle-3 {
+    background-color: #fffbfb;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 8.2vw;
+    width: 2.7vw;
+  }
+  
+  .animatedrec-rectangle-4 {
+    background-color: #fffbfb;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 11.4vw;
+    width: 2.7vw;
+  }
+  
+  .animatedrec-rectangle-5 {
+    background-color: #fffbfb;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 14.5vw;
+    width: 2.7vw;
+  }
+  
+  .animatedrec-rectangle-6 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 8.5vw;
+    width: 5vw;
+  }
+  
+  .animatedrec-rectangle-7 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 9.5vw;
+    width: 3vw;
+  }
+  
+  .animatedrec-rectangle-8 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 11.7vw;
+    width: 5vw;
+  }
+  
+  .animatedrec-rectangle-9 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 12.7vw;
+    width: 3vw;
+  }
+  
+  .animatedrec-rectangle-10 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 14.8vw;
+    width: 5vw;
+  }
+  
+  .animatedrec-rectangle-11 {
+    background-color: #d9d9d996;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 15.9vw;
+    width: 3vw;
+  }
+  
+  .animatedrec-hungry-at-night-it-s {
+    color: #ffffff;
+    font-family: 'Inter-Bold', Helvetica;
+    font-size: 10px;
+    font-weight: 700;
+    left: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 80px;
+    width: 95px;
+  }
+  
+  /* Add hover styles for animated rectangles */
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-3 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-4 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-5 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-6 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-7 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-8 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-9 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-10 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .animatedrec-overlap-group:hover .animatedrec-rectangle-11 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  
+  @keyframes moveUpDown {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes moveRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(50px);
+    }
+  }
+  
+  @keyframes moveLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50px);
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Right */
+  .right-animatedrec-container {
+    border: 0px none;
+  
+  }
+  
+  .right-animatedrec-group {
+    background-color: #fffbfb;
+    border: 1px solid;
+    border-color: #00000038;
+    box-shadow: 10px 0px 10px #00000040;
+    height:18.5vw;
+    width: 12vw;
+    border-radius: 1.5vw 1.5vw 0vw 0vw;
+  }
+  
+  .right-animatedrec-overlap-group {
+    background-color: #EBD9FF;
+    border-radius: 1vw 1vw 0vw 0vw;
+    height: 17.7vw;
+    left: 1vw;
+    position: relative;
+    top: 0.8vw;
+    width: 10vw;
+  }
+  
+  .right-animatedrec-div {
+    height: 1vw;
+    left: 0.6vw;
+    position: relative;
+    width: 9vw;
+  }
+  
+  .right-animatedrec-rectangle {
+    background-color: #fffbfb;
+    border-radius: 0px 0px 5px 5px;
+    height: 0.8vw;
+    left: 1.7vw;
+    position: absolute;
+    top: 0;
+    width: 5.5vw;
+  }
+  
+  .right-animatedrec-ellipse {
+    background-color: #d9d9d9;
+    border-radius: 4.29px/3.5px;
+    height: 0.6vw;
+    left: 8vw;
+    position: absolute;
+    top: 0.2vw;
+    width: 0.6vw;
+  }
+  
+  .right-animatedrec-rectangle-2 {
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    height: 0.3vw;
+    left: 0;
+    position: absolute;
+    top: 0.4vw;
+    width: 1.2vw;
+  }
+  
+  /* Animated rectangles */
+  .right-animatedrec-rectangle-3 {
+    background-color: #8D4AC2;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 8.2vw;
+    width: 2.7vw;
+  }
+  
+  .right-animatedrec-rectangle-4 {
+    background-color: #8D4AC2;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 11.4vw;
+    width: 2.7vw;
+  }
+  
+  .right-animatedrec-rectangle-5 {
+    background-color: #8D4AC2;
+    border-radius: 10px;
+    height: 2.5vw;
+    left: 0vw;
+    position: absolute;
+    top: 14.5vw;
+    width: 2.7vw;
+  }
+  
+  .right-animatedrec-rectangle-6 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 8.5vw;
+    width: 5vw;
+  }
+  
+  .right-animatedrec-rectangle-7 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 9.5vw;
+    width: 3vw;
+  }
+  
+  .right-animatedrec-rectangle-8 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 11.7vw;
+    width: 5vw;
+  }
+  
+  .right-animatedrec-rectangle-9 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 12.7vw;
+    width: 3vw;
+  }
+  
+  .right-animatedrec-rectangle-10 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 14.8vw;
+    width: 5vw;
+  }
+  
+  .right-animatedrec-rectangle-11 {
+    background-color: #BE94E2;
+    border-radius: 10px;
+    height: 0.8vw;
+    left: 3.4vw;
+    position: absolute;
+    top: 15.9vw;
+    width: 3vw;
+  }
+  
+  /* Add hover styles for animated rectangles */
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-3 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-4 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-5 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-6 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-7 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-8 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-9 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-10 {
+    animation: moveLeft 2s infinite alternate;
+  }
+  
+  .right-animatedrec-overlap-group:hover .right-animatedrec-rectangle-11 {
+    animation: moveRight 2s infinite alternate;
+  }
+  
+  @keyframes zoomIn {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.2); /* Adjust the scale factor as needed */
+      opacity: 0;
+    }
+  }
+  @keyframes zoomOut {
+    0% {
+      transform: scale(1.2); /* Adjust the initial scale factor */
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width:900px) {
+    .animatedrec-container {
+        border: 0px none;
+      
+      }
+      
+      .animatedrec-group {
+        background-color: #fffbfb;
+        border: 1px solid;
+        border-color: #00000038;
+        box-shadow: 10px 0px 10px #00000040;
+        height:30vh;
+        width: 38vw;
+        border-radius: 20px 20px 0px 0px;
+      }
+      
+      .animatedrec-overlap-group {
+        background-color: #8d4ac2;
+        border-radius: 10px 10px 0px 0px;
+        height: 28.6vh;
+        left: 3vw;
+        position: relative;
+        top: 1.5vh;
+        width: 32vw;
+      }
+      
+      .animatedrec-div {
+
+        left: 7vw;
+        position: relative;
+    
+      }
+      
+      .animatedrec-rectangle {
+        background-color: #fffbfb;
+        border-radius: 0px 0px 5px 5px;
+        height: 1vh;
+        position: absolute;
+        top: 0;
+        width: 15vw;
+      }
+      
+      .animatedrec-ellipse {
+        background-color: #d9d9d9;
+        border-radius: 4.29px/3.5px;
+        height: 2vw;
+        left: 20vw;
+        position: absolute;
+        top: 0.8vw;
+        width: 2vw;
+      }
+      
+      .animatedrec-rectangle-2 {
+        background-color: #d9d9d9;
+        border-radius: 5px;
+        height: 1.5vw;
+        left: -5vw;
+        position: absolute;
+        top: 0.8vw;
+        width: 4.7vw;
+      }
+      
+      /* Animated rectangles */
+      .animatedrec-rectangle-3 {
+        background-color: #fffbfb;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 30vw;
+        width: 8vw;
+      }
+      
+      .animatedrec-rectangle-4 {
+        background-color: #fffbfb;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 40vw;
+        width: 8vw;
+      }
+      
+      .animatedrec-rectangle-5 {
+        background-color: #fffbfb;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 50vw;
+        width: 8vw;
+      }
+      
+      .animatedrec-rectangle-6 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 31vw;
+        width: 17vw;
+      }
+      
+      .animatedrec-rectangle-7 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 34.5vw;
+        width: 12vw;
+      }
+      
+      .animatedrec-rectangle-8 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 41vw;
+        width: 17vw;
+      }
+      
+      .animatedrec-rectangle-9 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 44.5vw;
+        width: 12vw;
+      }
+      
+      .animatedrec-rectangle-10 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 51vw;
+        width: 17vw;
+      }
+      
+      .animatedrec-rectangle-11 {
+        background-color: #d9d9d996;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 54.5vw;
+        width: 12vw;
+      }
+    /* right */
+    .right-animatedrec-container {
+        border: 0px none;
+      
+      }
+      
+      .right-animatedrec-group {
+        background-color: #fffbfb;
+        border: 1px solid;
+        border-color: #00000038;
+        box-shadow: 10px 0px 10px #00000040;
+        height:30vh;
+        width: 38vw;
+        border-radius: 20px 20px 0px 0px;
+      }
+      
+      .right-animatedrec-overlap-group {
+        background-color: #EBD9FF;
+        border-radius: 10px 10px 0px 0px;
+        height: 28.6vh;
+        left: 3vw;
+        position: relative;
+        top: 3vw;
+        width: 32vw;
+      }
+      
+      .right-animatedrec-div {
+
+        left: 7vw;
+        position: relative;
+    
+      }
+      
+      .right-animatedrec-rectangle {
+        background-color: #fffbfb;
+        border-radius: 0px 0px 5px 5px;
+        height: 2.7vw;
+        position: absolute;
+        top: 0;
+        width: 15vw;
+      }
+      
+      .right-animatedrec-ellipse {
+        background-color: #d9d9d9;
+        border-radius: 4.29px/3.5px;
+        height: 2vw;
+        left: 20vw;
+        position: absolute;
+        top: 0.8vw;
+        width: 2vw;
+      }
+      
+      .right-animatedrec-rectangle-2 {
+        background-color: #d9d9d9;
+        border-radius: 5px;
+        height: 1.5vw;
+        left: -5vw;
+        position: absolute;
+        top: 0.8vw;
+        width: 4.7vw;
+      }
+      
+      /* Animated rectangles */
+      .right-animatedrec-rectangle-3 {
+        background-color: #8D4AC2;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 30vw;
+        width: 8vw;
+      }
+      
+      .right-animatedrec-rectangle-4 {
+        background-color: #8D4AC2;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 40vw;
+        width: 8vw;
+      }
+      
+      .right-animatedrec-rectangle-5 {
+        background-color: #8D4AC2;
+        border-radius: 10px;
+        height: 8vw;
+        left:-4vw;
+        position: absolute;
+        top: 50vw;
+        width: 8vw;
+      }
+      
+      .right-animatedrec-rectangle-6 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 31vw;
+        width: 17vw;
+      }
+      
+      .right-animatedrec-rectangle-7 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 34.5vw;
+        width: 12vw;
+      }
+      
+      .right-animatedrec-rectangle-8 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 41vw;
+        width: 17vw;
+      }
+      
+      .right-animatedrec-rectangle-9 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 44.5vw;
+        width: 12vw;
+      }
+      
+      .right-animatedrec-rectangle-10 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 51vw;
+        width: 17vw;
+      }
+      
+      .right-animatedrec-rectangle-11 {
+        background-color: #BE94E2;
+        border-radius: 10px;
+        height: 2vw;
+        left: 5vw;
+        position: absolute;
+        top: 54.5vw;
+        width: 12vw;
+      }
+  }

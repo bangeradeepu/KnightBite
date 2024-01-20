@@ -1,0 +1,158 @@
+.ManageIntegrations .MI-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageIntegrations .MI-desktop .MI-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+
+}
+.MI-layer-inside{
+    padding: 1vw;
+    overflow-y: scroll;
+    height: 44vh;
+}
+.MI-layer-inside::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MI-layer-inside::-webkit-scrollbar-track {
+    background: #e2dddd;
+  }
+  
+  .MI-layer-inside::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+
+  .MI-search-outer-layer{
+    border: 2px solid #aeaeae;
+    padding: 0.1vw 0.1vw 0.1vw 1.5vw;
+    border-radius: 50vw;
+    width: 50vw;
+  }
+  .MI-search-filed{
+    height: 2.5vw;
+    width: 55vw;
+    border: none;
+    outline: none;
+    border-radius: 50vw;
+    color: #2e2e2e;
+    font-size: 1vw;
+  }
+  .MI-export-btn-large{
+    padding: 0.7vw 2vw ;
+    border: 2px solid #aeaeae;
+    border-radius: 50vw;
+  }
+  .MI-product-card{
+    background-color: white;
+    padding: 1vw;
+    border-radius: 1vw;
+    border: 1px solid #aeaeae;
+  }
+  .MI-product-image{
+    background-color: blue;
+    width: 6vw;
+    height: 6vw;
+    border-radius: 0.3vw;
+    overflow: hidden;
+  }
+  .MI-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* or 'contain', depending on your preference */
+  }
+  .MI-product-desc{
+    width: 14vw;
+  }
+  .MI-apply-button{
+    background-color: #8d4ac2;
+    padding: 0.5vw 2.5vw;
+    border-radius: 50vw;
+    color: white;
+  }
+  .MT-enabled-button{
+    background-color: white;
+    padding: 0.4vw 1vw;
+    border-radius: 50vw;
+    border: 2px solid #aeaeae;
+  }
+  @media (max-width:900px) {
+    .ManageIntegrations .MI-desktop{
+        display: none;
+    }
+    .MI-search-outer-layer{
+        padding: 0vw 4vw;
+        width: auto;
+      }
+      .MI-search-filed{
+        outline: #2e2e2e;
+        padding: 4vw;
+        width: 100%;
+        font-size: 4vw;
+      }
+      .MI-export-btn{
+        border: 1px solid #8d4ac2;
+        border-radius: 50vw;
+        color: #8d4ac2;
+        padding: 2vw 3vw;
+        user-select: none;
+        transition: 0.3s;
+        background-color: white;
+        width: 21vw;
+        text-align: center;
+      }
+      .MI-export-btn:hover{
+        transition: 0.3s;
+        padding: 2vw 3vw;
+        background-color: #8d4ac2;
+        color: white;
+      }
+
+      .MI-product-card{
+        background-color: white;
+        padding: 4vw;
+        border-radius: 4vw;
+        border: 1px solid #aeaeae;
+      }
+      .MI-product-image{
+        background-color: blue;
+        width: 25vw;
+        height: 25vw;
+        border-radius: 3vw;
+        overflow: hidden;
+      }
+      .MI-product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* or 'contain', depending on your preference */
+      }
+      .MI-product-desc{
+        width: 50vw;
+      }
+      .MI-apply-button{
+        background-color: #8d4ac2;
+        padding: 2.5vw 5vw;
+        border-radius: 50vw;
+        color: white;
+      }
+      .MT-enabled-button{
+        background-color: white;
+        padding: 2vw 6vw;
+        border-radius: 50vw;
+        border: 2px solid #aeaeae;
+      }
+  }

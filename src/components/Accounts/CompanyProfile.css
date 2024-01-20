@@ -1,0 +1,239 @@
+.CompanyProfile .CP-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.CompanyProfile .CP-desktop .CP-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+overflow-y: scroll;
+
+}
+.CP-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .CP-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .CP-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  
+  .CompanyProfile .CP-layer .CP-comp-config{
+    padding: 0vw;
+    border-top: 2px solid #aeaeae;
+    border-left: 2px solid #aeaeae;
+    border-right: 2px solid #aeaeae;
+    border-bottom: 2px solid #aeaeae;
+    border-radius: 1vw;
+  }
+  .CP-comp-config-header{
+    padding: 1vw;
+    border-radius: 1vw 1vw 0vw 0vw;
+  }
+  .CP-comp-config-content{
+    padding: 2vw 3vw;
+    border-top: 2px solid #aeaeae;
+    border-radius: 0vw 0vw 1vw 1vw;
+  }
+  .CP-grey{
+    background-color: #dadada;
+  }
+  .CompanyProfile .CP-layer .CP-dotted-lines {
+    border-top: 2px dashed #9d9d9d;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+}
+
+.CompanyProfile .CP-layer .CP-textfield{
+  padding: 0.5vw;
+  border: 1.5px solid #cbcbce;
+  border-radius: 0.3vw;
+  outline-color: #8d4ac2 ;
+  width: 15vw;
+}
+.CompanyProfile .CP-layer .CP-textfield-title-role{
+  padding: 0.2vw;
+  border: 1px solid #aeaeaa;
+  border-radius: 0.2vw;
+}
+.CompanyProfile .CP-layer .CP-textfield-s{
+  padding: 0.1vw;
+  border: 1.5px solid #cbcbce;
+  border-radius: 0.3vw;
+  outline-color: #8d4ac2 ;
+  width: 8vw;
+}
+.CompanyProfile .CP-idcopy{
+  border-left: 1px solid #cbcbce;
+  padding: 0.33vw 0.7vw;
+}
+.CompanyProfile .CP-layer .CP-outlet-rect{
+  padding: 0.5vw;
+  background-color: #dadada;
+  font-size: 0.5vw;
+}
+.CompanyProfile .CP-layer .CP-outlet-rect .CP-outlet-circle{
+  padding: 0.3vw;
+  width: 4vw;
+  height: 4vw;
+  background-color: #cdcccc;
+  border-radius: 100%;
+}
+.CP-custom-file-upload-logo{
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
+  /* width: 5vw; */
+}
+.CP-custom-file-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  background-color: #a6a6a6;
+  color: #fff;
+  width: 4vw;
+  padding: 0.5vw;
+}
+
+.CP-file-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+}
+.CompanyProfile .logo-eclipse {
+  background-color: #dadada;
+  width: 4vw;
+  height: 4vw; 
+  overflow: hidden; 
+  border-radius: 5px;
+}
+.CompanyProfile .logo-image-eclipse {
+  width: 100%; 
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 5px;
+}
+.CompanyProfile .CP-step-completed{
+  border: 1.4px solid #8d4ac2;
+  padding: 0.7vw;
+  border-radius: 1vw;
+}
+.CompanyProfile .CP-st{
+  padding: 0vw 1.5vw;
+  border-right: 1px solid #8d4ac2;
+  }
+  @media (max-width:900px) {
+    .CompanyProfile .CP-desktop{
+      display: none;
+    }
+    .CompanyProfile .CP-textfield-p{
+      padding: 2vw;
+      border: 1.5px solid #cbcbce;
+      border-radius: 1.5vw;
+      outline-color: #8d4ac2 ;
+      width: 95%;
+    }
+    .CompanyProfile .CP-textfield-p-2{
+      padding: 2vw;
+      border: 1.5px solid #cbcbce;
+      border-radius: 1.5vw;
+      outline-color: #8d4ac2 ;
+      width: 85%;
+    }
+    .CompanyProfile .CP-textfield-s-p{
+      padding: 0vw 4vw 0vw 0vw;
+      border: 1.5px solid #cbcbce;
+      border-radius: 1.5vw;
+      outline-color: #8d4ac2 ;
+      width: 35vw;
+    }
+    .CompanyProfile .logo-eclipse-p{
+      background-color: #dadada;
+  width: 15vw;
+  height: 15vw; 
+  overflow: hidden; 
+  border-radius: 5px;
+    }
+    .CompanyProfile .logo-image-eclipse-p{
+      width: 100%; 
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 5px;
+    }
+    .CompanyProfile .field-role-p{
+      border: 1px solid #aeaeae;
+      padding: 1vw;
+      border-radius: 1vw;
+    }
+    .CompanyProfile .CP-dotted-lines-p{
+      border-top: 2px dashed #9d9d9d;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    }
+    .CompanyProfile .CP-custom-file-upload-p{
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      cursor: pointer;
+      background-color: #a6a6a6;
+      color: #fff;
+      width: 20vw;
+      padding: 1.5vw;
+    }
+    .CompanyProfile .CP-file-input-p{
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+    }
+    .CP-comp-config-p{
+      padding: 0vw;
+      border-top: 2px solid #aeaeae;
+      border-left: 2px solid #aeaeae;
+      border-right: 2px solid #aeaeae;
+      border-bottom: 2px solid #aeaeae;
+      border-radius: 3vw;
+    }
+    .CP-comp-config-header-p{
+      padding: 3vw;
+      border-radius: 3vw 3vw 0vw 0vw;
+    }
+    .CP-comp-config-content-p{
+      padding: 4vw 3vw;
+      border-top: 2px solid #aeaeae;
+      border-radius: 0vw 0vw 3vw 3vw;
+    }
+    
+  }

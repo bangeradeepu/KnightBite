@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+
+import { faBars,faBoxArchive,faPlus,faPencil,faEyeSlash,faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import Select from "react-select";
@@ -16,164 +17,494 @@ import {
 } from "react-router-dom";
 
 // import React from 'react'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Items.css";
 
-const Categories = () => {
+const Categories = (
+  {
+    setSessionCompId,
+    setSessionphoneNumber,
+    setSessionpId,
+  }
+) => {
   const navigate = useNavigate();
   const handleAddItem = () => {
     navigate("/handleAddItem");
   };
-  //
-  const [modalVisible, setModalVisible] = useState(false);
+  //Open create new tag
+    const [modalVisible, setModalVisible] = useState(false);
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
+    const openModal = () => {
+      setModalVisible(true);
+    };
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+    const closeModal = () => {
+      setModalVisible(false);
+    };
+    // Open edit tag
+    const [modalEdit, setModalEdit] = useState(false);
+    const [tagIdEdit,setTagIdEdit]  = useState('');
+    const [tagEditFeild,setTageEditFeild] = useState('');
+    const openModalEdit = async (tagId) => {
+      setModalEdit(true);
+      console.log(tagId);
+      setTagIdEdit(tagId);
+      // GET Data here
+    };
+
+    const closeModalEdit = () => {
+      setModalEdit(false);
+    };
+
+    const handleSubmitEdit = async() => {
+    const apiUrl =
+    "http://127.0.0.1:8000/menu/addons/api/tag-put/";
+  const companyId = setSessionCompId;
+  
+  try {
+    const response = await axios.put(
+      `${apiUrl}?tag_id=${tagIdEdit}&comp_id=${companyId}&tag_name=${tagEditFeild}`
+    );
+    console.log("Update successful", response.data);
+  } catch (error) {
+    console.error("Error updating permissions", error);
+  }
+  setModalEdit(false);
+  setTagIdEdit('');
+  setTageEditFeild('');
+    }
 
   const handleOutsideClick = (event) => {
     if (event.target === modalRef.current) {
       closeModal();
     }
   };
-  //
+  //Archive
+const [modalArchive, setModalArchiveVisible] = useState(false);
+
+const openArchiveModal = () => {
+  setModalArchiveVisible(true);
+};
+
+const closeArchiveModal = () => {
+  setModalArchiveVisible(false);
+};
+const [newtagName, setNewTagName] = useState('');
+// POST tag
+const handleSubmitNewTag = async () => {
+  console.log(newtagName);
+  console.log(setSessionCompId);
+  const apiUrl = "http://127.0.0.1:8000/menu/addons/api/tag-post/";
+
+  try {
+    const formData = new FormData();
+    formData.append("comp_id", setSessionCompId);
+    formData.append("brand_id", 12345);
+    formData.append("outlet_id", 12345);
+    formData.append("hide", 0);
+    formData.append("archive", 0);
+    formData.append("tag_name", newtagName); // Fix typo here
+    formData.append("tag_id", Math.floor(Math.random() * 1000000));
+
+    const response = await axios.post(apiUrl, formData);
+    console.log(`Data posted successfully for outlet ID:`, response.data);
+
+    // If you want to update the list or perform additional actions, do it here
+
+  } catch (error) {
+    if (error.response) {
+      console.error("Error posting data:", error.response.data);
+    } else if (error.request) {
+      console.error("Network error:", error.request);
+    } else {
+      console.error("Unexpected error:", error.message);
+    }
+  }
+}
+// GET Data
+const [tagData, setTagData] = useState([]);
+const [searchTerm, setSearchTerm] = useState('');
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/menu/addons/api/tag-get/');
+    const filteredData = response.data.filter(tag => tag.archive !== 1 && tag.tag_name.toLowerCase().includes(searchTerm.toLowerCase()));
+    setTagData(filteredData);
+  } catch (error) {
+    console.error('Error fetching tag data:', error);
+  }
+};
+
+useEffect(() => {
+  // Fetch data initially
+  fetchData();
+
+  // Set interval to fetch data every 5 seconds
+  const intervalId = setInterval(() => {
+    fetchData();
+  }, 5000);
+
+  // Clean up interval when component unmounts
+  return () => clearInterval(intervalId);
+}, [searchTerm]);
+
+// GET  archive data
+const [tagArchive, setTagArchive] = useState([]);
+const [searchArciveTerm, setSearchArciveTerm] = useState('');
+const fetchArchive = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/menu/addons/api/tag-get/');
+    const filteredData = response.data.filter(tag => tag.archive !== 0 && tag.tag_name.toLowerCase().includes(searchArciveTerm.toLowerCase()));
+    setTagArchive(filteredData);
+  } catch (error) {
+    console.error('Error fetching tag data:', error);
+  }
+};
+
+useEffect(() => {
+  // Fetch data initially
+  fetchArchive();
+
+  // Set interval to fetch data every 5 seconds
+  const intervalId = setInterval(() => {
+    fetchArchive();
+  }, 5000);
+
+  // Clean up interval when component unmounts
+  return () => clearInterval(intervalId);
+}, [searchArciveTerm]);
 
 
+  const handleArchive = async (tagId) => {
+    const apiUrl =
+    "http://127.0.0.1:8000/menu/addons/api/tag-put/";
+  const companyId = setSessionCompId;
+  
+  try {
+    const response = await axios.put(
+      `${apiUrl}?tag_id=${tagId}&comp_id=${companyId}&archive=1`
+    );
+    console.log("Update successful", response.data);
+  } catch (error) {
+    console.error("Error updating permissions", error);
+  }
+  }
+  const handleNonArchive = async (tagId) => {
+    const apiUrl =
+    "http://127.0.0.1:8000/menu/addons/api/tag-put/";
+  const companyId = setSessionCompId;
+  
+  try {
+    const response = await axios.put(
+      `${apiUrl}?tag_id=${tagId}&comp_id=${companyId}&archive=0`
+    );
+    console.log("Update successful", response.data);
+  } catch (error) {
+    console.error("Error updating permissions", error);
+  }
+  }
+  const handleHide = async (tagId) => {
+    const apiUrl =
+    "http://127.0.0.1:8000/menu/addons/api/tag-put/";
+  const companyId = setSessionCompId;
+  
+  try {
+    const response = await axios.put(
+      `${apiUrl}?tag_id=${tagId}&comp_id=${companyId}&hide=1`
+    );
+    console.log("Update successful", response.data);
+  } catch (error) {
+    console.error("Error updating permissions", error);
+  }
+  }
   return (
-    <div className="TAG-menu-page">
-      <div className="TAG-div">
-        <div className="item-top">
-          {/* Drop down filter */}
-          
+    <div className="TAG-app">
+      {/* Desktop top container */}
+      <div className="d-top-container f-12">
+        <div className="d-flex flex-end" style={{ padding: "0vw 2vw" }}>
+          <input
+            type="text"
+            placeholder="Search Tags"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="t-box"
+            style={{ width: "28%" }}
+          />
+        </div>
+        <div
+          className="d-flex space-between"
+          style={{ marginTop: "2vw", padding: "0vw 2vw" }}
+        >
+          <div className="f-20">Addon Groups</div>
 
-          <div className="TAG-add-multi-item">
-            <button className="p-button bg-purple" onClick={openModal}>
+          <div className="d-flex g-10">
+            <button
+              className="p-button bg-purple"
+              style={{}}
+              onClick={openModal}
+            >
               Create new <FontAwesomeIcon icon={faPlus} />
             </button>
-          </div>
-          <div className="TAG-search-items">
-            <i className="search-icon-s">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </i>
-            <input className="input-field-s" placeholder="Search Items" />
-          </div>
-          <div className="TAG-bulk-actions">
+            <button className="p-outline-button" onClick={openArchiveModal}>
+              <FontAwesomeIcon icon={faBoxArchive} /> Archive List
+            </button>
             <button className="p-outline-button">
-              <div className="TAG-">
-                <FontAwesomeIcon icon={faBars} /> Bulk Actions
-              </div>
+              <FontAwesomeIcon icon={faBars} /> Bulk Action
             </button>
           </div>
-          <div className="TAG-text-wrapper-7">Tags</div>
+        </div>
+        <div className="d-header txt-dark-grey">
+          <div style={{ textAlign: "left" }}>Tag name</div>
 
-          <div className="TAG-group">
-            <div className="TAG-text-wrapper-8">Name</div>
-            <div className="TAG-text-wrapper-13">Hide</div>
-            <div className="TAG-text-wrapper-16">Edit</div>
-            <div className="TAG-text-wrapper-17">Archive</div>
-            {/*  */}
-            </div>
+          <div>Hide</div>
+          <div>Edit</div>
+          <div>Archive</div>
+        </div>
+      </div>
+      {/* Desktop card */}
+      <div className="scrollable-container">
+      {tagData.map(tag => (
+        <div className="d-card f-12" key={tag.id}>
+          <div style={{ textAlign: "left" }}>
+          <div
+                  className="d-flex g-10"
+                  style={{
+                    textAlign: "left",
+                    flexWrap: "wrap",
+                    paddingBottom: "0.5rem",
+                  }}
+                >
+                  <button className="ITM-tags f-10">{tag.tag_name}</button>
+                </div>
+          </div>
+  
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon icon={faEyeSlash} style={{ cursor: "pointer" }}               onClick={() => handleHide(tag.tag_id)}
+ />
+          </div>
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon icon={faPencil} style={{ cursor: "pointer" }} onClick={() => openModalEdit(tag.tag_id)} />
+          </div>
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon
+              icon={faBoxArchive}
+              style={{ cursor: "pointer" }}
+              onClick={() => handleArchive(tag.tag_id)}
+            />
           </div>
         </div>
-
-        <div className="TAG-content-group">
-          <div className="TAG-i-frame">
-            <div className="TAG-overlap-6">
-              <div className="TAG-item-name-container">
-                <div className="TAG-item-tag-container">
-                  <div className="TAG-tag-spacing-new">
-                    <p className="txt-black TAG-tag-border-new">Must try</p>
-                  </div>
-                </div>
-                <p className="txt-dark-grey TAG-item-hide-spacing">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M11.83 9L15 12.16V12a3 3 0 0 0-3-3h-.17m-4.3.8l1.55 1.55c-.05.21-.08.42-.08.65a3 3 0 0 0 3 3c.22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53a5 5 0 0 1-5-5c0-.79.2-1.53.53-2.2M2 4.27l2.28 2.28l.45.45C3.08 8.3 1.78 10 1 12c1.73 4.39 6 7.5 11 7.5c1.55 0 3.03-.3 4.38-.84l.43.42L19.73 22L21 20.73L3.27 3M12 7a5 5 0 0 1 5 5c0 .64-.13 1.26-.36 1.82l2.93 2.93c1.5-1.25 2.7-2.89 3.43-4.75c-1.73-4.39-6-7.5-11-7.5c-1.4 0-2.74.25-4 .7l2.17 2.15C10.74 7.13 11.35 7 12 7Z"
-                    />
-                  </svg>
-                </p>
-                <p className="txt-dark-grey TAG-item-edit-spacing">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
-                    />
-                  </svg>
-                </p>
-                <p className="txt-dark-grey TAG-item-arch-spacing">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"
-                    />
-                  </svg>
-                </p>
-              </div>
+      ))}
+      </div>
+      {/* Phone top container */}
+      <div className="p-top-container">
+        <input type="text" name="" id="" placeholder="Search Tags" />
+        <br />
+        <br />
+        <div className="d-flex g-10">
+          <button className="p-button bg-purple" onClick={openModal}>Create new</button>
+          <button className="p-outline-button" onClick={openArchiveModal}>Archive List</button>
+          <button className="p-outline-button">Bulk Action</button>
+        </div>
+      </div>
+      {/* Phone card */}
+      <div className="ADD-p-position">
+          <div className="ADD-p-container">
+          {Array.from({ length: 5 }, (_, index) => (
+        <div className="p-card">
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="txt-grey f-14">Tag name</div>
+              <div className="txt-black f-16"><button class="ITM-tags f-10">Spicy</button></div>
             </div>
-
-            <br />
-            {modalVisible && (
-              <div
-                className={`tags-modal ${
-                  modalVisible ? "tags-modal-open" : ""
-                }`}
-              >
-                <div className="tags-modal-content">
-                  <span className="tags-modal-close" onClick={closeModal}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="#2e2e2e"
-                        d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6L6.4 19Z"
-                      />
-                    </svg>
-                  </span>
-                  <div className="tags-create-filter-position">
            
-                  </div>
-                  <br />
-                  <p className="tags-create-header txt-black">Create new Tag</p>
-                  <p className="tags-create-name txt-grey">Tag Name</p>
-                  <input
-                    className="custom-input"
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder="Enter Tag name"
-                  />
-                  <br /><br />
-                                      <button class="add-item-button">Add Tag</button>
-
-                </div>
+           
+          </div>
+          
+          <br />
+        
+          <hr />
+          <div
+            className="d-flex space-between"
+            style={{ marginTop: "4vw" }}
+          >
+            
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faEyeSlash}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
               </div>
-            )}
+            </div>
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faBoxArchive}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
           </div>
         </div>
+          ))}
+</div>
       
+  </div>
+  {modalVisible && (
+     <div
+     className="main-modal main-modal-open"
+   >
+     <div className="main-modal-content TAG-main-modal-custom-content">
+       <div className="d-flex space-between f-20">
+        <div>Create new Tag</div>
+        <div><FontAwesomeIcon icon={faXmark} className="f-20" onClick={closeModal} style={{cursor:'pointer'}} /></div>
+       </div>
+       <div>
+        <input type="text" name="newTag" id="newTag" value={newtagName} onChange={(e) => setNewTagName(e.target.value)} className="TAG-ADD-input" placeholder="Enter Tag name"/>
+       </div>
+       <button className="p-button bg-purple submit-button" onClick={handleSubmitNewTag}>Submit</button>
+     </div>
+   </div>
+  )}
+  {modalEdit && (
+     <div
+     className="main-modal main-modal-open"
+   >
+     <div className="main-modal-content TAG-main-modal-custom-content">
+       <div className="d-flex space-between f-20">
+        <div>Edit Tag</div>
+        <div><FontAwesomeIcon icon={faXmark} className="f-20" onClick={closeModalEdit} style={{cursor:'pointer'}} /></div>
+       </div>
+       <div>
+        <input type="text" name="newTag" id="newTag" value={tagEditFeild} onChange={(e) => setTageEditFeild(e.target.value)} className="TAG-ADD-input" placeholder="Enter Tag name"/>
+       </div>
+       <button className="p-button bg-purple submit-button" onClick={handleSubmitEdit}>Submit</button>
+     </div>
+   </div>
+  )}
+
+  
+    {modalArchive && (
+        <div
+        className="main-modal main-modal-open MA-C"
+      >
+        <div className="main-modal-content">
+          <div className="d-flex space-between f-20">
+            <div className="">
+            Tags Archive List
+
+            </div>
+            <div onClick={closeArchiveModal} style={{cursor:'pointer'}}><FontAwesomeIcon icon={faXmark} /></div>
+          </div>
+
+          <br />
+          <div className="d-flex flex-end">
+            <input type="text" name="" id="" className="t-box" placeholder="Search Tags"  value={searchArciveTerm}
+            onChange={(e) => setSearchArciveTerm(e.target.value)}/>
+          </div>
+          <div className="d-header txt-dark-grey f-12" style={{marginleft:'0.8vw',marginRight:'2vw'}}>
+          <div style={{ textAlign: "left" }}>Tag name</div>
+
+          <div>Hide</div>
+          <div>Edit</div>
+          <div>Archive</div>
+        </div>
+          <div className="main-modal-content-inside">
+          {tagArchive.map(tag => (
+          <div className="d-card f-12 align-item-center" key={tag.id}>
+          <div style={{ textAlign: "left" }}>
+          <div
+                  className="d-flex g-10 align-item-center"
+                  style={{
+                    textAlign: "left",
+                    flexWrap: "wrap",
+                    paddingBottom: "0.5rem",
+                  }}
+                >
+                  <button className="ITM-tags f-10">{tag.tag_name}</button>
+                </div>
+          </div>
+  
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon icon={faEyeSlash} style={{ cursor: "pointer" }}  onClick={() => handleHide(tag.tag_id)} />
+          </div>
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon icon={faPencil} style={{ cursor: "pointer" }} />
+          </div>
+          <div className="txt-dark-grey f-16">
+            <FontAwesomeIcon
+              icon={faBoxArchive}
+              style={{ cursor: "pointer" }}
+              onClick={() => handleNonArchive(tag.tag_id)}
+            />
+          </div>
+        </div>
+          ))}
+        
+          </div>
+          <div className="p-main-modal-content-inside">
+          <div className="p-card">
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="txt-grey f-14">Tag name</div>
+              <div className="txt-black f-16"><button class="ITM-tags f-10">Spicy</button></div>
+            </div>
+           
+           
+          </div>
+          
+          <br />
+        
+          <hr />
+          <div
+            className="d-flex space-between"
+            style={{ marginTop: "4vw" }}
+          >
+            
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faEyeSlash}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faPencil}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+            <div className="">
+              <div>
+                <FontAwesomeIcon
+                  icon={faBoxArchive}
+                  className="txt-dark-grey f-16"
+                  style={{ cursor: "pointer" }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+      )}
     </div>
   );
 };

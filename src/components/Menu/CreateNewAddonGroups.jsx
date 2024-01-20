@@ -1,5 +1,7 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleArrowLeft,faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 import Select from 'react-select'
 import { colourOptions, Option } from './Filter'
@@ -7,146 +9,317 @@ import { colourOptions, Option } from './Filter'
 import React, { useState } from 'react';
 import './CreateNewAddonGroups.css'
 const CreateNewAddonGroups = () => {
-    // code for filter dropdown
-  const [selectedOptions, setSelectedOptions] = useState([])
-  const [selectedCity, setSelectedCity] = useState('')
+  // Go back
+  const navigate = useNavigate();
+  const goBacktoDB = () => {
+    navigate("/menu/addongroups");
+  };
+  // preview and input page switch
+  const [page, setPage] = useState(1);
+  const showPage1 = () => {
+    setPage(1);
+  };
+  const showPage2 = () => {
+    setPage(2);
+  };
 
-  const handleChange = (selected) => {
-    setSelectedOptions(selected)
-  }
+  //   Preview for addons group name
+  const [addonsGroupName, setAddonsGroupName] = useState(""); // State to store the input text
 
-  const handleChangeCity = (selected) => {
-    setSelectedCity(selected?.value || '')
-    setSelectedOptions([])
-  }
+  const handleAddonsGroupName = (event) => {
+    setAddonsGroupName(event.target.value);
+    setIsAnyInput(true);
+  };
+  //   Preview for addons Associate item
+  const [AI, setAI] = useState(""); // State to store the input text
 
-  const containerStyle = {
-    padding: '20px',
-    height: '30px',
-    position: 'relative',
-    width: '400px',
-    marginLeft: '-20px',
-    marginTop: '0px',
-  }
+  const handleAI = (event) => {
+    setAI(event.target.value);
+    setIsAnyInput(true);
+  };
+    //   Preview for addons Type
+    const [Type, setType] = useState(""); // State to store the input text
 
-  const selectedOptionsStyle = {
-    marginTop: '8px',
-  }
+    const handleType = (event) => {
+      setType(event.target.value);
+      setIsAnyInput(true);
+    };
+        //   Preview for addons 
+        const [AO, setAO] = useState(""); // State to store the input text
 
-
-  // Options for the city dropdown
-  const cityOptions = [
-    { value: 'Mangalore', label: 'Mangalore' },
-    { value: 'Bangalore', label: 'Bangalore' },
-  ]
-
-  // Filter the options based on the selected city
-  const filteredOptions =
-    colourOptions.find((option) => option.label === selectedCity)?.options || []
-
-  // Check if there are selected options for the selected city
-  const hasSelectedOptionsForCity =
-    selectedOptions.filter((option) => option.label === selectedCity).length > 0
-
-
-
-// Code for tags drop down
-
-
+        const handleAO = (event) => {
+          setAO(event.target.value);
+          setIsAnyInput(true);
+        };
+    
 
 
 
   return (
-    <div>
-      <div className='addons-group-margin'>
-        <div className='addons-group-filter'>
-        
-              <br />
-              <br />
-        <div className="addons-group-left-section">
-          <div className="addons-group-heading">Create Addon Groups</div>
-          <p className="addons-group-name txt-grey">Addon Group name</p>
-          <div className="addons-group-name-position">
-            <input className="custom-input" type="text" name="" id="" placeholder='Enter Addon group name' />
+    <div className="AOG-create ">
+      {/* Desktop mode */}
+      <div className="AOG-desktop d-flex g-20">
+        <div className="AOG-left">
+          <div className="f-20">
+            <FontAwesomeIcon
+              icon={faCircleArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "}
+            Create Addon Groups
           </div>
-
-          <p className="addons-group-soldout txt-grey">Associate Item</p>
-          <div className="addons-group-soldout-position">
-            <div class="dropdown">
-              <select class="dropbtn" name="languages" id="lang">
-                <option value="" disabled="">
-                  Select Associate item
-                </option>
-                <option value="javascript">JavaScript</option>
-                <option value="php">PHP</option>
-                <option value="java">Java</option>
-                <option value="golang">Golang</option>
-                <option value="python">Python</option>
-                <option value="c#">C#</option>
-                <option value="C++">C++</option>
-                <option value="erlang">Erlang</option>
-              </select>
+          <br />
+          <br />
+          <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Addons group name
+            </label>
+            <div>
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Enter addons name"
+                value={addonsGroupName}
+                onChange={handleAddonsGroupName}
+              />
             </div>
           </div>
-
-          
-
-          
-          <div className='addons-group-price-right'>
-            <p className='addons-group-type txt-grey'>Type</p>
-            <div className="addons-group-type-position">
-            <div class="dropdown">
-              <select class="dropbtn" name="languages" id="lang">
-                <option value="" disabled="">
-                  Select Addon Type
-                </option>
-                <option value="javascript">Veg</option>
-                <option value="php">Non veg</option>
-                
-              </select>
+       
+          <br />
+          <div className="d-flex g-30">
+          <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Associate Item
+              </label>
+              <div>
+                <select name="" id="" value={AI}
+                onChange={handleAI}>
+                  <option value="" selected disabled>
+                    Select  Associate Item
+                  </option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
             </div>
+            
           </div>
-          <div className='addons-group-submit'>
-             <button class="add-item-button">Add Group</button>
-          </div>
-          <div className='addons-group-line-position'>
-            <img src="Images/line.svg" alt="" />
-          </div>
+          <br />
+          <div className="d-flex g-30">
+          <div>
+              <label htmlFor="" className="f-12 txt-grey">
+                Type
+              </label>
+              <div>
+                <select name="" id="" value={Type}
+                onChange={handleType}>
+                  <option value="" selected disabled>
+                    Select type
+                  </option>
+                  <option value="Veg">Veg</option>
+                  <option value="Non-Veg">Non Veg</option>
+                </select>
+              </div>
+            </div>
+            <div>
+            <label htmlFor="" className="f-12 txt-grey">
+              Addons
+            </label>
+              <input type="text" name="" id="" style={{width:'16vw'}} placeholder="Enter addons" value={AO} onChange={handleAO} />
+            </div>
           </div>
         </div>
-            <div className='addons-group-preview-posiiton'>
-                <p className='addons-group-preview txt-dark-grey'>Preview</p>
+        <div className="AOG-right">
+          <div className="f-20">Preview</div>
+          <br />
+          <br />
+          <div className="d-flex">
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Addons group name</div>
+              <div>{addonsGroupName}</div>
             </div>
-            <div className='addons-group-preview-position'>
-                <div className='addons-group-body-preview'>
-                  <p className='txt-grey'>Addon Name</p>
-                  <p className='txt-black weight'>White Chocolate Sauce</p>
-                </div>
+          </div>
+          <br />
+          <div className="d-flex">
+           
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Associate Item</div>
+              <div>{AI}</div>
             </div>
-            <br />
-            <div className='addons-group-preview-position'>
-                <div className='addons-group-body-preview'>
-                  <p className='txt-grey'>Addon Group</p>
-                  <p className='txt-black weight'>5</p>
-                </div>
+            <div className="flex-1">
+              <div className="f-12 txt-grey">Type</div>
+              <div>
+              {Type === "Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-green" />
+                ) : Type === "Non-Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-red" />
+                ) : null}
+              </div>
             </div>
-            <br />
-            <div className='addons-group-preview-position'>
-                <div className='addons-group-body-preview'>
-                  <p className='txt-grey'>Price</p>
-                  <p className='txt-black weight'>None</p>
-                </div>
-            </div>
-            <div className='addons-group-type-header-preview-position'>
-                <div className='addons-group-body-preview'>
-                  <p className='txt-grey'>Addon Type</p>
-                  <p className='txt-green addons-group-type-preview-position'>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg>
-
-                  </p>
-                </div>
-            </div>
+          </div>
+          <br />
+          <div className="d-flex">
+          
+           <div className="flex-1">
+             <div className="f-12 txt-grey">Addons</div>
+             <div>
+             {AO}
+             </div>
+           </div>
+         </div>
+          <div className="d-flex">
+            <button
+              className="p-outline-button"
+              style={{ padding: "0.7vw 3.5vw", marginTop: "7.2vw" }}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Phone Mode */}
+      <div className="AOG-phone">
+        <div className="ADD-p-top">
+          <div> <FontAwesomeIcon
+              icon={faArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "}Create Addon Group</div>
+        </div>
+        {page === 1 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container">
+              <input
+                type="text"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Addons group Name"
+                value={addonsGroupName}
+                onChange={handleAddonsGroupName}
+              />
+              <br />
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+                value={AI}
+                onChange={handleAI}
+              >
+                <option value="" selected disabled>
+                  Select Associate Item
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="2">3</option>
+              </select>
+              
+              <select
+                name=""
+                id=""
+                className="ADD-p-input-textbox"
+                style={{ width: "100%", backgroundColor: "white" }}
+                value={Type}
+                onChange={handleType}
+              >
+                <option value="" selected disabled>
+                 Select Type
+                </option>
+                <option value="Veg">Veg</option>
+                <option value="Non-Veg">Non veg</option>
+              </select>
+              <br />
+              <input
+                type="number"
+                inputMode="numeric"
+                className="ADD-p-input-textbox"
+                placeholder="Enter Addons"
+                value={AO}
+                onChange={handleAO}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Go to Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {page === 2 && (
+          <div className="ADD-p-position">
+            <div className="ADD-p-container" style={{ padding: "4vw" }}>
+              <div className="f-18">
+                <FontAwesomeIcon
+                  icon={faCircleArrowLeft}
+                  onClick={showPage1}
+                  className="txt-black"
+                  style={{ cursor: "pointer" }}
+                />{" "}
+                Preview
+              </div>
+              <br />
+              <div className="d-flex align-item-center">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Addon group name</div>
+                  <div className="d-flex align-item-center">
+                  {addonsGroupName} &nbsp;
+                  {Type === "Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-green" />
+                ) : Type === "Non-Veg" ? (
+                  <Icon icon="mdi:square-circle" className="txt-red" />
+                ) : null}
+                  </div>
+                </div>
+                {/* <div className="flex-1">
+    <div className="f-12 txt-grey"></div>
+    <div className="f-12 txt-grey">&nbsp;</div>
+    <div className="txt-green"><Icon icon="mdi:square-circle" width="20" height="20" /></div>
+    </div> */}
+                
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Associate Item</div>
+                  <div>{AI}</div>
+                </div>
+                <div className="flex-1">
+                  <div className="f-12 txt-grey">Addons</div>
+                  <div>{AO}</div>
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "7vw",
+                }}
+              >
+                <button
+                  className="p-button bg-purple"
+                  style={{ padding: "3vw 6vw", borderRadius: "10vw" }}
+                  onClick={showPage2}
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

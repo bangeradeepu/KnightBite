@@ -1,5 +1,16 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./AddDeliveryBoys.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleArrowLeft,
+  faXmark,
+  faCircleLeft,
+  faArrowLeft,
+  faChevronDown
+} from "@fortawesome/free-solid-svg-icons";
 
 const languages = [
   "English",
@@ -9,9 +20,16 @@ const languages = [
   "Tulu",
   "Konkani",
   "Marathi",
+  
 ];
 
 function AddDeliveryBoys() {
+  // Go back
+  const navigate = useNavigate();
+  const goBacktoDB = () => {
+    navigate("/deliveryboy/db");
+  };
+
   // Open Language modal
   const [lanuguageVisible, setLanguageVisible] = useState(false);
 
@@ -40,7 +58,7 @@ function AddDeliveryBoys() {
     }
     setIsAnyInput(true);
   };
-  // Open only naything is typed
+  // Open only anaything is typed
   const [isAnyInput, setIsAnyInput] = useState(false);
 
   //   Preview for name
@@ -146,7 +164,7 @@ function AddDeliveryBoys() {
   const handleInputLEDChange = (event) => {
     const newDate = event.target.value;
     const formattedDate = formatDateLED(newDate);
-    setInputLED(formattedDate); // Update the inputLED state with the formatted date
+    setInputLED(formattedDate); 
     setIsAnyInput(true);
   };
 
@@ -258,16 +276,34 @@ function AddDeliveryBoys() {
     ? "ADB-input-file-custom ADB-input-file-custom-DB-data-uploaded color-data-uploaded txt-data-uploaded"
     : "ADB-input-file-custom ADB-input-file-custom-DB-data-Upload";
 
+  const [page, setPage] = useState(1);
+  const showPage1 = () => {
+    setPage(1);
+  };
+  const showPage2 = () => {
+    setPage(2);
+  };
+
   return (
     <div className="ADB-app">
       <div className="ADB-left-box">
         <div className="ADB-container">
-          <div className=" ADB-row f-20">Add delivery boys</div>
+          <div className="f-20">
+            {" "}
+            <FontAwesomeIcon
+              icon={faCircleArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "}
+            Add delivery boys
+          </div>
           <br />
           <div className="d-flex g-10">
             <div className="ADB-textbox">
               <label className="f-12">Name</label>
               <input
+                placeholder="Enter name"
                 type="text"
                 className="ADB-input"
                 value={inputName}
@@ -277,6 +313,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Username</label>
               <input
+                placeholder="Enter username"
                 type="text"
                 className="ADB-input"
                 value={inputUsername}
@@ -288,6 +325,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Phone number</label>
               <input
+                placeholder="Enter Phone number"
                 type="text"
                 className="ADB-input"
                 value={inputPhone}
@@ -295,8 +333,11 @@ function AddDeliveryBoys() {
               />
             </div>
             <div className="ADB-textbox">
-              <label className="f-12">Alternative Phone number</label>
+              <label className="f-12">
+                Alternative Phone number (Optional)
+              </label>
               <input
+                placeholder="Enter Alternative Phone number"
                 type="text"
                 className="ADB-input"
                 value={inputAltPhone}
@@ -308,7 +349,8 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Email</label>
               <input
-                type="text"
+                placeholder="Enter valid e-mail"
+                type="email"
                 className="ADB-input"
                 value={inputEmail}
                 onChange={handleInputEmaileChange}
@@ -320,9 +362,12 @@ function AddDeliveryBoys() {
                 name=""
                 id=""
                 className="ADB-dropdown"
-                value={selectedOption} // Bind selected value to the state
+                value={selectedOption}
                 onChange={handleSelectChange}
               >
+                <option value="" disabled selected>
+                  Choose blood group
+                </option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -337,6 +382,7 @@ function AddDeliveryBoys() {
           <div className="ADB-row">
             <label className="f-12">Address</label>
             <textarea
+              placeholder="Enter address"
               className="ADB-textarea"
               name=""
               id=""
@@ -399,9 +445,13 @@ function AddDeliveryBoys() {
             />
           </div>
           <div className="f-12">
-            {selectedLanguages.map((selectedLanguage, index) => (
-              <div key={index}>{selectedLanguage}</div>
-            ))}
+            <ol>
+              {selectedLanguages.map((selectedLanguage, index) => (
+                <div>
+                  <li key={index}>{selectedLanguage}</li>
+                </div>
+              ))}
+            </ol>
           </div>
           <div
             className="row"
@@ -419,6 +469,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Vehicle RC number</label>
               <input
+                placeholder="Enter RC number"
                 type="text"
                 className="ADB-input"
                 value={inputVRN}
@@ -430,6 +481,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Vehicle Number</label>
               <input
+                placeholder="Enter vehicle number"
                 type="text"
                 className="ADB-input"
                 value={inputVN}
@@ -437,8 +489,9 @@ function AddDeliveryBoys() {
               />
             </div>
             <div className="ADB-textbox">
-              <label className="f-12">Vehicle modal</label>
+              <label className="f-12">Vehicle model</label>
               <input
+                placeholder="Enter vehicle model"
                 type="text"
                 className="ADB-input"
                 value={inputVM}
@@ -450,6 +503,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Licence number</label>
               <input
+                placeholder="Enter licence number"
                 type="text"
                 className="ADB-input"
                 value={inputLN}
@@ -461,7 +515,6 @@ function AddDeliveryBoys() {
               <input
                 type="date"
                 className="ADB-input"
-                value={inputLED}
                 onChange={handleInputLEDChange}
               />
             </div>
@@ -470,6 +523,7 @@ function AddDeliveryBoys() {
             <div className="ADB-textbox">
               <label className="f-12">Insurance number</label>
               <input
+                placeholder="Enter insurance number"
                 type="text"
                 className="ADB-input"
                 value={inputIN}
@@ -481,7 +535,6 @@ function AddDeliveryBoys() {
               <input
                 type="date"
                 className="ADB-input"
-                value={inputIED}
                 onChange={handleInputIEDChange}
               />
             </div>
@@ -562,7 +615,7 @@ function AddDeliveryBoys() {
       </div>
 
       <div className="ADB-right-box">
-        {isAnyInput && (
+        {isAnyInput ? (
           <div>
             <div className=" ADB-row f-20">Preview</div>
 
@@ -653,15 +706,15 @@ function AddDeliveryBoys() {
             ></div>
             <div className="ADB-right-box-row">
               <div className="ADB-right-box-column">
-                <div className="f-12 txt-grey">Vechile number</div>
+                <div className="f-12 txt-grey">Vehicle number</div>
                 <div className="f-14 txt-black">{inputVN}</div>
               </div>
               <div className="ADB-right-box-column">
-                <div className="f-12 txt-grey">Vechile RC number</div>
+                <div className="f-12 txt-grey">Vehicle RC number</div>
                 <div className="f-14 txt-black">{inputVRN}</div>
               </div>
               <div className="ADB-right-box-column">
-                <div className="f-12 txt-grey">Vechile model</div>
+                <div className="f-12 txt-grey">Vehicle model</div>
                 <div className="f-14 txt-black">{inputVM}</div>
               </div>
             </div>
@@ -697,8 +750,423 @@ function AddDeliveryBoys() {
               <button className="p-button bg-orange txt-orange">Submit</button>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
+
+      <div className="ADB-p-top">
+        <div><FontAwesomeIcon
+              icon={faArrowLeft}
+              onClick={goBacktoDB}
+              className="txt-black"
+              style={{ cursor: "pointer" }}
+            />{" "} Add Delivery Boys</div>
+      </div>
+      {page === 1 && (
+        <div className="ADB-p-input">
+          <div className="ADB-p-input-container">
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Name"
+              value={inputName}
+              onChange={handleInputNameChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Username"
+              value={inputUsername}
+              onChange={handleInputUsernameChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Phone number"
+              value={inputPhone}
+              onChange={handleInputPhoneChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Alternarte phone number (Optional)"
+              value={inputAltPhone}
+              onChange={handleInputAltPhoneChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Email"
+              value={inputEmail}
+              onChange={handleInputEmaileChange}
+            />
+            <select
+              name=""
+              id=""
+              className="ADB-p-input-textbox"
+              style={{ width: "100%" }}
+              value={selectedOption}
+              onChange={handleSelectChange}
+            >
+              <option value="" selected disabled>
+                Choose Blood Group
+              </option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+            </select>
+            <textarea
+              className="ADB-p-input-textbox"
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              style={{ borderRadius: "2vw" }}
+              placeholder="Enter Address"
+              value={inputAddress}
+              onChange={handleInputAddressChange}
+            ></textarea>
+
+            <button className="p-button bg-purple" onClick={openLanguage}>
+              Select Known lanuage
+            </button>
+            <ol>
+              {selectedLanguages.map((selectedLanguage, index) => (
+                <div>
+                  <li key={index}>{selectedLanguage}</li>
+                </div>
+              ))}
+            </ol>
+            {lanuguageVisible && (
+              <div className="main-modal main-modal-open">
+                <div
+                  style={{
+                    backgroundColor: "transparent",
+                    padding: "10vw",
+                    height: "80%",
+                  }}
+                  onClick={closeLanguage}
+                ></div>
+                <div className="main-modal-content">
+                  <div className="d-flex space-between">
+                    <div className="f-18">Select Known Languages</div>
+                    <div>
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className="f-24"
+                        onClick={closeLanguage}
+                      />
+                    </div>
+                  </div>
+                  <div className="main-modal-content-inside">
+                    {languages.map((language, index) => (
+                      <div key={index}>
+                        <input
+                          type="checkbox"
+                          name={language}
+                          id={language}
+                          onChange={handleCheckboxChange}
+                          checked={selectedLanguages.includes(language)}
+                        />
+                        {language}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-main-modal-content-inside">
+                    {languages.map((language, index) => (
+                      <div key={index}>
+                        <input
+                          type="checkbox"
+                          name={language}
+                          id={language}
+                          onChange={handleCheckboxChange}
+                          checked={selectedLanguages.includes(language)}
+                        />
+                        {language}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            <div style={{ marginTop: "2vw" }}>
+              <input
+                type="file"
+                className={fileInputPhotoClass}
+                ref={fileInputPhotoRef}
+                onChange={handleFileChangePhoto}
+              />
+            </div>
+            <hr />
+            <div>Vehicle details</div>
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Vehicle RC number"
+              value={inputVRN}
+              onChange={handleInputVRNChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Vehicle number"
+              value={inputVN}
+              onChange={handleInputVNChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Vehicle model"
+              value={inputVM}
+              onChange={handleInputVMChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Licence number"
+              value={inputLN}
+              onChange={handleInputLNChange}
+            />
+            <label
+              for="LicenceExp"
+              className="txt-dark-grey f-12"
+              style={{ paddingLeft: "2vw" }}
+            >
+              Select Licence Exp. date
+            </label>
+            <input
+              type="date"
+              className="ADB-p-input-textbox"
+              id="LicenceExp"
+              onChange={handleInputLEDChange}
+            />
+            <input
+              type="text"
+              className="ADB-p-input-textbox"
+              placeholder="Enter Insurance number"
+              value={inputIN}
+              onChange={handleInputINChange}
+            />
+            <label
+              for="InsuranceExp"
+              className="txt-dark-grey f-12"
+              style={{ paddingLeft: "2vw" }}
+            >
+              Select Insurance Exp. date
+            </label>
+            <input
+              type="date"
+              className="ADB-p-input-textbox"
+              id="InsuranceExp"
+              onChange={handleInputIEDChange}
+            />
+            <hr />
+            <label
+              htmlFor="button"
+              className=" txt-dark-grey f-12"
+              style={{ paddingLeft: "2vw" }}
+            >
+              Upload Licence
+              <div>
+                <input
+                  type="file"
+                  className={fileInputLicenceClass}
+                  ref={fileInputLicenceRef}
+                  onChange={handleFileChangeLicence}
+                />
+              </div>
+            </label>
+            <label
+              htmlFor="button"
+              className="txt-dark-grey f-12"
+              style={{ paddingLeft: "2vw" }}
+            >
+              Upload RC
+              <div>
+                <input
+                  type="file"
+                  className={fileInputRCClass}
+                  ref={fileInputRCeRef}
+                  onChange={handleFileChangeRC}
+                />
+              </div>
+            </label>
+            <div>
+              <label
+                htmlFor="button"
+                className="txt-dark-grey f-12"
+                style={{ paddingLeft: "2vw" }}
+              >
+                Upload Insurance
+                <div>
+                  <input
+                    type="file"
+                    className={fileInputINCClass}
+                    ref={fileInputINCRef}
+                    onChange={handleFileChangeINC}
+                  />
+                </div>
+              </label>
+            </div>
+            <label
+              htmlFor="button"
+              className="txt-dark-grey f-12"
+              style={{ paddingLeft: "2vw" }}
+            >
+              Upload Emission
+              <div>
+                <input
+                  type="file"
+                  className={fileInputEMSNClass}
+                  ref={fileInputEMSNeRef}
+                  onChange={handleFileChangeEMSN}
+                />
+              </div>
+            </label>
+            <hr />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <button
+                className="p-button bg-purple"
+                style={{ padding: "4vw 10vw", borderRadius: "10vw" }}
+                onClick={showPage2}
+              >
+                Go to Preview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {page === 2 && (
+        <div className="ADD-p-position">
+          <div className="ADD-p-container">
+            <div className="f-24">
+              <FontAwesomeIcon icon={faCircleLeft} onClick={showPage1} className="txt-dark-grey" />
+            </div>
+            <div className="d-flex" style={{ justifyContent: "center" }}>
+              <img src="Images/person.png" alt="Image" width="72%" />
+            </div>
+            <hr />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Name</div>
+                <div className="f-16">{inputName}</div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Username</div>
+                <div className="f-16">{inputUsername}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">E-mail address</div>
+                <div className="f-16">{inputEmail}</div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Blood group</div>
+                <div className="f-16">{selectedOption}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Phone number</div>
+                <div className="f-16">
+                  {inputPhone ? `+91 ${inputPhone}` : null}{" "}
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Alternate Phone number</div>
+                <div className="f-16">
+                  {inputAltPhone ? `+91 ${inputAltPhone}` : null}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Address</div>
+                <div className="f-16">{inputAddress}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Known Languages</div>
+                <div className="f-16">
+                  {selectedLanguages.map((selectedLanguage, index) => (
+                    <>
+                      {selectedLanguage}
+                      {", "}
+                    </>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Vehicle number</div>
+                <div className="f-16">{inputVN}</div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Vehicle RC number</div>
+                <div className="f-16">{inputVRN}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Vehicle model</div>
+                <div className="f-16">{inputVM}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Licence number</div>
+                <div className="f-16">{inputLN}</div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Licence Exp date</div>
+                <div className="f-16">{inputLED}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex">
+              <div className="flex-1">
+                <div className="txt-grey f-14">Insurance number</div>
+                <div className="f-16">{inputIN}</div>
+              </div>
+              <div className="flex-1">
+                <div className="txt-grey f-14">Insurance Exp date</div>
+                <div className="f-16">{inputIED}</div>
+              </div>
+            </div>
+            <br />
+            <div className="d-flex space-between align-item-center">
+              <button
+                className="p-outline-button"
+                style={{ padding: "4vw 10vw", borderRadius: "10vw" }}
+                onClick={showPage1}
+              >
+                Back
+              </button>
+              <button
+                className="p-button bg-purple"
+                style={{ padding: "4vw 10vw", borderRadius: "10vw" }}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

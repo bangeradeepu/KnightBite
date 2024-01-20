@@ -1,120 +1,59 @@
-/* .font-family{
-    font-family: "Inter", Helvetica;
-} */
-.addons-group-margin{
-    margin-left: 200px;
+.AOG-create .AOG-desktop{
+    margin-top: 10vw;
+    background-color: transparent;
+    padding: 2vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 83vw;
+    z-index: 1;
+    margin-bottom: 2vw;
     display: flex;
+    gap:2vw;
 }
-.addons-group-left-section{
-    width: 655px;
+.AOG-create .AOG-left{
+  background-color: white;
+  padding: 2vw;
+  width: 50%;
+  border-radius: 1vw;
 }
-.addons-group-filter{
-    padding-top: 170px;
+.AOG-create .AOG-right{
+  background-color: white;
+  padding: 2vw;
+  width: 50%;
+  border-radius: 1vw;
 }
-
-.addons-group-heading{
-    color: #2e2e2e;
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    white-space: nowrap;
+.AOG-create input{
+  padding: 1vw;
+  border-radius: 10vw;
+  border: 1px solid #aeaeae;
+  width: 36vw;
+  outline-color: #8d4ac2;
 }
-.addons-group-name{
-    font-size: 12px;
-    top: 50px;
-    position: relative;
+.AOG-create select{
+  padding: 1vw;
+  border-radius: 10vw;
+  border: 1px solid #aeaeae;
+  width: 18vw;
+  color: #8d8b8b;
+  outline-color: #8d4ac2;
 }
-.addons-group-name-position{
-    position: relative;
-    top: 50px;
-}
-.addons-group-soldout{
-    position: relative;
-    font-size: 12px;
-    top: 70px;
-}
-.addons-group-soldout-position{
-    position: relative;
-    top: 70px;
+.AOG-create .AOG-phone{
+  display: none;
 }
 
-.addons-group-group{
-    position:absolute;
-    left:540px;
-    top: 330px;
-    font-size: 12px;
-}
-
- .addons-group-group-position{
-    left: 540px;
-    position: absolute;
-    top: 370px;
-}   
-
-.addons-group-price{
-    font-size: 12px;
-    position: relative;
-    top: 100px;
-}
-.addons-group-price-position{
-    position: relative;
-    top: 100px;
-}
-.addons-group-price-left{
-    width: 320px;
-}
-.addons-group-price-right{
-    width: 300px;
-}
-.addons-group-type{
-    font-size: 12px;
-    position: relative;
-    left: 340px;
-    top: 0px;
-}
-.addons-group-type-position{
-    position: relative;
-    left: 340px;
-    top:-4px;
-}
-.addons-group-submit{
-    position: relative;
-    top: 100px;
-}
-.addons-group-line-position{
-    left: 900px;
-    top: 230px;
-    position: absolute;
-}
-.addons-group-preview-posiiton{
-    position: absolute;
-    left: 940px;
-    top: 210px;
-}
-.addons-group-preview{
-    font-size: 24px;
-}
-.addons-group-preview-position{
-    position: relative;
-    left: 740px;
-    top: -203px;
-}
-.addons-group-body-preview{
-    font-size: 12px;
-    font-weight: 400;
-}
-.weight{
-    font-weight: 400;
-    font-size: 14px;
-}
-.addons-group-type-header-preview-position{
-    position: absolute;
-    left: 1200px;
-    top: 447px;
-}
-.addons-group-type-preview-position{
-    top: -5px;
-    position: relative;
+@media (max-width:900px) {
+  .AOG-create .AOG-desktop{
+      display: none;
+  }
+  .AOG-left{
+      display: none;
+  }
+  .AOG-right{
+      display: none;
+  }
+  .AOG-create .AOG-phone{
+      display: block;
+  }
+  
 }

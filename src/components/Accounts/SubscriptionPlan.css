@@ -1,0 +1,47 @@
+.SubscriptionPlan .SP-dekstop{
+    margin-top: 10vw;
+    background-color: transparent;
+    padding: 2vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 83vw;
+    z-index: 1;
+    margin-bottom: 2vw;
+    display: flex;
+}
+.SubscriptionPlan .SP-dekstop .SP-layer{
+     background-color: white;
+    padding: 1vw;
+    width: 100%;
+    border-radius: 1vw;
+    height: 68vh;
+}
+.SubscriptionPlan .SP-dekstop .SP-layer .SP-upgrade-btn{
+    background-color: rgb(216, 206, 225);
+    padding: 0.3vw 0.7vw;
+    border-radius: 50vw;
+}
+.SubscriptionPlan .SP-dekstop .SP-layer .SP-addcred{
+    border: 1px solid #aeaeae;
+    padding: 0.5vw;
+    border-radius: 50vw;
+    width: 6vw;
+}
+@media (max-width:900px) {
+    .SubscriptionPlan .SP-dekstop{
+        display: none;
+    }
+    .SubscriptionPlan .SP-mobile .SP-upgrade-btn-p{
+       background-color: rgb(216, 206, 225);
+       padding: 1vw 3vw;
+       border-radius: 50vw;
+    }
+    .SubscriptionPlan .SP-mobile .SP-addcred-p{
+        border: 1px solid #aeaeae;
+        width:25vw;
+        padding: 1vw;
+        border-radius: 50vw;
+    }
+   
+}

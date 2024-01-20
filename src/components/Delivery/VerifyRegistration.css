@@ -1,0 +1,28 @@
+.DVR-app .d-header{
+    grid-template-columns: repeat(6, 1fr);
+    padding-left: 3vw;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+}
+.DVR-app .d-card{
+    grid-template-columns: repeat(6, 1fr);
+  padding-left: 3vw;
+  align-items: center;
+}
+.DVR-app .dm{
+    width: 60%;
+}
+.DVR-app .dm .main-modal-content-inside{
+    height: 95%;
+}
+.DVR-app .scrollable-container{
+    margin-top: 20vw;
+}
+@media (max-width:900px) {
+    .DVR-app .dm{
+        width: 85%;
+    }
+    .DVR-app .dm .p-main-modal-content-inside{
+        height: 95%;
+    }
+}

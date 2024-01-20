@@ -1,143 +1,98 @@
+body {
+  background-color: #faf9f5;
+}
+.DB-app {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  background-color: #faf9f5;
+  /* background-color: black; */
+  font-size: 12px;
+}
 
-  
-  .app {
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #FAF9F5;
-    /* background-color: black; */
-    font-size: 12px;
-  }
-  
-  .top-container {
-    margin-top: 9rem;
-    background-color: white;
-    padding: 20px 18px 10px 0px;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+.DB-header {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  background-color: white;
+  margin-right: 1vw;
+  margin-left: 0.9vw;
+  margin-top: 2vw;
+  text-align: center;
+  padding: 1vw 0vw;
+  font-weight: 600;
+}
 
+.DB-p-content {
+  display: none;
+}
+.DB-p-content-acrhive {
+  display: none;
+}
+.DB-image-container {
+  margin: 1vw;
+}
+.DB-image-container .DB-image {
+  width: 10vw;
+  height: 10vw;
+}
+.IM-view .main-modal-content {
+  width: 90%;
+  height: 89%;
+  margin-top: 1vw;
+}
+.IM-view .main-modal-content-inside {
+  margin-bottom: 1vw;
+  width: 100%;
+  height: 85%;
+}
+.DB-app .t-box{
+  width: 25%;
+}
+@media (max-width: 900px) {
+  .DB-header {
+    grid-template-columns: 1fr;
   }
-  
-  .row {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 10px;
+
+  .DB-card {
+    grid-template-columns: 1fr;
   }
+
  
 
- 
-  
-
-  
-  .right-align {
-    margin-left: auto;
-    border-radius: 30px;
-    outline: none;
-    border: 1px solid #aeaeae;
-    padding: 0.5rem;
-    width: 20rem;
-    height: 1.5rem;
-  }
-  .left-align{
-    margin-right: auto;
-  }
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
-  }
-  
-  .button-container button {
-    margin-left: 10px;
-  }
-  
-  
-  
-  .scrollable-container {
-    overflow-y: scroll;
-    max-height: calc(100vh - 340px); /* Adjust the height as needed */
-  }
-  .scrollable-container::-webkit-scrollbar {
-    width: 10px; /* Adjust the width of the scrollbar */
-  }
-  
-  .scrollable-container::-webkit-scrollbar-track {
-    background: #e2dddd;
-    margin-top: 0px;
-
-  }
-  
-  .scrollable-container::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 8px;
-  }
-  .card {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
+  .p-top-container input {
     padding: 10px;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 13rem;
-    margin-right: 1rem;
-    border-radius: 15px;
-    text-align: center;
+        border-radius: 30px;
+        border: 1px solid #aeaeae;
+        width: 73vw;
+        outline-color:#8d4ac2 ;
   }
-  .header {
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    padding: 10px;
-    margin-top: 2rem;
-    margin-bottom: 0px;
-    margin-left: 13rem;
-    margin-right: 0.5rem;
-    text-align: center;
-    font-weight: 600;
+  .p-top-container .DB-p-action-buttons {
+    padding: 5vw 0vw;
   }
-
-  .DB-archive {
+  
+  .d-modal .DB-header {
     display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
   }
-      
-      .DB-archive-open {
-        display: block;
-      }
-      
-      .DB-archive-content {
-        background-color: white;
-        margin: 5% auto;
-        padding: 0px 20px 20px;
-        border: 1px solid #888;
-        width: 90%;
-        height: 80%;
-        border-radius: 20px 20px 20px 20px;
-      
-      }
-      .DB-archive-content-inside{
-        width: 100%;
-        height: 100%;
-      }
 
-  
-  @media (max-width: 768px) {
-    .header{
-      grid-template-columns: 1fr;
-  
+  .DB-image-container {
+    margin: 1vw;
+  }
+
+  .DB-image-container .DB-image {
+    width: 25vw;
+    height: 25vw;
+  }
+
+  .IM-view .p-main-modal-content-inside {
+    margin-bottom: 1vw;
+    width: 100%;
+    height: 89%;
+  }
+  .DB-app .t-box{
+    padding: 4vw;
+    width: 95%;
   }
   
-    .card {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}
+

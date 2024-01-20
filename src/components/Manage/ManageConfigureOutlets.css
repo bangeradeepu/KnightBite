@@ -1,0 +1,154 @@
+.ManageConfigureOutlets .MCONFIG-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 81vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageConfigureOutlets .MCONFIG-desktop .MCONFIG-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+overflow-y: auto;
+}
+.MCONFIG-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MCONFIG-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MCONFIG-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+
+  .ManageConfigureOutlets .custom-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 80%;
+    margin: 2vw auto;
+  }
+  
+  .ManageConfigureOutlets .custom-table th, .ManageConfigureOutlets .custom-table td {
+    border: 1px solid #ddd;
+    padding: 1vw;
+    text-align: left;
+  }
+  
+  .ManageConfigureOutlets .custom-table th {
+    background-color: #f2f2f2;
+  }
+  
+  
+  .ManageConfigureOutlets .custom-table tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  .MCONFIG-search-outer-layer{
+    border: 2px solid #aeaeae;
+    padding: 0.1vw 0.1vw 0.1vw 1.5vw;
+    border-radius: 50vw;
+    width: 55vw;
+  }
+  .MCONFIG-search-filed{
+    height: 2.5vw;
+    width: 53vw;
+    border: none;
+    outline: none;
+    border-radius: 50vw;
+    color: #2e2e2e;
+    font-size: 1vw;
+  }
+  .MCONFIG-underline{
+    border-bottom: 2px solid #2e2e2e;
+  }
+  .MCONFIG-addb-addo-btn{
+    border: 2px dashed #2e2e2e;
+    padding: 0.3vw 0.6vw;
+    width: 6vw;
+    border-radius: 50vw;
+  }
+  .MCONFIG-dotted-lines {
+    border-top: 2px dashed #9d9d9d;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+}
+.MCONFIG-comp-config{
+    padding: 2vw;
+  }
+  .MCONFIG-textfield{
+    padding: 0.5vw;
+    border: 1.5px solid #cbcbce;
+    border-radius: 0.3vw;
+    outline-color: #8d4ac2 ;
+    width: 15vw;
+  }
+  .MCONFIG-textfield-title-role{
+    padding: 0.2vw;
+    border: 1px solid #aeaeaa;
+    border-radius: 0.2vw;
+  }
+  .MCONFIG-textfield-s{
+    padding: 0.1vw;
+    border: 1.5px solid #cbcbce;
+    border-radius: 0.3vw;
+    outline-color: #8d4ac2 ;
+    width: 8vw;
+    background-color: #dadada;
+  }
+  .MCONFIG-idcopy{
+    border-left: 1px solid #cbcbce;
+    padding: 0.33vw 0.7vw;
+  }
+  .oEv .main-modal-content{
+    width: 70vw;
+  }
+  .oEv .main-modal-content-inside{
+    height: 75vh;
+  }
+  .MCONFIG-custom-file-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #a6a6a6;
+    color: #fff;
+    width: 4vw;
+    padding: 0.5vw;
+  }
+  
+  .MCONFIG-file-input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .MCONFIG-logo-eclipse {
+    background-color: #dadada;
+    width: 4vw;
+    height: 4vw; 
+    overflow: hidden; 
+    border-radius: 5px;
+  }
+  .MCONFIG-logo-image-eclipse {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 5px;
+  }

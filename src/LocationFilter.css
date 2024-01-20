@@ -1,0 +1,92 @@
+.TEST-dropdown .dropdown-header{
+    background-color: white;
+    padding: 0.6vw;
+    border: 2px solid #aeaeae;
+    border-radius: 30px;
+    width: 15vw;
+  }
+  .TEST-dropdown .dropdown-options{
+    width: 12vw;
+    background-color: #f2f0f0;
+    border-radius: 10px;
+    margin-top: 0.4vw;
+    overflow-y: auto;
+    height: 12vw;
+  }
+  .TEST-dropdown .dropdown-options::-webkit-scrollbar {
+    width: 6px; 
+  }
+  
+  .TEST-dropdown .dropdown-options::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    border-radius: 10px;
+    
+  
+  }
+  
+  .TEST-dropdown .dropdown-options::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  
+  }
+  .TEST-dropdown .dropdown-sub-options{
+    background-color: #f2f0f0;
+    border-radius: 10px;
+    margin-top: 0.4vw;
+    overflow-y: auto;
+    height: 10vw;
+  }
+  .TEST-dropdown .dropdown-sub-options::-webkit-scrollbar {
+    width: 6px; 
+  }
+  
+  .TEST-dropdown .dropdown-sub-options::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+    border-radius: 10px;
+    
+  
+  }
+  .TEST-dropdown .dropdown-sub-options::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  
+  }
+  .TEST-dropdown .brand-buttons{
+    background-color: white;
+    padding: 0.5vw 0.5vw;
+    border: 2px solid #dadada;
+    border-radius: 30px;
+    align-items: center;
+  }
+  .TEST-dropdown .close-btn:hover{
+    color: red;
+  }
+  .TEST-dropdown .dropdown-color{
+  background-color:#f2f0f0;
+  padding: 0.5vw 1.2vw;
+  }
+  .TEST-dropdown .dropdown-color:hover{
+    background-color: #d3bae6;
+    color: white;
+    }
+    @media (max-width:900px) {
+      .TEST-dropdown .dropdown-header{
+          width: 30vw;
+          padding: 2vw;
+      }
+      .TEST-dropdown .dropdown-options{
+
+height: 20vh;
+width: 70vw;
+      }
+      .TEST-dropdown .dropdown-sub-options{
+height: 20vh;
+      }
+      .TEST-dropdown .brand-buttons{
+        padding: 1.5vw 4vw;
+      }
+    }

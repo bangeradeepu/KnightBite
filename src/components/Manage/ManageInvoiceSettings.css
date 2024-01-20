@@ -1,0 +1,50 @@
+.ManageInvoiceSettings .MIS-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageInvoiceSettings .MIS-desktop .MIS-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+/* overflow-y: auto; */
+
+}
+.MIS-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MIS-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MIS-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MIS-center-message{
+    margin-top: 26vh;
+  }
+  @media (max-width:900px) {
+    .ManageInvoiceSettings .MIS-desktop{
+        display: none;
+    }
+    .ManageInvoiceSettings .ADD-p-container{
+        height: 52vh;
+    }
+    .MIS-center-message{
+        margin-top: 23vh;
+      }
+  }

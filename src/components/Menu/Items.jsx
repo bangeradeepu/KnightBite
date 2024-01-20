@@ -1,1627 +1,487 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Icon } from "@iconify/react";
+import "./Items.css";
 
-import Select from 'react-select'
-import { colourOptions, Option } from './Filter'
-import './Items.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBoxArchive,
+  faPencil,
+  faEyeSlash,
+  faFileLines,
+  faLocationDot,
+  faPowerOff,
+  faPlus,
+  faBars,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 
-import {Link, Route, BrowserRouter as  Router, Routes, useNavigate } from 'react-router-dom'
+const apiUrl = "http://127.0.0.1:8000/menu/get/"; // Replace with your Django server URL
 
-// import React from 'react'
-import React, { useState } from 'react';
-import './Items.css';
-
+const fetchMenuItems = async () => {
+  try {
+    const response = await axios.get(apiUrl);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching menu items:", error);
+    throw error;
+  }
+};
 const Items = () => {
+  // Add Delivery boys
   const navigate = useNavigate();
-const handleAddItem = () =>{
-  navigate("/handleAddItem");
-};
-const handleStock = () =>{
-  navigate("/handleStock");
-};
+  const addItems = () => {
+    navigate("/addItems");
+  };
+  // Open Archive modal
+  const [archiveVisible, setArchiveVisible] = useState(false);
 
+  const openArchive = () => {
+    setArchiveVisible(true);
+  };
 
-    
-    return (
-        <div className="menu-page">
-          <div className="div">
-          <div className='item-top'>
+  const closeArchive = () => {
+    setArchiveVisible(false);
+  };
+
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    fetchMenuItems()
+      .then((response) => {
+        setMenuItems(response.data); // Update state with response.data, which is an array
+      })
+      .catch((error) => {
+        console.error("Error fetching menu items:", error);
+        // Handle the error, e.g., set an error state or show an error message
+      });
+  }, []);
+
+  //  Search
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredData = menuItems.filter((item) => {
+    return item.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  return (
+    <div className="ITM-app">
+      {/* Desktop top-container */}
+      <div className="d-top-container">
+        <div className="d-flex flex-end" style={{padding:'0vw 2vw'}}>
+          <input
+            type="text"
+            placeholder="Search Items"
+            className="t-box"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            style={{width:'28%'}}
+          />
+        </div>
+        <div className="d-flex space-between" style={{ marginTop: "2vw",padding:'0vw 2vw' }}>
+          <div className="f-20">
+            Items
+          </div>
+
+          <div className="d-flex g-10">
+            <button
+              className="p-button bg-purple"
+              style={{ width: "8rem" }}
+              onClick={addItems}
+            >
+              Add Items <FontAwesomeIcon icon={faPlus} />
+            </button>
+            <button className="p-outline-button" onClick={openArchive}>
+              <FontAwesomeIcon icon={faBoxArchive} /> Archive List
+            </button>
+            <button className="p-outline-button">
+              <FontAwesomeIcon icon={faBars} /> Bulk Action
+            </button>
+          </div>
+        </div>
+        <div className="ITM-header txt-dark-grey">
+          <div>Name</div>
+          <div style={{ textAlign: "left" }}></div>
+          <div style={{ textAlign: "left" }}>Category</div>
+          <div>Price</div>
+          <div>Type</div>
+          <div style={{ textAlign: "left" }}>Tags</div>
+          <div>Availibility</div>
+          <div>Edit</div>
+          <div>Archive</div>
+        </div>
+      </div>
+      {/* Desktop card */}
+      <div className="scrollable-container">
+        {menuItems.length > 0 ? (
+          <div>
+            {filteredData.map((item) => (
+              // item.deleted === false ? (
+              <div className="d-card" key={item.id}>
+                <div>
+                  <svg
+                    width="35"
+                    height="35"
+                    viewBox="0 0 35 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA" />
+                  </svg>
+                </div>
+                <div className="ITM-content-pad" style={{ textAlign: "left" }}>
+                  {item.name}
+                </div>
+                <div
+                  className="ITM-content-pad txt-orange"
+                  style={{ textAlign: "left" }}
+                >
+                  {item.item_type}
+                </div>
+                <div className="ITM-content-pad">₹{item.price}</div>
+                {item.food_tag === "VEG" ? (
+                  <div className="txt-green" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div>
+                ) : item.food_tag === "NON_VEG" ? (
+                  <div className="txt-red" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div>
+                ) : null}
+                <div
+                  className="d-flex g-10"
+                  style={{
+                    textAlign: "left",
+                    flexWrap: "wrap",
+                    paddingBottom: "0.5rem",
+                  }}
+                >
+                  <button className="ITM-tags f-10">Spicy</button>
+                  <button className="ITM-tags f-10">Spicy</button>{" "}
+                </div>
+                <div className="ITM-content-pad txt-green">Available</div>
+                <div className="ITM-content-pad">
+                  <FontAwesomeIcon
+                    icon={faPencil}
+                    className="txt-dark-grey f-16"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+                <div className="ITM-content-pad">
+                  <FontAwesomeIcon
+                    icon={faBoxArchive}
+                    className="txt-dark-grey f-16"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              </div>
+              // ) : <div>No data</div>
+            ))}
+          </div>
+        ) : (
+        <div class="loader"></div>
+        )}
+      </div>
+      {/* Phone top container */}
+      <div className="p-top-container">
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="Search Items"
+          value={searchQuery}
+            onChange={handleSearchChange}
+        />
+        <br />
+        <br />
+        <div className="d-flex g-10">
+          <button className="p-button bg-purple" onClick={addItems} >
+            Add Items
+          </button>
+          <button className="p-outline-button" onClick={openArchive}>
+            Archive List
+          </button>
+          <button className="p-outline-button">Bulk Action</button>
+        </div>
+      </div>
+      {/* Phone card */}
+      <div className="ADD-p-position">
+          <div className="ADD-p-container">
+      {Array.from({ length: 5 }, (_, index) => (
+            <div className="p-card">
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="txt-black f-16"><img src="/Images/kb_logo.png" alt="" /> </div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Item Name</div>
+                  <div className="txt-black f-16">Veg Burger</div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Category</div>
+                  <div className="txt-orange f-16">Single</div>
+                </div>
+              </div>
+              
+              <br />
+              <div className="d-flex">
+              <div className="flex-1">
+                  <div className="txt-grey f-14">Type</div>
+                  <div className="txt-black f-16">
+                    <div className="txt-green" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div></div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Price</div>
+                  <div className="txt-black f-16">₹120</div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Availibility</div>
+                  <div className="txt-green f-16">Available</div>
+                </div>
+                
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Tags</div>
+                  <div className="txt-black f-16"><button class="ITM-tags f-10">Spicy</button> <button class="ITM-tags f-10">New</button></div>
+                </div>
+              </div>
+              <br />
+
+              <hr />
+              <div
+                className="d-flex space-evenly"
+                style={{ marginTop: "4vw" }}
+              >
+               
+                <div className="">
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faPencil}
+                      className="txt-dark-grey f-16"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faBoxArchive}
+                      className="txt-dark-grey f-16"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+      ))}
+      </div>
+      </div>
+      {archiveVisible && (
+        <div
+          className={`main-modal ${archiveVisible ? "main-modal-open" : ""}`}
+        >
+          <div className="main-modal-content">
+          <div className="grid-2">
+                <p
+                  className=""
+                  style={{ fontSize: "20px", marginLeft: "10px" }}
+                >
+                  Archive List
+                </p>
+                <span
+                  className=""
+                  style={{ textAlign: "right", marginTop: "14px" }}
+                  onClick={closeArchive}
+                >
+                  <FontAwesomeIcon icon={faXmark} className="f-20" />
+                </span>
+              </div>
+              <div className="d-flex flex-end" style={{paddingBottom:'2vw'}}>
+                <input
+                  type="text"
+                  placeholder="Search Items"
+                  className="t-box"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+              </div>
+              <div
+                className="ITM-header txt-dark-grey"
+                style={{ padding:'0vw 2.9vw 0vw 0vw'}}
+              >
+                <div>Name</div>
+                <div style={{ textAlign: "left" }}></div>
+                <div style={{ textAlign: "left" }}>Category</div>
+                <div>Price</div>
+                <div>Type</div>
+                <div style={{ textAlign: "left" }}>Tags</div>
+                <div>Availibility</div>
+                <div>Edit</div>
+                <div>Archive</div>
+              </div>
+           
+              <div className="main-modal-content-inside">
+              {menuItems.length > 0 ? (
+          <div>
+            {filteredData.map((item) => (
+              // item.deleted === false ? (
+              <div className="d-card" key={item.id} style={{marginLeft:'0rem'}}>
+                <div>
+                  <svg
+                    width="35"
+                    height="35"
+                    viewBox="0 0 35 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA" />
+                  </svg>
+                </div>
+                <div className="ITM-content-pad" style={{ textAlign: "left" }}>
+                  {item.name}
+                </div>
+                <div
+                  className="ITM-content-pad txt-orange"
+                  style={{ textAlign: "left" }}
+                >
+                  {item.item_type}
+                </div>
+                <div className="ITM-content-pad">₹{item.price}</div>
+                {item.food_tag === "VEG" ? (
+                  <div className="txt-green" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div>
+                ) : item.food_tag === "NON_VEG" ? (
+                  <div className="txt-red" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div>
+                ) : null}
+                <div
+                  className="d-flex g-10"
+                  style={{
+                    textAlign: "left",
+                    flexWrap: "wrap",
+                    paddingBottom: "0.5rem",
+                  }}
+                >
+                  <button className="ITM-tags f-10" >Spicy</button>
+                  <button className="ITM-tags f-10" >Spicy</button>{" "}
+                </div>
+                <div className="ITM-content-pad txt-green">Available</div>
+                <div className="ITM-content-pad">
+                  <FontAwesomeIcon
+                    icon={faPencil}
+                    className="txt-dark-grey f-16"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+                <div className="ITM-content-pad">
+                  <FontAwesomeIcon
+                    icon={faBoxArchive}
+                    className="txt-dark-grey f-16"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              </div>
+              // ) : <div>No data</div>
+            ))}
+          </div>
+        ) : (
+          <p>No menu items available.</p>
+        )}
+              </div>
+              {/* Phone */}
+              <div className="p-main-modal-content-inside">
+               
+              <div className="p-card">
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="txt-black f-16"><img src="/Images/kb_logo.png" alt="" /> </div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Item Name</div>
+                  <div className="txt-black f-16">Veg Burger</div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Category</div>
+                  <div className="txt-orange f-16">Single</div>
+                </div>
+              </div>
+              
+              <br />
+              <div className="d-flex">
+              <div className="flex-1">
+                  <div className="txt-grey f-14">Type</div>
+                  <div className="txt-black f-16">
+                    <div className="txt-green" style={{ marginTop: "6px" }}>
+                    <Icon icon="mdi:lacto-vegetarian" width="24" height="24" />
+                  </div></div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Price</div>
+                  <div className="txt-black f-16">₹120</div>
+                </div>
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Availibility</div>
+                  <div className="txt-green f-16">Available</div>
+                </div>
+                
+              </div>
+              <br />
+              <div className="d-flex">
+                <div className="flex-1">
+                  <div className="txt-grey f-14">Tags</div>
+                  <div className="txt-black f-16"><button>Spicy</button> <button>New</button></div>
+                </div>
+              </div>
+              <br />
+
+              <hr />
+              <div
+                className="d-flex space-evenly"
+                style={{ marginTop: "4vw" }}
+              >
+               
+                <div className="">
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faPencil}
+                      className="txt-dark-grey f-16"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+                <div className="">
+                  <div>
+                    <FontAwesomeIcon
+                      icon={faBoxArchive}
+                      className="txt-dark-grey f-16"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             
-            <div className="stock-control">
-              <button className="p-outline-button" onClick={handleStock}>
-                Stock Control
-              </button>
-            </div>
-            <div className="add-multi-item">
-              <button className="p-button bg-purple" onClick={handleAddItem}>
-                Add item <FontAwesomeIcon icon={faPlus} />
-              </button>
-            </div>
-            <div className="search-items">
-              <i className='search-icon-s'><FontAwesomeIcon icon={faMagnifyingGlass} /></i>
-                  <input className="input-field-s" placeholder='Search Items' />
-            </div>
-            <div className="bulk-actions">
-              <button className="p-outline-button">
-                <div className=""><FontAwesomeIcon icon={faBars} /> Bulk Actions</div>
-              </button>
-            </div>
-            <div className="text-wrapper-7">Items</div>
+                  
+              </div>
             
-            <div className="group">
-              <div className="text-wrapper-8">Name</div>
-              <div className="text-wrapper-9">Category</div>
-              <div className="text-wrapper-10">Price</div>
-              <div className="text-wrapper-11">Type</div>
-              <div className="text-wrapper-14">Tags</div>
-              <div className="text-wrapper-15">Availability</div>
-              <div className="text-wrapper-16">Edit</div>
-              <div className="text-wrapper-17">Archive</div>
-              </div>
-              </div>
-              {/* <p>Name</p>
-              <p>Category</p>
-              <p>Price</p>
-              <p>Type</p>
-              <p>Stock</p>
-              <p>Hide</p>
-              <p>Tags</p>
-              <p>Availability</p>
-              <p>Edit</p>
-              <p>Archive</p> */}
-
-              </div>
-
-              <div className="content-group">
-              <div className='i-frame'>
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger + Pepsi + Fries</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg>
-                    </p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-               <div className='overlap-6'>
-                <div className='item-name-container'>
-                  <p className='item-image' ><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="17.5" cy="17.5" r="17.5" fill="#FFF3CA"/>
-                  </svg>
-                  </p>
-                  <p className='txt-black item-name-spacing'>Chicken burger</p>
-                  <p className='txt-orange item-cat-spacing'>Bite of the day</p>
-                  <p className='txt-black item-price-spacing'>₹112</p>
-                  <p className='txt-green item-type-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4v16H4V4h16m2-2H2v20h20V2M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6s6-2.69 6-6s-2.69-6-6-6Z"/></svg></p>
-                                    
-                  <div className='item-tag-container'> 
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Best seller</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border'>Must Try</p>
-                    </div>
-                    <div className='tag-spacing-new'>
-                      <p className='txt-black tag-border-new'>New</p>
-                    </div>
-                    <div className='tag-spacing'>
-                      <p className='txt-black tag-border-spicy'>Spicy</p>
-                    </div>
-                  </div>
-
-                  <p className='txt-grey item-available-spacing'>Available</p>
-
-                  <p className='txt-dark-grey item-edit-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"/></svg></p>
-                  <p className='txt-dark-grey item-arch-spacing'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V6.5q0-.375.125-.675t.325-.575l1.4-1.7q.2-.275.5-.413T6 3h12q.35 0 .65.137t.5.413l1.4 1.7q.2.275.325.575T21 6.5V19q0 .825-.588 1.413T19 21H5Zm.4-15h13.2l-.85-1H6.25L5.4 6ZM12 18l4-4l-1.4-1.4l-1.6 1.6V10h-2v4.2l-1.6-1.6L8 14l4 4Z"/></svg></p>
-                </div>
-              </div>
-              
-              <br />
-              
-              
-              
-              
-              
-              
-
-              </div>
-            </div>
+          </div>
           
         </div>
-      );
-}
+      )}
+    </div>
+  );
+};
 
-export default Items
+export default Items;

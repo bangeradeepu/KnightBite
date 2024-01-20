@@ -1,83 +1,65 @@
-body {
-    font-family: "Lato", sans-serif;
-  }
-
-.Manage-sidenav {
-  height: calc(100% - 170px); /* Adjust the value to account for header and footer */
-  width: 200px;
-  position: fixed;
-  z-index: 2;
-  top: 147px; /* Adjust top positioning */
-  left: 0;
-  background-color: #FAF9F5;
-  padding-top: 20px;
-  border-right: solid;
+.ManageSidebar .d-sidenav{
   overflow-y: auto;
-  border-color: #aeaeae;
-  border-width: thin;
-  
-  /* Custom scrollbar styles */
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: #ccc #e2dddd; /* For Firefox */
+  height: 100%;
+  width: 15vw;
+}
+.menu-container {
+  padding: 0.5vw 0;
+  font-size: 1.2vw;
 }
 
-/* Webkit browsers (Chrome, Safari, newer versions of Edge) */
-.Manage-sidenav::-webkit-scrollbar {
-  width: 8px; /* Adjust the width of the scrollbar */
+.menu-items {
+  list-style-type: none;
 }
 
-.Manage-sidenav::-webkit-scrollbar-track {
-  background: #e2dddd;
+.menu-item {
+  text-decoration: none;
 }
 
-.Manage-sidenav::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 8px;
+.menu-item.active a {
+  color: red;
+  font-weight: 700;
+  text-decoration: none;
 }
-  
-  .Manage-sidenav a {
-    padding: 10px 8px 7px 40px;
-    text-decoration: none;
-    font-size: 15px;
-    color: #2e2e2e;
-    display: block;
+
+.sub-items {
+  padding-left: 1vw;
+  padding-top: 0.2vw;
+}
+
+.sub-item {
+  position: relative;
+  border-left: 0.15vw solid #aeaeae;
+  height: 2vw;
+}
+
+.sub-item::before {
+  position: relative;
+  top: -0.3vw;
+  width: 1vw;
+  border-bottom: 0.15vw solid #aeaeae;
+  content: '';
+  height: 1.3vw;
+  margin-right: 0.2vw;
+  display: inline-block;
+}
+
+.sub-item:last-of-type {
+  height: 1.08vw;
+  margin-bottom: 1vw;
+  border-left: 0.15vw solid #aeaeae;
+}
+
+a {
+  text-decoration: none;
+}
+@media (max-width:900px) {
+  .sub-menu-p{
+    margin-left: 5vw;
+  }
+  .scrollable-contentt-sidenav-p{
+    overflow-y: auto;
+    height: 48vh;
   }
   
-  .Manage-sidenav span{
-    font-size:18px;
-    padding-left: 15px;
-  }
-  
-  .Manage-sidenav a:hover {
-    color: #df9f65;
-  }
-  .Manage-sidenav a.active { 
-      color: #df9f65;
-  }
-  .main {
-    margin-left: 160px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .Manage-sidenav {padding-top: 15px;}
-    .Manage-sidenav a {font-size: 18px;}
-  }
-  
-  .Manage-sidenav .div {
-    height: 25px;
-    left: 1px;
-    position: absolute;
-    top: 30px;
-    width: 117px;
-  }
-  
-  .Manage-sidenav .gridicons-book {
-    height: 25px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 25px;
-  }
-  
+}

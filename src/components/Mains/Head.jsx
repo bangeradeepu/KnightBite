@@ -286,15 +286,14 @@ function Head() {
     //   </div>
     // </div>
     <div>
-    <div className="container-head">
-      {/* First Row */}
+    {/* <div className="container-head">
       <div className="row">
         <div className="column">
           <img src="kb_logo.png" alt="Logo" style={{ width: "50px" }} />
           <span style={{fontSize:'20px'}}> Knight Bite</span>
         </div>
         <div className="column">
-          <button className="o-button bg-orange txt-orange">
+          <button className="o-button bg-orange txt-orange" style={{marginBottom:'8px'}}>
             Complete your KYC
           </button>
         </div>
@@ -353,7 +352,7 @@ function Head() {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
     {notificationVisible && (
           <div
             className={`H-modal ${notificationVisible ? "H-modal-open" : ""}`}

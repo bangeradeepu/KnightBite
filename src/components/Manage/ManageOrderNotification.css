@@ -1,0 +1,85 @@
+.ManageOrderNotification .MON-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageOrderNotification .MON-desktop .MON-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: scroll;
+
+}
+.MON-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MON-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MON-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MON-layer .MON-comp-config{
+    padding: 0vw;
+    border-top: 2px solid #aeaeae;
+    border-left: 2px solid #aeaeae;
+    border-right: 2px solid #aeaeae;
+    border-bottom: 2px solid #aeaeae;
+    border-radius: 1vw;
+    margin: 2vw auto;
+    width: 50vw;
+  }
+  .MON-comp-config-header{
+    padding: 1vw 3vw 1vw 1vw ;
+    border-radius: 1vw 1vw 0vw 0vw;
+  }
+  .MON-comp-config-content{
+    padding: 2vw 3vw;
+    border-top: 2px solid #aeaeae;
+    border-radius: 0vw 0vw 1vw 1vw;
+  }
+  .MON-grey{
+    background-color: #dadada;
+  }
+  @media (max-width:900px) {
+    .ManageOrderNotification .MON-desktop{
+        display: none;
+    }
+     .MON-comp-config{
+        padding: 0vw;
+        border-top: 2px solid #aeaeae;
+        border-left: 2px solid #aeaeae;
+        border-right: 2px solid #aeaeae;
+        border-bottom: 2px solid #aeaeae;
+        border-radius: 2vw;
+        margin: 2vw auto;
+        width: 100%;
+      }
+      .MON-comp-config-header{
+        padding: 2vw 3vw 2vw 2vw ;
+        border-radius: 1vw 1vw 0vw 0vw;
+      }
+      .MON-comp-config-content{
+        padding: 2vw 3vw;
+        border-top: 2px solid #aeaeae;
+        border-radius: 0vw 0vw 1vw 1vw;
+      }
+      .MON-grey{
+        background-color: #dadada;
+      }
+  }

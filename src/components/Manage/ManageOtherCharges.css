@@ -1,0 +1,110 @@
+.ManageOtherCharges .MOC-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageOtherCharges .MOC-desktop .MOC-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: scroll;
+
+}
+.MOC-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MOC-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MOC-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+
+  .MOC-borderless-table {
+    border-collapse: collapse;
+    border: none;
+    margin:  0 auto;
+    width: 78vw;
+    text-align: center;
+  }
+
+  .MOC-borderless-table td {
+    padding: 1vw;
+    width: 12vw;
+    border: none;
+    vertical-align: middle;
+  }
+  .MOC-input-field{
+    border: 2px solid #aeaeae;
+    width: 4vw;
+    padding: 0.5vw;
+    outline-color: #8D4AC2;
+  }
+  .MOC-input-fiel-dd{
+    border: 2px solid #aeaeae;
+    min-width: 4vw;
+    padding: 0.5vw;
+    outline-color: #8D4AC2;
+  }
+  .MOC-applicable-scrollbox{
+    background-color: white;
+    overflow-y: auto;
+    padding: 1vw;
+    height: 8vw;
+    border-bottom: 1px solid #aeaeae;
+  }
+  .MOC-pd{
+    margin-left: 1.7vw;
+  }
+  .MOC-cb {
+    transform: scale(1.4); /* Adjust the scale factor as needed */
+  }
+  @media (max-width:900px) {
+    .ManageOtherCharges .MOC-desktop{
+      display: none;
+    }
+    .MOC-mobile-card{
+      border-bottom: 1px solid #aeaeae;
+      padding-bottom: 4vw;
+    }
+    .MOC-applicable-scrollbox{
+      background-color: white;
+      overflow-y: auto;
+      padding: 1vw;
+      height: 20vh;
+      border-bottom: 1px solid #aeaeae;
+    }
+    .MOC-pd{
+      margin-left: 8vw;
+    }
+    .MOC-l1-1{
+      margin-top: 2vw;
+    }
+    .MOC-input-field{
+      border: 2px solid #aeaeae;
+      width: 8vw;
+      padding: 1.5vw;
+      outline-color: #8D4AC2;
+    }
+    .MOC-input-fiel-dd{
+      border: 2px solid #aeaeae;
+      min-width: 8vw;
+      padding: 1.5vw;
+      outline-color: #8D4AC2;
+    }
+  }

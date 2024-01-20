@@ -1,198 +1,59 @@
-.font-family{
-    font-family: "Inter", Helvetica;
+.AO-create .AO-desktop{
+      margin-top: 10vw;
+      background-color: transparent;
+      padding: 2vw;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 83vw;
+      z-index: 1;
+      margin-bottom: 2vw;
+      display: flex;
+      gap:2vw;
 }
-.addons-margin{
-    margin-left: 200px;
-    display: flex;
+.AO-create .AO-left{
+    background-color: white;
+    padding: 2vw;
+    width: 50%;
+    border-radius: 1vw;
 }
-.left-section{
-    width: 655px;
+.AO-create .AO-right{
+    background-color: white;
+    padding: 2vw;
+    width: 50%;
+    border-radius: 1vw;
 }
-.addons-filter{
-    padding-top: 170px;
+.AO-create input{
+    padding: 1vw;
+    border-radius: 10vw;
+    border: 1px solid #aeaeae;
+    width: 36vw;
+    outline-color: #8d4ac2;
 }
-/* grid */
-.item3 { grid-area: main; }
-.item4 { grid-area: right; }
-
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    'header header header header header header'
-    'menu main main main right right'
-    'menu footer footer footer footer footer';
-  gap: 10px;
- 
-  padding: 10px;
+.AO-create select{
+    padding: 1vw;
+    border-radius: 10vw;
+    border: 1px solid #aeaeae;
+    width: 18vw;
+    color: #8d8b8b;
+    outline-color: #8d4ac2;
 }
-/* ----Grid end----- */
-
-.addons-heading{
-    color: #2e2e2e;
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    white-space: nowrap;
-}
-.addonsname{
-    font-size: 12px;
-    top: 50px;
-    position: relative;
-}
-.addonname-position{
-    position: relative;
-    top: 50px;
-}
-.soldout{
-    position: relative;
-    font-size: 12px;
-    top: 70px;
-}
-.soldout-position{
-    position: relative;
-    top: 70px;
+.AO-create .AO-phone{
+    display: none;
 }
 
-.addonsgroup{
-    position:absolute;
-    left:540px;
-    top: 330px;
-    font-size: 12px;
-}
-
- .addonsgroup-position{
-    left: 540px;
-    position: absolute;
-    top: 370px;
-}   
-
-.addons-price{
-    font-size: 12px;
-    position: relative;
-    top: 100px;
-}
-.addons-price-position{
-    position: relative;
-    top: 100px;
-}
-.addons-price-left{
-    width: 320px;
-}
-.addons-price-right{
-    width: 300px;
-}
-.addontype{
-    font-size: 12px;
-    position: relative;
-    left: 340px;
-    top: 30px;
-}
-.addontype-position{
-    position: relative;
-    left: 340px;
-    top: 26px;
-}
-.addons-submit{
-    position: relative;
-    top: 100px;
-}
-.line-position{
-    left: 900px;
-    top: 250px;
-    position: absolute;
-}
-
-.addons-container-right{
-    top: 300px;
-    left: 930px;
-}
-.addons-preview-header{
-    position: absolute;
-    top: 300px;
-    left: 930px;
-    font-size: 24px;
-}
-/* Inside Right grid */
-.addons-right-left { grid-area: main; }
-.addons-right-right { grid-area: right; }
-
-/* Addon name */
-.addons-name-review{
-top: 360px;    
-left: 931px;
-font-size: 12px;
-position: absolute;
-}
-.addons-name-content-review{
-    top: 380px;    
-left: 931px;
-font-size: 14px;
-font-weight: 400;
-position: absolute;
-}
-
-/* Addon soldout */
-.addons-soldout-review{
-    top: 430px;    
-left: 931px;
-font-size: 12px;
-font-weight: 400;
-position: absolute;
-}
-.addons-soldout-content-review{
-    top: 450px;    
-left: 931px;
-font-size: 14px;
-font-weight: 400;
-position: absolute;
-}
-
-/* Addpn price */
-.addons-price-review{
-    top: 510px;    
-    left: 931px;
-    font-size: 12px;
-    font-weight: 400;
-    position: absolute;
-}
-.addons-price-content-review{
-    top: 530px;    
-    left: 931px;
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
-}
-
-/* Addon group */
-.addons-group-review{
-    top: 430px;    
-    left: 1200px;
-    font-size: 12px;
-    font-weight: 400;
-    position: absolute;
-}
-.addons-group-content-review{
-    top: 450px;    
-    left: 1200px;
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
-}
-
-/* Addon type */
-.addons-type-review{
-    top: 510px;    
-    left: 1200px;
-    font-size: 12px;
-    font-weight: 400;
-    position: absolute;
-}
-.addons-type-content-review{
-    top: 530px;    
-    left: 1200px;
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
+@media (max-width:900px) {
+    .AO-create .AO-desktop{
+        display: none;
+    }
+    .AO-left{
+        display: none;
+    }
+    .AO-right{
+        display: none;
+    }
+    .AO-create .AO-phone{
+        display: block;
+    }
+    
 }

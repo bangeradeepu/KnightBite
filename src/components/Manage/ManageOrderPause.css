@@ -1,0 +1,61 @@
+.ManageOrderPause .MOP-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageOrderPause .MOP-desktop .MOP-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: scroll;
+
+}
+.MOP-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MOP-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MOP-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MOP-borderless-table {
+    border-collapse: collapse;
+    border: none;
+    margin:  0 auto;
+    width: 70vw;
+    text-align: center;
+  }
+
+  
+  .MOP-borderless-table td {
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #aeaeae;
+    padding: 1vw;
+  }
+  @media (max-width:900px) {
+    .ManageOrderPause .MOP-desktop{
+    display: none;
+}
+    
+.MOP-presetlist-p{
+    padding: 3vw 2vw;
+    border-bottom: 1px solid #aeaeae;
+}
+  }

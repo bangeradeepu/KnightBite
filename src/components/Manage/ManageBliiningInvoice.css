@@ -1,0 +1,109 @@
+.ManageBliiningInvoice .MBI-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageBliiningInvoice .MBI-desktop .MBI-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: scroll;
+
+}
+.MBI-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MBI-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MBI-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+
+  .MBI-borderless-table {
+    border-collapse: collapse;
+    border: none;
+    margin:  0 auto;
+    width: 78vw;
+    text-align: center;
+  }
+
+  .MBI-borderless-table td {
+    padding: 1vw;
+    width: 12vw;
+    border: none;
+    vertical-align: middle;
+  }
+  .MBI-order-history-btn{
+    padding: 0.6vw 1vw;
+    border: 1px solid #df9f65;
+    border-radius: 0.5vw;
+    color: #df9f65;
+    transition: 0.3s;
+    background-color: white;
+  }
+  .MBI-order-history-btn:hover{
+    transition: 0.3s;
+    padding: 0.6vw 1vw;
+    border: 1px solid #df9f65;
+    background-color: #df9f65;
+    border-radius: 0.5vw;
+    color: white;
+  }
+  .txt-orange-1{
+    color: #df9f65;
+  }
+  .MBI-plan-dd{
+    border: 2px solid #aeaeae;
+    padding: 0.6vw 0.8vw 0.6vw 0.6vw;
+  }
+  .MBI-underline-text {
+    text-decoration: underline;
+  }
+  
+  @media (max-width:900px) {
+    .ManageBliiningInvoice .MBI-desktop{
+        display: none;
+    }
+    .MBI-mobile-card{
+        border-bottom: 1px solid #aeaeae;
+        padding-bottom: 4vw;
+      }
+      .MBI-order-history-btn{
+        padding: 2vw;
+        border: 1px solid #df9f65;
+        border-radius: 1.5vw;
+        color: #df9f65;
+        transition: 0.3s;
+        background-color: white;
+      }
+      .MBI-order-history-btn:hover{
+        padding: 2vw;
+        background-color: white;
+        border: 1px solid #df9f65;
+        border-radius: 1.5vw;
+        transition: 0.3s;
+        background-color: #df9f65;
+        color: white;
+      }
+      .MBI-plan-dd{
+        border: 1px solid #aeaeae;
+        padding: 2vw;
+        background-color: white;
+      }
+  }

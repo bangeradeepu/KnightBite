@@ -1,0 +1,66 @@
+.ManagePosSettings .MPOSS-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 83vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManagePosSettings .MPOSS-desktop .MPOSS-layer{
+    background-color: white;
+padding: 1vw;
+width: 100%;
+border-radius: 1vw;
+height: 68vh;
+margin-left: 2vw;
+overflow-y: auto;
+
+}
+.MPOSS-layer::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MPOSS-layer::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MPOSS-layer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MPOSS-center-message{
+    margin-top: 26vh;
+  }
+  .MPOSS-left-side-w{
+    width: 15vw;
+    text-align: right;
+  }
+  .MPOSS-textarea{
+    border: 1px solid #aeaeae;
+    border-radius: 0.5vw;
+    outline-color: #8d4ac2;
+    width: 25vw;
+    height: 8vh;
+  }
+  @media (max-width:900px) {
+    .ManagePosSettings .MPOSS-desktop{
+        display: none;
+    }
+    .MPOSS-left-side-w{
+        width: 45vw;
+        text-align: justify;
+      }
+      .MPOSS-textarea{
+        border: 1px solid #aeaeae;
+        border-radius: 1.5vw;
+        outline-color: #8d4ac2;
+        width: 85vw;
+        height: 8vh;
+      }
+  }

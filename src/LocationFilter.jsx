@@ -1,398 +1,520 @@
-import { useState, useEffect  } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
-import { makeStyles } from '@mui/styles'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import Checkbox from '@mui/material/Checkbox'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import {
-  faFilter,
-  faBars,
-  faUser,
-  faCalendarDays,
-  faLocationDot,
-  faChevronDown,
-  faMapLocationDot,
-  faCircleInfo,
-} from "@fortawesome/free-solid-svg-icons";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+const LocationFilter = ({ setSessionCompId, selectedLocations,selectBrands, onCheckboxChange, onBrandIdChange, sessionPid}) => {
+  const [outlets, setOutlets] = useState([]);
+  const [brands, setBrands] = useState({});
+  const [checkedBrandIds, setCheckedBrandIds] = useState([]);
+  const [data, setData] = useState([]);
 
-import zIndex from "@mui/material/styles/zIndex";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const checkUserRole = await axios.get(`http://127.0.0.1:8000/user/permissions/user_permissions/get/?comp_id=${setSessionCompId}&per_id=${sessionPid}`);
+        const checkOwner = checkUserRole.data.some(item => item.role === 'owner_main' || item.role === 'owner_main_p');
+        if(checkOwner){
+          try {
+            const response = await axios.get(`http://127.0.0.1:8000/company/outlets/company_outlets/?comp_id=${setSessionCompId}`);
+            setOutlets(response.data.data);
+          } catch (error) {
+            console.error('Error fetching outlets:', error);
+          }
+        }else{
+            try {
+              const response = await axios.get(`http://127.0.0.1:8000/user/permissions/assigned_outlet/`);
+              setOutlets(response.data);
+              const outletIds = response.data.map(item => item.outlet_id);
+            console.log(outletIds);
 
-// Filter
-const useStyles = makeStyles({
-  root: {},
-  icon: {},
-  redIcon: {},
-  selectedOptionsContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: -59,
-    marginLeft: '5px',
-  },
-  selectedOption: {
-    background: '#fffff',
-    border: '1px solid #ccc',
-    borderRadius: 20,
-    padding: '8px 10px',
-    marginRight: 5,
-    marginLeft: 5,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  closeIcon: {
-    marginLeft: 5,
-    cursor: 'pointer',
-  },
-  scrollbar: {
-    height: '80px', // Adjust the scroll height as needed
-    width: '100%', // Adjust the width as needed
-    overflowY: 'auto',
-    scrollbarWidth: 'thin', // For Firefox
-    '&::-webkit-scrollbar': {
-      width: '8px', // For Chrome, Safari, and Opera
-    },
-    '&::-webkit-scrollbar-thumb': {
-      background: '#ccc', // Customize the thumb color
-      borderRadius: '4px', // Rounder corners for the thumb
-    },
-  },
+            } catch (error) {
+              console.error('Error fetching outlets:', error);
+            }
+        }
+      } catch (error) {
+        console.error('Error fetching outlets:', error);
+      }
 
-  selectedOptionsRow: {
-    display: 'flex',
-    alignItems: 'center',
-    flexWrap: 'nowrap', // Set to 'nowrap' initially to prevent wrapping
-    marginTop: '10px',
-    marginLeft: '10px', // Adjust as needed
-  },
-})
-// ... (import statements and makeStyles definition)
+    
+    };
 
-const availableSubcomponents = {
-    Mangalore: ['Knight Bite', 'Pancake Bite', 'Cake Bite', 'rome Bite', 'ome Bite','rdfzfzvvvvvvvvvuuuuuuuuuuuuuuuu','fzfzdfzf','jsois'],
-    Bangalore: ['Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite','rdfzfz','fzfzdfzf','jsois'],
-    Hubli: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Pune: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Udupi: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Manipal: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Hydrabad: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Belgum: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Kerala: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Mumbai: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Mysore: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Madikeri: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-    Goa: ['Sandwich Bite', 'Waffle Bite','Chicken Bite', 'Masala Bite','rome Bite', 'ome Bite'],
-
-  } 
-
-const LocationFilter = () => {
-  //filter
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedLocation, setSelectedLocation] = React.useState([]);
-  const [selectedOptions, setSelectedOptions] = React.useState({});
-  const [extraMenusOpen, setExtraMenusOpen] = React.useState({});
-  const [popupDropdownOpen, setPopupDropdownOpen] = useState(false);
-
-  const handleClick = (event) => {
-  setPopupDropdownOpen(true);
-  setAnchorEl(event.currentTarget);
-};
-
-const handleClose = () => {
-  setPopupDropdownOpen(false);
-  setAnchorEl(null);
-};
-
-
-useEffect(() => {
-  // Disable main scroll when the popup dropdown is open
-  if (popupDropdownOpen) {
-    document.body.style.overflow = 'hidden';
-  } else {
-    document.body.style.overflow = 'auto'; // Enable main scroll when the popup dropdown is closed
-  }
-
-  // Clean up the effect
-  return () => {
-    document.body.style.overflow = 'auto'; // Make sure to reset the scroll behavior when the component unmounts
-  };
-}, [popupDropdownOpen]);
-
- 
-
-   const handleLocationSelect = (location) => {
-  if (location === 'Select All') {
-    const allLocations = Object.keys(availableSubcomponents);
-    if (selectedLocation.length === allLocations.length) {
-      setSelectedLocation([]);
-      setSelectedOptions({});
-    } else {
-      setSelectedLocation(allLocations);
-      const allOptions = allLocations.reduce((acc, loc) => {
-        acc[loc] = availableSubcomponents[loc];
-        return acc;
-      }, {});
-      setSelectedOptions(allOptions);
-    }
-  } else {
-    if (!selectedLocation.includes(location)) {
-      setSelectedLocation([...selectedLocation, location]);
-
-      // Automatically select and display the subcomponents of the selected location
-      const subcomponents = availableSubcomponents[location];
-      setSelectedOptions((prevState) => ({
-        ...prevState,
-        [location]: subcomponents,
-      }));
-
-      handleExtraMenuOpen(location); // Automatically open the extra menu when a location is selected
-    } else {
-      setSelectedLocation(selectedLocation.filter((selected) => selected !== location));
-      setSelectedOptions((prevState) => ({
-        ...prevState,
-        [location]: [], // Clear subcomponents when location is deselected
-      }));
-      handleExtraMenuClose(location); // Automatically close the extra menu when a location is deselected
-    }
-    handleClose();
-  }
-};
-
-
-
-const handleExtraMenuOpen = (location) => {
-  setExtraMenusOpen((prevState) => ({
-    ...prevState,
-    [location]: true,
-  }));
-};
-
-const handleExtraMenuClose = (location) => {
-  setExtraMenusOpen((prevState) => ({
-    ...prevState,
-    [location]: false,
-  }));
-};
-
-
-  const handleOptionSelect = (location, option) => {
-    setSelectedOptions((prevState) => ({
-      ...prevState,
-      [location]: prevState[location]?.includes(option)
-        ? prevState[location].filter((selected) => selected !== option)
-        : [...(prevState[location] || []), option],
-    }));
-  };
-
-  const generateLocationLabel = () => {
-    const numSelected = selectedLocation.length;
-    if (numSelected === 0) {
-      return 'Outlet';
-    } else if (numSelected === 1) {
-      return selectedLocation[0];
-    } else {
-      return ` ${numSelected} Outlets`;
-    }
-  };
-
- const handleOptionDeselect = (location, option) => {
-  setSelectedOptions((prevState) => ({
-    ...prevState,
-    [location]: prevState[location].filter((selected) => selected !== option),
-  }));
-
-  const allSubcomponentsDeselected =
-    selectedOptions[location]?.length === 1 && option === selectedOptions[location][0];
-
-  if (allSubcomponentsDeselected) {
-    setSelectedLocation(selectedLocation.filter((selected) => selected !== location));
-  }
-
-  // Close the extra menu when deselecting an option
-  handleExtraMenuClose(location);
-};
-
-
-
-  const handleSelectAll = () => {
-    const allLocations = Object.keys(availableSubcomponents);
-    if (selectedLocation.length === allLocations.length) {
-      setSelectedLocation([]);
-      setSelectedOptions({});
-    } else {
-      setSelectedLocation(allLocations);
-      const allOptions = allLocations.reduce((acc, location) => {
-        acc[location] = availableSubcomponents[location];
-        return acc;
-      }, {});
-      setSelectedOptions(allOptions);
-    }
-  };
+    fetchData();
+  }, [setSessionCompId]);
 
   
-React.useEffect(() => {
-  const openMenusCopy = { ...extraMenusOpen };
-  for (const location of selectedLocation) {
-    if (selectedOptions[location]?.length === 0) {
-      openMenusCopy[location] = false;
-    }
-  }
-  setExtraMenusOpen(openMenusCopy);
-}, [selectedOptions]);
+  const fetchBrandsData = async (outletId) => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/company/brands/brands/?outlet_id=${outletId}&comp_id=${setSessionCompId}`);
+      setBrands({...brands,[outletId]:response.data.brands});
+      console.log(Object.values(brands).reduce((a,b) => {
+        return a.concat(b)
+      },[]))
 
+    } catch (error) {
+      console.error('Error fetching brands:', error);
+    }
+  };
+
+
+  const handleCheckboxChange = async (outletId, { checked }) => {
+    onCheckboxChange(outletId);
+  
+    if (checked) {
+      await fetchBrandsData(outletId);
+    } else {
+      // If outlet is unchecked, remove its entry from the brands state
+       setBrands((prevBrands) => {
+        const { [outletId]: omittedOutlet, ...remainingBrands } = prevBrands;
+        return remainingBrands;
+      });
+    }
+  };
+  
+  const handleCheckBoxBrandsChange = (brandId, brandName, { checked }) => {
+    // console.log("Brand ID: ", brandId);
+    // console.log("Brand Name: ", brandName);
+    // console.log("Brands Checked:", checked);
+    onBrandIdChange(brandId);
+    setCheckedBrandIds((prevCheckedBrandIds) =>
+      checked
+        ? [...prevCheckedBrandIds, { brandId, brandName }]
+        : prevCheckedBrandIds.filter((brand) => brand.brandId !== brandId)
+    );
+  };
+  
   return (
     <div>
-       <Button
-        style={{
-          border: '1px solid black',
-          borderRadius: '30px',
-          color: 'black',
-          top: '10px',
-          marginLeft: '10px',
-        }}
-        className={classes.root}
-        onClick={handleClick}
-      >
-        <FontAwesomeIcon icon={faMapLocationDot} style={{marginRight:'10px',color:'#ED8382',fontSize:'18px'}}/>
-        {generateLocationLabel()}
-        <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
-      </Button>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        PaperProps={{
-          className: classes.scrollbar,
-          style: {
-            marginTop: '10px',
-            width: '250px',
-            border: '1px solid',
-            borderRadius: '5px',
-            outline: 'none',
-            overflow: 'auto',
-            height:'200px',
-          },
-        }}
-      >
-        <MenuItem key="Select All" onClick={() => handleLocationSelect('Select All')}>
-          <Checkbox
-            checked={selectedLocation.length === Object.keys(availableSubcomponents).length}
-            indeterminate={selectedLocation.length > 0 && selectedLocation.length < Object.keys(availableSubcomponents).length}
+      {outlets.map((outlet) => (
+        <label key={outlet.id}>
+          <input
+            type="checkbox"
+            value={outlet.id}
+            checked={selectedLocations.includes(outlet.outlet_id)}
+            onChange={(event) => handleCheckboxChange(outlet.outlet_id,event.target)}
           />
-          Select All
-        </MenuItem>
-        
-        {Object.keys(availableSubcomponents).map((location) => (
-          <MenuItem key={location} onClick={() => handleLocationSelect(location)}>
-            <Checkbox checked={selectedLocation.includes(location)} />
-            {location}
-          </MenuItem>
-        ))}
-      </Menu>
-       {selectedLocation.length > 0 && (
-    <div className={classes.selectedOptionsContainer} style={{display: 'flex', flexWrap: 'wrap'}}>
-      {selectedLocation.map((location) => (
-        <div key={location} style={{ marginRight: '10px', marginTop:'10px'}}>
-          <Button
-            style={{
-              border: '1px solid black',
-              borderRadius: '30px',
-              color: 'black',
-              top: '80px',
-              left: '4px',
-              marginRight: '10px',
-              display: 'flex',
-            }}
-            onClick={() => handleExtraMenuOpen(location)}
-          >
-            {location}
-            <FontAwesomeIcon icon={faChevronDown} style={{marginLeft:'10px'}} />
-          </Button>
-          {extraMenusOpen[location] && (
-            <Menu
-              anchorEl={anchorEl}
-              open={extraMenusOpen[location]}
-              onClose={() => handleExtraMenuClose(location)}
-              PaperProps={{
-                className: classes.scrollbar,
-                style: {
-                  position: 'absolute',
-                  top: '40px',
-                  left: '0',
-                  marginTop: '-350px',
-                  borderRadius: '5px',
-                  border: '1px solid',
-                  width: '250px',
-                  height: '200px',
-                  overflow: 'auto',
-                  marginLeft:'375px'
-                },
-              }}
-            >
-              {availableSubcomponents[location]?.map((option, index) => (
-  <MenuItem key={option}>
-    <Checkbox
-      checked={selectedOptions[location]?.includes(option)}
-      onChange={() => handleOptionSelect(location, option)}
-      disabled={
-        selectedOptions[location]?.length === 1 &&
-        selectedOptions[location]?.includes(option)
-      }
-    />
-    {option}
-  </MenuItem>
-))}
-
-            </Menu>
-          )}
-        </div>
+          {outlet.outlet_name}
+        </label>
       ))}
-    </div>
-  )}
 
-{selectedLocation.length > 0 && (
-  <div style={{ marginTop: '100px' }}>
-    {selectedLocation.map((location) => (
-      <div style={{marginLeft:'10px'}}><b>{location}</b>
-      <div key={location} style={{ marginTop: '0px', marginLeft: '0px', display: 'flex', flexWrap: 'wrap' }}>
-        
-        {selectedOptions[location]?.map((option) => (
-          <div key={option} className={classes.selectedOption} style={{ marginTop: '10px', boxSizing: 'border-box', paddingRight: '10px' }}>
-            <div className="grid-2">
-              <div style={{ marginTop: '5px', width: 'auto' }}>
-                {option}
-              </div>
-              <div>
-                <FontAwesomeIcon className="location-close-btn"
-                  icon={faCircleXmark}
-                  style={{
-                    // color: '#d11f1f',
-                    fontSize: '20px',
-                    marginLeft: '10px',
-                    marginTop: '3px'
-                  }}
-                  onClick={() => handleOptionDeselect(location, option)}
-                />
-              </div>
-            </div>
+      <div>
+        {Object.values(brands).reduce((a,b) => {
+          return a.concat(b)
+        },[]).map((brand) => (
+          <div key={brand.id}>
+            {brand.name}
+            <input type="checkbox" name="" id="" value={brand.brand_id}
+            onChange={(event)=> handleCheckBoxBrandsChange(brand.brand_id,brand.name,event.target)}
             
-          </div>
-          
-        ))}
-        <div style={{width:'100%',height:'1px',backgroundColor:'#aeaeae',marginTop:'10px',marginBottom:'10px'}}></div>
-      </div>
-      </div>
-    ))}
-  </div>
-)}
-    </div>
-  )
-}
+             />
 
-export default LocationFilter
+          </div>
+        ))}
+      </div>
+      <div>
+  <strong>Checked Brands:</strong>
+  {checkedBrandIds.map(({ brandId, brandName }) => (
+    <div key={brandId}>
+      Brand ID: {brandId}, Brand Name: {brandName}
+    </div>
+  ))}
+</div>
+
+    </div>
+  );
+};
+
+export default LocationFilter;
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+
+// const LocationFilter = ({ sessionId, setIsLoggedIn, onOutletsSelected }) => {
+//   const [outlets, setOutlets] = useState([]);
+//   const [selectedOutlets, setSelectedOutlets] = useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get(
+//           `http://127.0.0.1:8000/company/outlets/company_outlets/?start_date=2023-01-01&end_date=2023-12-31&comp_id=${sessionId}&order_field=id&count=5&offset=0`
+//         );
+
+//         // Assuming the response data structure is { data: [{ id, name, outlet_id }, ...] }
+//         const outletData = response.data.data;
+
+//         setOutlets(outletData);
+//       } catch (error) {
+//         console.error('Error fetching outlet data:', error);
+//       }
+//     };
+
+//     fetchData();
+//   }, [sessionId]);
+
+//   const handleCheckboxChange = (outletId) => {
+//     // Toggle the selected outlet
+//     setSelectedOutlets((prevSelected) =>
+//       prevSelected.includes(outletId)
+//         ? prevSelected.filter((id) => id !== outletId)
+//         : [...prevSelected, outletId]
+//     );
+//   };
+
+//   const handlePassSelectedOutlets = () => {
+//     // Pass the selected outlet IDs to the parent component
+//     onOutletsSelected(selectedOutlets);
+//   };
+
+//   return (
+//     <div>
+//       <h2>Outlet List</h2>
+//       <ul>
+//         {outlets.map((outlet) => (
+//           <li key={outlet.id}>
+//             <input
+//               type="checkbox"
+//               onChange={() => handleCheckboxChange(outlet.outlet_id)}
+//               checked={selectedOutlets.includes(outlet.outlet_id)}
+//             />
+//             <strong>Name:</strong> {outlet.name}, <strong>Outlet ID:</strong> {outlet.outlet_id}
+//           </li>
+//         ))}
+//       </ul>
+//       <button onClick={handlePassSelectedOutlets}>Pass Selected Outlets</button>
+//     </div>
+//   );
+// };
+
+// export default LocationFilter;
+
+
+
+// import React, { useState, useEffect, useRef } from "react";
+// import { Icon } from "@iconify/react";
+// import FormGroup from '@mui/material/FormGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Checkbox from '@mui/material/Checkbox';
+// import "./LocationFilter.css";
+
+// const LocationFilter = ({sessionId, setIsLoggedIn}) => {
+//   const options = [
+//     { label: "Mangalore", value: "Mangalore" },
+//     { label: "Udupi", value: "Udupi" },
+//     { label: "Bangalore", value: "Bangalore" },
+//     { label: "Shivmogga", value: "Shivmogga" },
+//     { label: "Mumbai", value: "Mumbai" },
+//     { label: "Kerala", value: "Kerala" },
+//     { label: "Tamilnadu", value: "Tamilnadu" },
+//     { label: "Delhi", value: "Delhi" },
+//   ];
+
+//   const subOptionsMap = {
+//     Mangalore: [
+//       { label: "SnackKnight Bite", value: "SnackKnight Bite" },
+//       { label: "FlavorFrenzy Bite", value: "FlavorFrenzy Bite" },
+//       { label: "SpiceDelight Bite", value: "SpiceDelight Bite" },
+//       { label: "CrunchyWave Bite", value: "CrunchyWave Bite" },
+//       { label: "TasteSensation Bite", value: "TasteSensation Bite" },
+//       { label: "SavorySlice Bite", value: "SavorySlice Bite" },
+//       { label: "PepperPunch Bite", value: "PepperPunch Bite" },
+//       { label: "CrispyCraze Bite", value: "CrispyCraze Bite" },
+//       { label: "YumFusion Bite", value: "YumFusion Bite" },
+//       { label: "MunchyMosaic Bite", value: "MunchyMosaic Bite" },
+//       ],
+//     Udupi: [
+//       { label: "SnackKnight Bite", value: "SnackKnight Bite" },
+//       { label: "FlavorFrenzy Bite", value: "FlavorFrenzy Bite" },
+//       { label: "SpiceDelight Bite", value: "SpiceDelight Bite" },
+//       ],
+//       Bangalore: [
+//       { label: "CrunchyWave Bite", value: "CrunchyWave Bite" },
+//       { label: "TasteSensation Bite", value: "TasteSensation Bite" },
+//       { label: "SavorySlice Bite", value: "SavorySlice Bite" },
+//       ],
+//       Shivmogga: [
+//       { label: "PepperPunch Bite", value: "PepperPunch Bite" },
+//       { label: "CrispyCraze Bite", value: "CrispyCraze Bite" },
+//       { label: "YumFusion Bite", value: "YumFusion Bite" },
+//       ],
+//       Tamilnadu: [
+//       { label: "MunchyMosaic Bite", value: "MunchyMosaic Bite" },
+//       { label: "ZestZing Bite", value: "ZestZing Bite" },
+//       { label: "BakedBliss Bite", value: "BakedBliss Bite" },
+//       ],
+//       Delhi: [
+//       { label: "FieryFlavor Bite", value: "FieryFlavor Bite" },
+//       { label: "GourmetGusto Bite", value: "GourmetGusto Bite" },
+//       { label: "TangyTwist Bite", value: "TangyTwist Bite" },
+//       ],
+//       Mumbai: [
+//       { label: "CrunchCastle Bite", value: "CrunchCastle Bite" },
+//       { label: "DeliciousDive Bite", value: "DeliciousDive Bite" },
+//       { label: "BiteFiesta", value: "BiteFiesta" },
+//       ],
+//       Kerala: [
+//       { label: "BistroBite", value: "BistroBite" },
+//       { label: "SnackSizzle Bite", value: "SnackSizzle Bite" },
+//       ]
+//   };
+
+//   const [selectedOptions, setSelectedOptions] = useState([]);
+//   const [mainDropdownOpen, setMainDropdownOpen] = useState(false);
+//   const [selectedSubOptions, setSelectedSubOptions] = useState({});
+//   const [subOptionsVisible, setSubOptionsVisible] = useState({});
+//   const [currentOpenSubOption, setCurrentOpenSubOption] = useState(null);
+//   const [selectAllChecked, setSelectAllChecked] = useState(false); // New state for "Select All" checkbox
+//   const dropdownRef = useRef(null);
+//   const subdropdownRef = useRef(null);
+
+//   // Function to handle the "Select All" checkbox change event
+//   const handleSelectAllChange = () => {
+//     if (selectAllChecked) {
+//       setSelectedOptions([]); // Uncheck all options
+//       setSelectedSubOptions({}); // Unselect all sub-options
+//     } else {
+//       setSelectedOptions(options.map((option) => option.value)); // Check all options
+//       const allSubOptions = {};
+//       for (const option of options) {
+//         allSubOptions[option.value] = subOptionsMap[option.value].map(
+//           (subOption) => subOption.value
+//         );
+//       }
+//       setSelectedSubOptions(allSubOptions); // Select all sub-options
+//     }
+//     setSelectAllChecked(!selectAllChecked); // Toggle the "Select All" checkbox
+//   };
+
+//   const toggleDropdown = () => {
+//     setMainDropdownOpen(!mainDropdownOpen);
+//   };
+
+//   const toggleSubOptions = (option) => {
+//     if (currentOpenSubOption !== option) {
+//       // Close any previously open sub-dropdown
+//       setCurrentOpenSubOption(option);
+//       setSubOptionsVisible({ [option]: true });
+//       setMainDropdownOpen(false); // Close the main dropdown
+//     } else {
+//       // Toggle the currently open sub-dropdown
+//       setSubOptionsVisible({ [option]: !subOptionsVisible[option] });
+//     }
+//   };
+
+//   // Updated handleSubOptionClick function
+//   const handleSubOptionClick = (mainOption, value) => {
+//     const updatedSubOptions = selectedSubOptions[mainOption]
+//       ? [...selectedSubOptions[mainOption]]
+//       : [];
+
+//     if (updatedSubOptions.includes(value)) {
+//       updatedSubOptions.splice(updatedSubOptions.indexOf(value), 1);
+//     } else {
+//       updatedSubOptions.push(value);
+//     }
+
+//     setSelectedSubOptions({
+//       ...selectedSubOptions,
+//       [mainOption]: updatedSubOptions,
+//     });
+
+//     // Check if all sub-options for the main location are unchecked
+//     if (updatedSubOptions.length === 0) {
+//       // Uncheck the main location in the main dropdown
+//       handleOptionClick(mainOption);
+//     }
+//   };
+
+//   // Updated handleOptionClick function
+//   const handleOptionClick = (value) => {
+//     if (selectedOptions.includes(value)) {
+//       setSelectedOptions(selectedOptions.filter((item) => item !== value));
+//       const updatedSelectedSubOptions = { ...selectedSubOptions };
+//       delete updatedSelectedSubOptions[value];
+//       setSelectedSubOptions(updatedSelectedSubOptions);
+//     } else {
+//       setSelectedOptions([...selectedOptions, value]);
+//       // Check all checkboxes in the sub-dropdown for the selected main location
+//       setSelectedSubOptions({
+//         ...selectedSubOptions,
+//         [value]: subOptionsMap[value].map((subOption) => subOption.value),
+//       });
+//     }
+//   };
+
+//   // Filter selected sub-options to exclude those present in the main options
+//   const selectedSubOptionsOnly = Object.keys(selectedSubOptions).reduce(
+//     (result, mainOption) => {
+//       result[mainOption] = selectedSubOptions[mainOption].filter(
+//         (subOption) => !selectedOptions.includes(subOption)
+//       );
+//       return result;
+//     },
+//     {}
+//   );
+
+//   // Function to handle the removal of a sub-option
+//   const removeSubOption = (mainOption, subOptionValue) => {
+//     const updatedSubOptions = selectedSubOptions[mainOption].filter(
+//       (subOption) => subOption !== subOptionValue
+//     );
+
+//     setSelectedSubOptions({
+//       ...selectedSubOptions,
+//       [mainOption]: updatedSubOptions,
+//     });
+
+//     // Check if all sub-options for the main location are unchecked
+//     if (updatedSubOptions.length === 0) {
+//       // Uncheck the main location in the main dropdown
+//       handleOptionClick(mainOption);
+//     }
+//   };
+
+
+//   // UseEffect to add event listener for clicks outside the dropdown
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setMainDropdownOpen(false);
+//       }
+//       if (subdropdownRef.current && !subdropdownRef.current.contains(event.target)) {
+//         setSubOptionsVisible(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+
+//     // Cleanup the event listener when the component unmounts
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, [dropdownRef], [subdropdownRef]);
+
+//   return (
+//     <div className="TEST-dropdown">
+//       <p>{sessionId}</p>
+//       {/* Main Dropdown */} 
+//       <button
+//         className={`dropdown-header c-pointer ${mainDropdownOpen ? "open" : ""}`}
+//         onClick={toggleDropdown}
+//       >
+//         {/* <div className="d-flex align-item-center">Outlets &nbsp;&nbsp;<Icon icon="uiw:down" /></div> */}
+//         <div className="d-flex space-between">
+//                 <div>
+//                 Outlets 
+//                 </div>
+//                 <div>
+//                 <Icon icon="uiw:down" />
+//                 </div>
+//               </div>
+        
+//       </button>
+//       {mainDropdownOpen && (
+//         <div className="dropdown-options"  ref={dropdownRef}>
+//           {/* "Select All" checkbox */}
+//           <div className="option dropdown-color">
+
+//           <FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Select All"  checked={selectAllChecked}
+//                 onChange={handleSelectAllChange} />
+  
+//           </div>
+//           {options.map((option) => (
+//             <div key={option.value} className="option dropdown-color">
+//               <FormControlLabel control={<Checkbox defaultChecked size="small"  />} label={option.label}  value={option.value}
+//                   checked={selectedOptions.includes(option.value)}
+//                   onChange={() => handleOptionClick(option.value)}/>
+           
+//             </div>
+//           ))}
+//         </div>
+//       )}
+//       <br />
+//       <br />
+//       {/* Sub Drop down */}
+//       <div className="d-flex g-20" style={{ flexWrap: "wrap" }}>
+//         {selectedOptions.map((selectedOption) => (
+//           <div key={selectedOption} className="second-dropdown" >
+//             <button
+//               className="dropdown-header c-pointer"
+//               onClick={() => toggleSubOptions(selectedOption)}
+//             >
+//               <div className="d-flex space-between">
+//                 <div>
+//                 {selectedOption} 
+//                 </div>
+//                 <div>
+//                 <Icon icon="uiw:down" />
+//                 </div>
+//               </div>
+//                {/* <div className="d-flex align-item-center">{selectedOption} &nbsp; <Icon icon="uiw:down" /></div> */}
+              
+//             </button>
+//             {subOptionsVisible[selectedOption] && (
+//               <div className="dropdown-sub-options" ref={subdropdownRef} >
+//                 {/* Add checkboxes and options for the second dropdown here */}
+//                 {subOptionsMap[selectedOption] &&
+//                   subOptionsMap[selectedOption].map((subOption) => (
+//                     <div key={subOption.value} className="option dropdown-color">
+//                       <FormControlLabel control={<Checkbox defaultChecked size="small" />} label={subOption.label}   value={subOption.value}
+//                           checked={
+//                             selectedSubOptionsOnly[selectedOption] &&
+//                             selectedSubOptionsOnly[selectedOption].includes(
+//                               subOption.value
+//                             )
+//                           }
+//                           onChange={() =>
+//                             handleSubOptionClick(
+//                               selectedOption,
+//                               subOption.value
+//                             )
+//                           }/>
+                   
+//                     </div>
+//                   ))}
+//               </div>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//       {/* Display selected options */}
+//       <div className="selected-options">
+//         <div className="mt-2">
+//           {selectedOptions.map((option) => (
+//             <div key={option}>
+//               {option}
+
+//               <div
+//                 className="d-flex g-10 align-item-center"
+//                 style={{ flexWrap: "wrap",marginTop:'1vw' }}
+//               >
+//                 {selectedSubOptionsOnly[option] &&
+//                   selectedSubOptionsOnly[option].map((subOption) => (
+//                     <div
+//                       className="brand-buttons d-flex space-between "
+//                       key={subOption}
+//                     >
+//                       <div>{subOption}</div>
+//                       &nbsp;
+//                       <Icon
+//                         icon="icon-park-solid:close-one"
+//                         className="f-20 close-btn c-pointer txt-dark-grey"
+//                         onClick={() => removeSubOption(option, subOption)}
+//                       />
+//                     </div>
+//                   ))}
+//               </div>
+// <br />
+//               <hr />
+//               <br />
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default LocationFilter;

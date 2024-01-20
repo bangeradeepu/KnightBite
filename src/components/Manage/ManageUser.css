@@ -1,0 +1,273 @@
+.ManageUser .MU-desktop{
+    margin-top: 10vw;
+  background-color: transparent;
+  padding: 2vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 81vw;
+  z-index: 1;
+  margin-bottom: 2vw;
+  display: flex;
+}
+.ManageUser .MU-desktop .MU-layer{
+    background-color: transparent;
+/* padding: 1vw; */
+width: 100%;
+border-radius: 0vw 0vw 1vw 1vw;
+height: 68vh;
+}
+.ManageUser .MU-desktop .MU-layer .MU-tab{
+    background-color: transparent;
+    height: 3vw;
+}
+.ManageUser .MU-desktop .MU-layer .MU-tab .MU-tab-content{
+    background-color: white;
+    padding: 0.8vw;
+    border-radius: 0.5vw 0.5vw 0vw 0vw;
+    cursor: pointer;
+}
+.ManageUser .MU-desktop .MU-layer .MU-tab .MU-tab-content-active{
+    background-color: white;
+    border-bottom: 3px solid #df9f65;
+}
+.ManageUser .MU-desktop .MU-layer .MU-tab .MU-tab-content-inactive{
+    background-color: white;
+    border-bottom: 3px solid transparent;
+}
+.ManageUser .MU-desktop .MU-layer .MU-content{
+    background-color: white;
+    border-radius: 0vw 1vw 1vw 1vw;
+    height: 94%;
+    padding: 1vw;
+    
+}
+.ManageUser .MU-desktop .MU-layer .MU-content-header{
+background-color: white;
+padding: 0.5vw 0vw;
+}
+.ManageUser .MU-desktop .MU-layer .MU-content-scrollable{
+    overflow-y: scroll;
+    height: 59vh;
+}
+.MU-content-scrollable::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MU-content-scrollable::-webkit-scrollbar-track {
+    background: #e2dddd;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+  }
+  
+  .MU-content-scrollable::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 8px;
+  }
+  .MU-invite-button{
+    background-color: #8d4ac2;
+    padding: 0.6vw 0.8vw;
+    color: white;
+    border-radius: 5vw;
+  }
+  .MU-archive-button{
+    background-color: white;
+    padding: 0.6vw 0.8vw;
+    color: #8d4ac2;
+    border-radius: 5vw;
+    border: 1px solid #8d4ac2;
+  }
+  .MU-archive-button:hover{
+    background-color: #8d4ac2;
+    color: white;
+    transition: 0.5s;
+  }
+  .MU-content-header{
+    border-collapse: collapse;
+    border: none;
+    /* margin:  0 auto; */
+    width: 77vw;
+    text-align: left;
+  }
+  .MU-content-header td {
+    padding: 1vw;
+    border: none;
+  }
+  .MU-content-card {
+    border-collapse: collapse;
+    border: none;
+    margin:  0 auto;
+    width: 77vw;
+    text-align: left;
+  }
+
+  
+  .MU-content-card td {
+    padding: 1vw;
+    border: none;
+  }
+  .MU-content-card-arch{
+    border-collapse: collapse;
+    border: none;
+    margin:  0 auto;
+    width: 67vw;
+    text-align: left;
+  }
+  .MU-content-card-arch td{
+    padding: 1vw;
+    border: none;
+  }
+  .MU-logged-in{
+    border: 1px solid #229753;
+    padding: 0.3vw 1.3vw;
+    border-radius: 5vw;
+    color: #229753;
+    background-color: white;
+  }
+  .MU-not-logged-in{
+    border: 1px solid #ED8382;
+    padding: 0.3vw 1vw;
+    border-radius: 5vw;
+    color: #ED8382;
+    background-color: white;
+  }
+  .MU-next-previous-btn{
+    border: 1px solid #8d4ac2;
+    padding: 0.5vw 1vw;
+    background-color: white;
+    color: #8d4ac2;
+    border-radius: 1vw;
+  }
+  .MU-next-previous-disabled{
+    border: 1px solid #aeaeae;
+    padding: 0.5vw 1vw;
+    background-color: white;
+    color: #aeaeae;
+    border-radius: 1vw;
+  }
+  .MU-loading-center{
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 15vw;
+  }
+  .MU-invite-use-tb{
+    border: 2px solid #aeaeae;
+    padding: 0.5vw;
+    outline-color: #8d4ac2;
+    border-radius: 0.3vw;
+  }
+  .MU-invite-use-dd{
+    background-color: #dadada;
+    border: none;
+    padding: 0.5vw ; 
+    outline-color: #8d4ac2;
+    border-radius: 0.3vw;
+    width: 11.7vw;
+  }
+  .MU-dotted-lines {
+    border-top: 2px dashed #9d9d9d;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50vw;
+}
+
+.invt .main-modal-content-inside{
+    height: 72vh;
+}
+.MU-permissions{
+    margin: 0vw 13vw;
+}
+.MU-advance-settings{
+    margin: 0vw 13vw;
+}
+.MU-permisson-ch-txt-width{
+    width: 12vw;
+}
+.MU-sub-permissions{
+    margin-left: 2vw;
+}
+.MU-ROSA{
+    border: 2px solid #aeaeae;
+    padding: 1vw;
+    border-radius: 0.3vw;
+}
+.MU-RDAC{
+    width: 6vw;
+    padding: 0.5vw 0vw;
+    border: 2px solid #aeaeae;
+    border-radius: 0.3vw;
+    outline-color: #8d4ac2;
+}
+.arc .main-modal-content{
+    width: 80vw;
+}
+.arc .main-modal-content-inside{
+    height: 72vh;
+}
+.arc .main-modal-content-isnide-p{
+  display: none;
+}
+.MU-mv{
+  display: none;
+}
+@media (max-width:900px) {
+  .MU-mv{
+    display: block;
+  }
+  .arc .main-modal-content-isnide-p{
+    display: block;
+  }
+  .ManageUser .MU-desktop{
+      display: none;
+    }
+    .MU-scroll-conentent-p{
+      padding: 5vw;
+      overflow-y: scroll;
+      height: 40vh;
+    }
+    .MU-tab-button-p{
+      padding: 1vw;
+    }
+    .MU-tab-button-active-p{
+      padding: 1vw;
+      border-bottom: 3px solid #df9f65;
+    }
+    .MU-not-logged-in-p{
+      border: 1px solid #229753;
+    padding: 1vw 3vw;
+    border-radius: 5vw;
+    color: #229753;
+    }
+    .MU-content-header{
+      display: none;
+    }
+    .MU-invite-txtbox-p{
+      border: 1.5px solid #aeaeae;
+      padding: 2vw;
+      border-radius: 1vw;
+      width: 94%;
+      outline-color: #8d4ac2;
+    }
+    .MU-invite-drpdwn-p{
+      background-color: #dadada;
+      border: none;
+      padding: 2.5vw;
+      width: 99%;
+      border-radius: 1vw;
+      outline-color: #8d4ac2;
+    }
+    .MU-permisson-ch-txt-width-p{
+      width: 70vw;
+    }
+.MU-sub-permissions{
+  margin-left: 5vw
+}
+.MU-RDAC{
+  width: 15vw;
+  padding: 2vw;
+}
+.MU-ROSA{
+  width: 96%;
+}
+  }

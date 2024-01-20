@@ -1,0 +1,36 @@
+.HelpCenter .HC-desktop{
+    margin-top: 10vw;
+    background-color: transparent;
+    padding: 2vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 83vw;
+    z-index: 1;
+    margin-bottom: 2vw;
+    display: flex;
+}
+.HelpCenter .HC-desktop .HC-layer{
+    background-color: white;
+    padding: 1vw;
+    width: 100%;
+    border-radius: 1vw;
+    height: 68vh;
+}
+.HelpCenter .HC-desktop .HC-layer .HC-faqs{
+    border: 1px solid #aeaeae;
+    border-radius: 10vw;
+    width: 12vw;
+    padding: 1vw;
+}
+@media (max-width:900px) {
+    .HelpCenter .HC-desktop{
+        display: none;
+    }
+}
+.HelpCenter .HC-mobile .HC-faqs-p{
+    border:  1px solid #aeaeae;
+    width: 60vw;
+    padding: 3vw;
+    border-radius: 50vw;
+}

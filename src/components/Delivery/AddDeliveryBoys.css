@@ -87,7 +87,9 @@
     border-radius: 10px;
     border: 1px solid #aeaeae;
     outline-color: #8d4ac2;
-  }
+    font-family: 'Inter', Helvetica;
+    padding: 0.5rem;
+}
   
   .ADB-checkbox {
     margin-right: 10px;
@@ -98,15 +100,7 @@
   }
   
   
-  @media (max-width: 768px) {
-    .ADB-app {
-      flex-direction: column;
-    }
-  
-    .ADB-left-box {
-      overflow-y: auto;
-    }
-  }
+
 
   .ADB-language {
     display: none;
@@ -289,5 +283,105 @@
     color: #ffffff;
     content: "File Uploaded";
   }
+  .ADB-p-input{
+    display: none;
+  }
+  .ADB-p-top{
+    display: none;
+  }
+  .ADB-p-preview{
+    display: none;
+  }
+  @media (max-width: 900px) {
+    .ADB-app {
+      flex-direction: column;
+    }
   
-  
+    .ADB-left-box {
+      overflow-y: auto;
+    }
+    .ADB-left-box{
+      display: none;
+    }
+    .ADB-right-box{
+      display: none;
+    }
+    .ADB-p-top{
+      position: fixed;
+        left: 0;
+        right:0;
+        top: 0;
+        border-top: 1px solid #aeaeae;   
+        border-bottom: 1px solid #aeaeae;     
+        display: block;
+        margin-top: 19vh;
+        background-color: white;
+        z-index: 3;
+        padding: 3.7vh 2vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .ADB-p-input{
+      display: block;
+      margin-top: 28vh;
+      padding: 2vw 4vw;
+      background-color: transparent;
+      min-height: 20vw;
+      overflow-y: auto;
+      height: 100%;
+      margin-bottom: 15vw;
+    }
+    .ADB-p-input .ADB-p-input-container{
+      background-color: white;
+      padding: 4vw;
+      margin-bottom: 2vw;
+      margin-top: 2vw;
+      border-radius: 3vw;
+    }
+    .ADB-p-input .ADB-p-input-container .ADB-p-input-textbox{
+      width: 90%;
+      margin-top: 2vw;
+      margin-bottom: 2vw;
+      font-size: 3vw;
+      padding: 2vh 4vw;
+      border: 1px solid #aeaeae;
+      border-radius: 10vw;
+      outline-color: #8d4ac2;
+    }
+    .ADB-language{
+      background-color: transparent;
+    }
+    .ADB-p-input .main-modal .main-modal-content{
+      background-color: white;
+      position: fixed;
+      bottom: -7vw;
+      padding: 3vw 4vw;
+      border: 1px solid #888;
+      width: 92%;
+      height: 40%;
+      border-radius: 0vw;
+    }
+    .ADB-p-input .main-modal .main-modal-content-inside{
+      width: 100%;
+      height: 90%;
+      overflow-y: auto;
+    }
+    .ADB-p-preview{
+      display: block;
+      margin-top: 59vw;
+      padding: 2vw 4vw;
+      background-color: transparent;
+      min-height: 20vw;
+      overflow-y: auto;
+      height: 100%;
+      margin-bottom: 15vw;
+    }
+    .ADB-p-preview .ADB-p-preview-container{
+      background-color: white;
+      padding: 4vw;
+      margin-bottom: 2vw;
+      margin-top: 2vw;
+      border-radius: 3vw;
+    }
+  }
